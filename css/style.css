@@ -46,18 +46,26 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 68px;
+    height: 72px;
     position: sticky;
     top: 0;
     z-index: 100;
     border-bottom: 1px solid var(--border);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+    transition: box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+nav.scrolled {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border-bottom-color: rgba(0, 0, 0, 0.03);
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(8px);
 }
 
 .logo {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     text-decoration: none;
     padding-left: 0;
 }
@@ -91,6 +99,7 @@ nav {
 .nav-menu {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 4px;
     list-style: none;
 }
@@ -186,18 +195,20 @@ nav {
 .nav-cta {
     background: var(--primary-red);
     color: var(--white) !important;
-    padding: 9px 20px;
+    padding: 10px 22px;
     border-radius: 8px;
     font-weight: 700 !important;
-    font-size: 13px !important;
+    font-size: 13.5px !important;
     margin-left: 8px;
-    transition: background-color 0.2s ease, transform 0.2s ease !important;
+    box-shadow: 0 4px 12px rgba(238, 48, 41, 0.25);
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease !important;
 }
 
 .nav-cta:hover {
-    background: #D72620 !important;
+    background: #d6221b !important;
     color: var(--white) !important;
-    transform: translateY(-1px);
+    transform: translateY(-1.5px);
+    box-shadow: 0 6px 16px rgba(238, 48, 41, 0.38);
 }
 
 /* HERO */
@@ -1468,3 +1479,419 @@ footer {
         height: 380px !important;
     }
 }
+
+/* ==========================================================================
+   NEW & UPDATED SECTIONS FOR AUDSPEX
+   ========================================================================== */
+
+/* 2. ABOUT AUDSPEX */
+.about-section {
+    background: var(--white);
+}
+.about-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 60px;
+    align-items: center;
+}
+.about-content h3 {
+    font-size: 16px;
+    text-transform: uppercase;
+    color: var(--primary-blue);
+    margin-bottom: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+.about-desc {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+}
+.mv-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 30px;
+}
+.mv-card {
+    background: var(--light-blue);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(79, 121, 177, 0.15);
+}
+.mv-card h4 {
+    color: var(--primary-blue);
+    font-size: 15px;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+.mv-card p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+.about-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.about-stat-card {
+    background: var(--light-gray);
+    border: 1px solid var(--border);
+    padding: 30px 24px;
+    border-radius: 16px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.about-stat-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-red);
+    box-shadow: 0 10px 25px rgba(238, 48, 41, 0.08);
+}
+.about-stat-card .stat-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+.about-stat-card h3 {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 6px;
+}
+.about-stat-card p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* 3. WHY CHOOSE AUDSPEX */
+.why-grid-6 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 40px;
+}
+.why-card-6 {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.why-card-6:hover {
+    transform: translateY(-5px);
+    border-top: 3px solid var(--primary-red);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+}
+.why-card-6 .wc-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background: var(--light-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+.why-card-6 h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--dark);
+}
+.why-card-6 p {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* 4. WHAT WE TREAT */
+.treat-section {
+    background: var(--light-gray);
+}
+.treat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+}
+.treat-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.treat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+    border-color: var(--primary-blue);
+}
+.treat-card .tc-emoji {
+    font-size: 32px;
+    margin-bottom: 12px;
+    display: block;
+}
+.treat-card h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 6px;
+}
+.treat-card p {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* 7. HEARING AID GALLERY */
+.gallery-section {
+    background: var(--white);
+}
+.gallery-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+}
+.gallery-tabs button {
+    background: var(--light-gray);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.gallery-tabs button.active, .gallery-tabs button:hover {
+    background: var(--primary-red);
+    color: var(--white);
+    border-color: var(--primary-red);
+    box-shadow: 0 4px 12px rgba(238, 48, 41, 0.2);
+}
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+}
+.gallery-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+.gallery-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+    border-color: rgba(79, 121, 177, 0.3);
+}
+.gallery-img-placeholder {
+    height: 180px;
+    background: linear-gradient(135deg, var(--light-blue), #e0f2fe);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    position: relative;
+}
+.gallery-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: var(--primary-blue);
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+}
+.gallery-info {
+    padding: 20px;
+}
+.gallery-info h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 6px;
+}
+.gallery-info p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+.gallery-specs {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11.5px;
+    color: var(--primary-blue);
+    font-weight: 600;
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+    margin-bottom: 16px;
+}
+.gallery-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background: var(--light-gray);
+    color: var(--dark);
+    border: 1px solid var(--border);
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    transition: all 0.2s ease;
+}
+.gallery-btn:hover {
+    background: var(--primary-blue);
+    color: var(--white);
+    border-color: var(--primary-blue);
+}
+
+/* 10. FAQ ACCORDION */
+.faq-section {
+    background: var(--light-gray);
+}
+.faq-grid {
+    max-width: 800px;
+    margin: 40px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.faq-item {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+.faq-item[open] {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    border-color: rgba(79, 121, 177, 0.3);
+}
+.faq-question {
+    padding: 18px 24px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--dark);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+}
+.faq-question::-webkit-details-marker {
+    display: none;
+}
+.faq-question::after {
+    content: '+';
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    transition: transform 0.3s ease;
+}
+.faq-item[open] .faq-question::after {
+    content: '−';
+    transform: rotate(180deg);
+}
+.faq-answer {
+    padding: 0 24px 20px;
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* 11. LATEST ARTICLES */
+.articles-section {
+    background: var(--white);
+}
+.articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin: 40px 0;
+}
+.article-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+.article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+}
+.article-img-placeholder {
+    height: 160px;
+    background: linear-gradient(135deg, var(--light-blue), #dbeafe);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+}
+.article-info {
+    padding: 20px;
+}
+.article-cat {
+    display: inline-block;
+    background: var(--light-blue);
+    color: var(--primary-blue);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+.article-info h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+.article-info p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+.article-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11.5px;
+    color: var(--text-secondary);
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+}
+.read-more-link {
+    color: var(--primary-red);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.read-more-link:hover {
+    color: #d6221b;
+}
+
+@media(max-width: 900px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+}
+
