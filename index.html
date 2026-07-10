@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -43,6 +43,76 @@
     "telephone": "+92-21-3456-7890",
     "contactType": "customer service"
   }
+}
+const servicesData = {
+  'hearing-assessment': {
+    title: 'Hearing Assessment',
+    overview: 'Comprehensive diagnostic assessments using state-of-the-art audiometric equipment to accurately identify hearing thresholds and middle ear function across all frequencies.',
+    conditions: ['Sensorineural Hearing Loss', 'Conductive Hearing Loss', 'Mixed Hearing Loss'],
+    methods: ['Pure Tone Audiometry (PTA)', 'Tympanometry', 'Otoacoustic Emissions (OAE)', 'ABR'],
+    benefits: ['Accurate Diagnosis', 'Customized Treatment Plan', 'Painless Procedure', 'Immediate Results']
+  },
+  'hearing-aids': {
+    title: 'Hearing Aids Solutions',
+    overview: 'Professional selection, computerized fitting, and programming of advanced digital and rechargeable hearing devices from the world�s leading manufacturers.',
+    conditions: ['Age-related Hearing Loss', 'Noise-induced Hearing Loss', 'Tinnitus'],
+    methods: ['Real-Ear Measurement (REM)', 'Speech Mapping', 'Lifestyle Assessment'],
+    benefits: ['Enhanced Communication', 'Invisible Options', 'Bluetooth Connectivity', 'Rechargeable Batteries']
+  },
+  'speech-therapy': {
+    title: 'Speech Therapy',
+    overview: 'Structured clinical training designed to address delays, articulation disorders, and language development issues for patients of all ages, from toddlers to adults.',
+    conditions: ['Speech Delay', 'Articulation Disorders', 'Stuttering', 'Aphasia'],
+    methods: ['Articulation Therapy', 'Language Intervention', 'Oral-Motor Therapy'],
+    benefits: ['Improved Confidence', 'Better Social Interaction', 'Clearer Pronunciation', 'Tailored Programs']
+  },
+  'voice-therapy': {
+    title: 'Voice Therapy',
+    overview: 'Targeted vocal exercises for recovering from vocal cord strains, chronic hoarseness, and pitch adjustment for professional voice users and individuals with laryngeal disorders.',
+    conditions: ['Vocal Nodules', 'Chronic Hoarseness', 'Vocal Cord Paralysis'],
+    methods: ['Vocal Function Exercises', 'Laryngeal Massage', 'Pitch Modulation'],
+    benefits: ['Restored Vocal Range', 'Pain Relief', 'Preventive Care', 'Enhanced Vocal Stamina']
+  },
+  'pediatric': {
+    title: 'Pediatric Audiology',
+    overview: 'Specialized newborn hearing screenings, play audiometry, and comprehensive child hearing assessments using tools specifically designed for infants and children.',
+    conditions: ['Congenital Hearing Loss', 'Otitis Media (Ear Infections)', 'Auditory Processing Disorder'],
+    methods: ['Visual Reinforcement Audiometry', 'Play Audiometry', 'ABR Screening'],
+    benefits: ['Early Intervention', 'Child-Friendly Environment', 'Parental Guidance', 'School Readiness']
+  },
+  'tinnitus': {
+    title: 'Tinnitus Management',
+    overview: 'Comprehensive tinnitus diagnostics, personalized counseling, and advanced sound masking therapies designed to significantly reduce the perception of ear ringing.',
+    conditions: ['Subjective Tinnitus', 'Objective Tinnitus', 'Hyperacusis'],
+    methods: ['Tinnitus Pitch Matching', 'Loudness Matching', 'TRT Questionnaire'],
+    benefits: ['Reduced Stress', 'Improved Sleep', 'Custom Masking Devices', 'Ongoing Counseling']
+  },
+  'cochlear': {
+    title: 'Cochlear Implant Support',
+    overview: 'Thorough pre-implant surgical evaluation, post-surgery processor mapping, and systematic auditory-verbal rehabilitation to maximize the benefit of cochlear implants.',
+    conditions: ['Profound Sensorineural Loss', 'Single-Sided Deafness', 'Failed Hearing Aid Trials'],
+    methods: ['Pre-Implant Audiologic Battery', 'Telemetry', 'Processor Programming/Mapping'],
+    benefits: ['Access to Sound', 'Speech Understanding', 'Dedicated Rehab Team', 'Long-term Support']
+  }
+};
+
+function openServiceModal(id) {
+  const data = servicesData[id];
+  if(!data) return;
+  document.getElementById('srvTitle').innerText = data.title;
+  document.getElementById('srvOverview').innerText = data.overview;
+  
+  const checkSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary-blue)" stroke-width="2" style="margin-right:8px; flex-shrink:0"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+  
+  document.getElementById('srvConditions').innerHTML = data.conditions.map(c => <li style="display:flex;align-items:center;color:var(--text-secondary);font-size:14px;"> + checkSvg + c + </li>).join('');
+  document.getElementById('srvMethods').innerHTML = data.methods.map(m => <li style="display:flex;align-items:center;color:var(--text-secondary);font-size:14px;"> + checkSvg + m + </li>).join('');
+  document.getElementById('srvBenefits').innerHTML = data.benefits.map(b => <li style="display:flex;align-items:center;color:var(--text-secondary);font-size:14px;"> + checkSvg + b + </li>).join('');
+  
+  document.getElementById('serviceModal').style.display = 'flex';
+}
+
+function closeServiceModal() {
+  document.getElementById('serviceModal').style.display = 'none';
 }
 </script>
 </head>
@@ -329,7 +399,7 @@
         <span style="font-size:11px; background:var(--light-gray); padding:3px 8px; border-radius:12px; color:var(--text-secondary); font-weight:600">OAE</span>
         <span style="font-size:11px; background:var(--light-gray); padding:3px 8px; border-radius:12px; color:var(--text-secondary); font-weight:600">ABR</span>
       </div>
-      <button class="gallery-btn" onclick="document.getElementById('appointment').scrollIntoView({behavior:'smooth'})">Book Consultation</button>
+      <button class="gallery-btn" onclick="openServiceModal('hearing-assessment')">Learn More</button>
     </div>
 
     <!-- Hearing Aids -->
@@ -343,7 +413,7 @@
         <span style="font-size:11px; background:var(--light-gray); padding:3px 8px; border-radius:12px; color:var(--text-secondary); font-weight:600">Bluetooth</span>
         <span style="font-size:11px; background:var(--light-gray); padding:3px 8px; border-radius:12px; color:var(--text-secondary); font-weight:600">Fitting</span>
       </div>
-      <button class="gallery-btn" onclick="document.getElementById('appointment').scrollIntoView({behavior:'smooth'})">Book Consultation</button>
+      <button class="gallery-btn" onclick="openServiceModal('hearing-aids')">Learn More</button>
     </div>
 
     <!-- Speech Therapy -->
@@ -356,7 +426,7 @@
         <span style="font-size:11px; background:var(--light-gray); padding:3px 8px; border-radius:12px; color:var(--text-secondary); font-weight:600">Language</span>
         <span style="font-size:11px; background:var(--light-gray); padding:3px 8px; border-radius:12px; color:var(--text-secondary); font-weight:600">Adult Therapy</span>
       </div>
-      <button class="gallery-btn" onclick="document.getElementById('appointment').scrollIntoView({behavior:'smooth'})">Book Consultation</button>
+      <button class="gallery-btn" onclick="openServiceModal('speech-therapy')">Learn More</button>
     </div>
 
     <!-- Voice Therapy -->
@@ -369,7 +439,7 @@
         <span style="font-size:11px; background:var(--light-gray); padding:3px 8px; border-radius:12px; color:var(--text-secondary); font-weight:600">Rehabilitation</span>
         <span style="font-size:11px; background:var(--light-gray); padding:3px 8px; border-radius:12px; color:var(--text-secondary); font-weight:600">Larynx Care</span>
       </div>
-      <button class="gallery-btn" onclick="document.getElementById('appointment').scrollIntoView({behavior:'smooth'})">Book Consultation</button>
+      <button class="gallery-btn" onclick="openServiceModal('voice-therapy')">Learn More</button>
     </div>
 
     <!-- Pediatric Audiology -->
@@ -381,7 +451,7 @@
         <span style="font-size:11px; background:var(--light-gray); padding:3px 8px; border-radius:12px; color:var(--text-secondary); font-weight:600">Infant Screen</span>
         <span style="font-size:11px; background:var(--light-gray); padding:3px 8px; border-radius:12px; color:var(--text-secondary); font-weight:600">Child Assessment</span>
       </div>
-      <button class="gallery-btn" onclick="document.getElementById('appointment').scrollIntoView({behavior:'smooth'})">Book Consultation</button>
+      <button class="gallery-btn" onclick="openServiceModal('pediatric')">Learn More</button>
     </div>
 
     <!-- Tinnitus Management -->
@@ -394,7 +464,7 @@
         <span style="font-size:11px; background:var(--light-gray); padding:3px 8px; border-radius:12px; color:var(--text-secondary); font-weight:600">Counseling</span>
         <span style="font-size:11px; background:var(--light-gray); padding:3px 8px; border-radius:12px; color:var(--text-secondary); font-weight:600">Sound Therapy</span>
       </div>
-      <button class="gallery-btn" onclick="document.getElementById('appointment').scrollIntoView({behavior:'smooth'})">Book Consultation</button>
+      <button class="gallery-btn" onclick="openServiceModal('tinnitus')">Learn More</button>
     </div>
 
     <!-- Cochlear Implant Support -->
@@ -407,7 +477,7 @@
         <span style="font-size:11px; background:var(--light-gray); padding:3px 8px; border-radius:12px; color:var(--text-secondary); font-weight:600">Mapping</span>
         <span style="font-size:11px; background:var(--light-gray); padding:3px 8px; border-radius:12px; color:var(--text-secondary); font-weight:600">Rehabilitation</span>
       </div>
-      <button class="gallery-btn" onclick="document.getElementById('appointment').scrollIntoView({behavior:'smooth'})">Book Consultation</button>
+      <button class="gallery-btn" onclick="openServiceModal('cochlear')">Learn More</button>
     </div>
   </div>
 </section>
@@ -525,7 +595,7 @@
         <h3>SoundPro X</h3>
         <span class="tech-level">Premium Tech Level</span>
         <div class="product-actions">
-          <button class="gallery-btn btn-quickview" onclick="openProductModal('SoundPro X', 'ric')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> Quick View</button>
+          <button class="gallery-btn btn-quickview" onclick="openProductModal('ric-soundpro')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> Quick View</button>
           <button class="gallery-btn btn-assess" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Request Assessment</button>
         </div>
       </div>
@@ -541,7 +611,7 @@
         <h3>PowerMax 5</h3>
         <span class="tech-level">Advanced Tech Level</span>
         <div class="product-actions">
-          <button class="gallery-btn btn-quickview" onclick="openProductModal('PowerMax 5', 'bte')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> Quick View</button>
+          <button class="gallery-btn btn-quickview" onclick="openProductModal('bte-powermax')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> Quick View</button>
           <button class="gallery-btn btn-assess" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Request Assessment</button>
         </div>
       </div>
@@ -557,7 +627,7 @@
         <h3>Micro Invisible</h3>
         <span class="tech-level">Essential Tech Level</span>
         <div class="product-actions">
-          <button class="gallery-btn btn-quickview" onclick="openProductModal('Micro Invisible', 'iic')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> Quick View</button>
+          <button class="gallery-btn btn-quickview" onclick="openProductModal('ite-micro')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> Quick View</button>
           <button class="gallery-btn btn-assess" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Request Assessment</button>
         </div>
       </div>
@@ -620,6 +690,39 @@
 </div>
 
 <script>
+const productsData = {
+  'ric-soundpro': {
+    brand: 'AudSpex',
+    title: 'SoundPro X',
+    level: 'Premium Tech Level',
+    cat: 'RIC / Rechargeable',
+    suitable: 'Mild to Severe Hearing Loss',
+    colors: 'Black, Silver, Beige',
+    features: ['Rechargeable Battery', 'Bluetooth Connectivity', 'Advanced Noise Cancellation'],
+    images: ['images/logo/audspex-logo.png', 'images/hero-assessment.png']
+  },
+  'bte-powermax': {
+    brand: 'AudSpex',
+    title: 'PowerMax 5',
+    level: 'Advanced Tech Level',
+    cat: 'BTE / Pediatric',
+    suitable: 'Severe to Profound Hearing Loss',
+    colors: 'Graphite, Bronze, Champagne',
+    features: ['High-Power Amplification', 'Telecoil Support', 'Feedback Cancellation'],
+    images: ['images/logo/audspex-logo.png', 'images/hero-assessment.png']
+  },
+  'ite-micro': {
+    brand: 'AudSpex',
+    title: 'Micro Invisible',
+    level: 'Essential Tech Level',
+    cat: 'IIC / ITE',
+    suitable: 'Mild to Moderate Hearing Loss',
+    colors: 'Custom Skin Tones',
+    features: ['Invisible In Canal', 'Custom Molded', 'Auto Environment Adjust'],
+    images: ['images/logo/audspex-logo.png', 'images/hero-assessment.png']
+  }
+};
+
 function filterGallery(category) {
   const tabs = document.querySelectorAll('.gallery-tabs button');
   tabs.forEach(t => t.classList.remove('active'));
@@ -633,19 +736,133 @@ function filterGallery(category) {
     }
   });
 }
-function openProductModal(title, cat) {
-  document.getElementById('modalTitle').innerText = title;
-  document.getElementById('modalCat').innerText = cat.toUpperCase();
+
+function openProductModal(productId) {
+  const prod = productsData[productId];
+  if (!prod) return;
+  
+  document.getElementById('modalTitle').innerText = prod.title;
+  document.querySelector('.modal-details .product-brand').innerText = prod.brand;
+  
+  const specsGrid = document.querySelector('.specs-grid');
+  specsGrid.innerHTML = `
+    <div class="spec-item"><strong>Category:</strong> <span>${prod.cat}</span></div>
+    <div class="spec-item"><strong>Tech Level:</strong> <span>${prod.level}</span></div>
+    <div class="spec-item"><strong>Suitable For:</strong> <span>${prod.suitable}</span></div>
+    <div class="spec-item"><strong>Colors:</strong> <span>${prod.colors}</span></div>
+  `;
+  
+  const featuresList = document.querySelector('.modal-features ul');
+  featuresList.innerHTML = prod.features.map(f => `<li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary-blue)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> ${f}</li>`).join('');
+
+  const thumbsContainer = document.querySelector('.modal-thumbnails');
+  thumbsContainer.innerHTML = prod.images.map((img, idx) => `<img loading="lazy" src="${img}" class="thumb ${idx===0?'active':''}" onclick="updateModalImage(this)" />`).join('');
+  document.getElementById('modalMainImg').src = prod.images[0];
+  
+  setupZoom();
   document.getElementById('productModal').style.display = 'flex';
 }
+
 function closeProductModal() {
   document.getElementById('productModal').style.display = 'none';
 }
+
 function updateModalImage(thumb) {
   const thumbs = document.querySelectorAll('.modal-thumbnails .thumb');
   thumbs.forEach(t => t.classList.remove('active'));
   thumb.classList.add('active');
   document.getElementById('modalMainImg').src = thumb.src;
+  setupZoom();
+}
+
+function setupZoom() {
+  const imgWrap = document.querySelector('.modal-main-img-wrap');
+  const img = document.getElementById('modalMainImg');
+  
+  imgWrap.onmousemove = function(e) {
+    const rect = imgWrap.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const xPercent = (x / rect.width) * 100;
+    const yPercent = (y / rect.height) * 100;
+    img.style.transformOrigin = `${xPercent}% ${yPercent}%`;
+    img.style.transform = 'scale(2.5)';
+  };
+  
+  imgWrap.onmouseleave = function() {
+    img.style.transformOrigin = 'center center';
+    img.style.transform = 'scale(1)';
+  };
+}
+const servicesData = {
+  'hearing-assessment': {
+    title: 'Hearing Assessment',
+    overview: 'Comprehensive diagnostic assessments using state-of-the-art audiometric equipment to accurately identify hearing thresholds and middle ear function across all frequencies.',
+    conditions: ['Sensorineural Hearing Loss', 'Conductive Hearing Loss', 'Mixed Hearing Loss'],
+    methods: ['Pure Tone Audiometry (PTA)', 'Tympanometry', 'Otoacoustic Emissions (OAE)', 'ABR'],
+    benefits: ['Accurate Diagnosis', 'Customized Treatment Plan', 'Painless Procedure', 'Immediate Results']
+  },
+  'hearing-aids': {
+    title: 'Hearing Aids Solutions',
+    overview: 'Professional selection, computerized fitting, and programming of advanced digital and rechargeable hearing devices from the world�s leading manufacturers.',
+    conditions: ['Age-related Hearing Loss', 'Noise-induced Hearing Loss', 'Tinnitus'],
+    methods: ['Real-Ear Measurement (REM)', 'Speech Mapping', 'Lifestyle Assessment'],
+    benefits: ['Enhanced Communication', 'Invisible Options', 'Bluetooth Connectivity', 'Rechargeable Batteries']
+  },
+  'speech-therapy': {
+    title: 'Speech Therapy',
+    overview: 'Structured clinical training designed to address delays, articulation disorders, and language development issues for patients of all ages, from toddlers to adults.',
+    conditions: ['Speech Delay', 'Articulation Disorders', 'Stuttering', 'Aphasia'],
+    methods: ['Articulation Therapy', 'Language Intervention', 'Oral-Motor Therapy'],
+    benefits: ['Improved Confidence', 'Better Social Interaction', 'Clearer Pronunciation', 'Tailored Programs']
+  },
+  'voice-therapy': {
+    title: 'Voice Therapy',
+    overview: 'Targeted vocal exercises for recovering from vocal cord strains, chronic hoarseness, and pitch adjustment for professional voice users and individuals with laryngeal disorders.',
+    conditions: ['Vocal Nodules', 'Chronic Hoarseness', 'Vocal Cord Paralysis'],
+    methods: ['Vocal Function Exercises', 'Laryngeal Massage', 'Pitch Modulation'],
+    benefits: ['Restored Vocal Range', 'Pain Relief', 'Preventive Care', 'Enhanced Vocal Stamina']
+  },
+  'pediatric': {
+    title: 'Pediatric Audiology',
+    overview: 'Specialized newborn hearing screenings, play audiometry, and comprehensive child hearing assessments using tools specifically designed for infants and children.',
+    conditions: ['Congenital Hearing Loss', 'Otitis Media (Ear Infections)', 'Auditory Processing Disorder'],
+    methods: ['Visual Reinforcement Audiometry', 'Play Audiometry', 'ABR Screening'],
+    benefits: ['Early Intervention', 'Child-Friendly Environment', 'Parental Guidance', 'School Readiness']
+  },
+  'tinnitus': {
+    title: 'Tinnitus Management',
+    overview: 'Comprehensive tinnitus diagnostics, personalized counseling, and advanced sound masking therapies designed to significantly reduce the perception of ear ringing.',
+    conditions: ['Subjective Tinnitus', 'Objective Tinnitus', 'Hyperacusis'],
+    methods: ['Tinnitus Pitch Matching', 'Loudness Matching', 'TRT Questionnaire'],
+    benefits: ['Reduced Stress', 'Improved Sleep', 'Custom Masking Devices', 'Ongoing Counseling']
+  },
+  'cochlear': {
+    title: 'Cochlear Implant Support',
+    overview: 'Thorough pre-implant surgical evaluation, post-surgery processor mapping, and systematic auditory-verbal rehabilitation to maximize the benefit of cochlear implants.',
+    conditions: ['Profound Sensorineural Loss', 'Single-Sided Deafness', 'Failed Hearing Aid Trials'],
+    methods: ['Pre-Implant Audiologic Battery', 'Telemetry', 'Processor Programming/Mapping'],
+    benefits: ['Access to Sound', 'Speech Understanding', 'Dedicated Rehab Team', 'Long-term Support']
+  }
+};
+
+function openServiceModal(id) {
+  const data = servicesData[id];
+  if(!data) return;
+  document.getElementById('srvTitle').innerText = data.title;
+  document.getElementById('srvOverview').innerText = data.overview;
+  
+  const checkSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary-blue)" stroke-width="2" style="margin-right:8px; flex-shrink:0"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+  
+  document.getElementById('srvConditions').innerHTML = data.conditions.map(c => <li style="display:flex;align-items:center;color:var(--text-secondary);font-size:14px;"> + checkSvg + c + </li>).join('');
+  document.getElementById('srvMethods').innerHTML = data.methods.map(m => <li style="display:flex;align-items:center;color:var(--text-secondary);font-size:14px;"> + checkSvg + m + </li>).join('');
+  document.getElementById('srvBenefits').innerHTML = data.benefits.map(b => <li style="display:flex;align-items:center;color:var(--text-secondary);font-size:14px;"> + checkSvg + b + </li>).join('');
+  
+  document.getElementById('serviceModal').style.display = 'flex';
+}
+
+function closeServiceModal() {
+  document.getElementById('serviceModal').style.display = 'none';
 }
 </script>
 
@@ -787,9 +1004,21 @@ function updateModalImage(thumb) {
       </label>
     </div>
 
-    <button class="submit-btn" style="width: 100%; padding: 16px; font-size: 16px; box-shadow: 0 10px 20px rgba(238, 48, 41, 0.2); cursor:pointer" onclick="this.textContent='✓ Application Submitted!';this.style.background='#16a34a';setTimeout(()=>{this.textContent='Enroll Now';this.style.background='';},3000)">Enroll Now</button>
+    <button class="submit-btn" style="width: 100%; padding: 16px; font-size: 16px; box-shadow: 0 10px 20px rgba(238, 48, 41, 0.2); cursor:pointer" onclick="event.preventDefault(); document.getElementById('dealerSuccessModal').style.display='flex'">Become a Partner</button>
   </div>
 </section>
+
+<!-- DEALER SUCCESS MODAL -->
+<div id="dealerSuccessModal" class="modal-overlay" style="display:none; z-index:10001;">
+  <div class="modal-content" style="max-width:450px; text-align:center; padding:40px;">
+    <div style="width:80px; height:80px; background:#dcfce7; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 24px;">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+    </div>
+    <h2 style="color:var(--dark); font-size:24px; font-weight:800; margin-bottom:12px;">Enrollment Successful!</h2>
+    <p style="color:var(--text-secondary); margin-bottom:32px;">Thank you for joining the AudSpeX Partner Network. Our team will review your documents and contact you shortly.</p>
+    <button class="btn-primary" style="width:100%; padding:14px; border:none; border-radius:12px; font-weight:600; cursor:pointer;" onclick="document.getElementById('dealerSuccessModal').style.display='none'">Continue to AudSpeX</button>
+  </div>
+</div>
 
 <!-- 9. PATIENT STORIES -->
 <section class="testimonials" id="testimonials">
@@ -890,47 +1119,73 @@ function updateModalImage(thumb) {
     <p class="section-sub">Read expert advice, wellness tips, and research updates from our clinical team.</p>
   </div>
   
-  <div class="articles-grid">
-    <div class="article-card">
-      <div class="article-img-placeholder">👂</div>
-      <div class="article-info">
-        <span class="article-cat">Hearing Health</span>
-        <h3>Recognizing Early Signs of Hearing Loss</h3>
-        <p>Learn to detect minor hearing deficits early to prevent long-term cognitive load and maintain active communication.</p>
-        <div class="article-meta">
-          <span>June 20, 2026</span>
-          <a href="#" class="read-more-link">Read More &rarr;</a>
-        </div>
-      </div>
+    <!-- Search and Categories -->
+  <div style="max-width:1200px; margin:0 auto 40px; display:flex; gap:20px; justify-content:space-between; align-items:center; flex-wrap:wrap;">
+    <div style="display:flex; gap:10px; overflow-x:auto; padding-bottom:5px;">
+      <span style="background:var(--primary-blue); color:#fff; padding:6px 16px; border-radius:20px; font-size:14px; font-weight:600; cursor:pointer; white-space:nowrap;">All</span>
+      <span style="background:#f1f5f9; color:var(--text-secondary); padding:6px 16px; border-radius:20px; font-size:14px; font-weight:600; cursor:pointer; white-space:nowrap;">Hearing Health</span>
+      <span style="background:#f1f5f9; color:var(--text-secondary); padding:6px 16px; border-radius:20px; font-size:14px; font-weight:600; cursor:pointer; white-space:nowrap;">Hearing Aids</span>
+      <span style="background:#f1f5f9; color:var(--text-secondary); padding:6px 16px; border-radius:20px; font-size:14px; font-weight:600; cursor:pointer; white-space:nowrap;">Speech Therapy</span>
     </div>
-    <div class="article-card">
-      <div class="article-img-placeholder">🦻</div>
-      <div class="article-info">
-        <span class="article-cat">Hearing Aids</span>
-        <h3>Rechargeable vs. Battery-Operated Models</h3>
-        <p>A comprehensive comparison analyzing performance, costs, and battery convenience for daily users.</p>
-        <div class="article-meta">
-          <span>June 15, 2026</span>
-          <a href="#" class="read-more-link">Read More &rarr;</a>
-        </div>
-      </div>
-    </div>
-    <div class="article-card">
-      <div class="article-img-placeholder">🗣️</div>
-      <div class="article-info">
-        <span class="article-cat">Speech Therapy</span>
-        <h3>Activities to Support Speech at Home</h3>
-        <p>Simple exercises parents can perform with children to encourage linguistic fluency and articulation development.</p>
-        <div class="article-meta">
-          <span>June 08, 2026</span>
-          <a href="#" class="read-more-link">Read More &rarr;</a>
-        </div>
-      </div>
+    <div style="position:relative; width:100%; max-width:300px;">
+      <input type="text" placeholder="Search articles..." style="width:100%; padding:10px 16px 10px 40px; border-radius:20px; border:1px solid var(--border); outline:none;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" style="position:absolute; left:14px; top:50%; transform:translateY(-50%);"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
     </div>
   </div>
-  
-  <div style="text-align:center;margin-top:20px">
-    <button class="btn-outline" style="padding:12px 30px; cursor:pointer">View All Articles</button>
+
+  <div class="blog-layout" style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr; gap:30px; align-items:start;">
+    
+    <!-- Featured Article (Left) -->
+    <div class="featured-article" style="background:#fff; border-radius:16px; overflow:hidden; border:1px solid var(--border); box-shadow:0 10px 30px rgba(0,0,0,0.03);">
+      <div style="height:350px; background:var(--light-gray); display:flex; align-items:center; justify-content:center; color:#94a3b8;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+      </div>
+      <div style="padding:30px;">
+        <span style="background:var(--primary-blue); color:#fff; padding:4px 12px; border-radius:20px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:12px; display:inline-block;">Featured</span>
+        <h3 style="font-size:24px; color:var(--dark); margin:0 0 12px; line-height:1.3;">Breakthroughs in Cochlear Implant Technology for 2026</h3>
+        <p style="color:var(--text-secondary); font-size:15px; line-height:1.6; margin-bottom:20px;">Discover the latest advancements in neural mapping and processor miniaturization that are revolutionizing auditory-verbal rehabilitation and restoring hearing with unprecedented clarity.</p>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="color:#94a3b8; font-size:13px; font-weight:500;">June 25, 2026 &nbsp;&bull;&nbsp; 5 min read</span>
+          <a href="#" style="color:var(--primary-blue); text-decoration:none; font-weight:600; display:flex; align-items:center; gap:4px;">Read Full Article <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Posts (Right) -->
+    <div class="recent-posts" style="display:flex; flex-direction:column; gap:20px;">
+      
+      <div style="display:flex; gap:16px; background:#fff; padding:16px; border-radius:12px; border:1px solid var(--border); transition:transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.04)'" onmouseout="this.style.transform='none'; this.style.boxShadow='none'">
+        <div style="width:100px; height:100px; background:var(--light-gray); border-radius:8px; flex-shrink:0; display:flex; align-items:center; justify-content:center; color:#94a3b8;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg></div>
+        <div>
+          <span style="color:var(--primary-red); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;">Hearing Health</span>
+          <h4 style="font-size:16px; color:var(--dark); margin:4px 0 8px; line-height:1.4;">Recognizing Early Signs of Hearing Loss</h4>
+          <a href="#" style="color:var(--text-secondary); text-decoration:none; font-size:13px; font-weight:500;">Read More &rarr;</a>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:16px; background:#fff; padding:16px; border-radius:12px; border:1px solid var(--border); transition:transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.04)'" onmouseout="this.style.transform='none'; this.style.boxShadow='none'">
+        <div style="width:100px; height:100px; background:var(--light-gray); border-radius:8px; flex-shrink:0; display:flex; align-items:center; justify-content:center; color:#94a3b8;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg></div>
+        <div>
+          <span style="color:var(--primary-red); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;">Hearing Aids</span>
+          <h4 style="font-size:16px; color:var(--dark); margin:4px 0 8px; line-height:1.4;">Rechargeable vs. Battery-Operated Models</h4>
+          <a href="#" style="color:var(--text-secondary); text-decoration:none; font-size:13px; font-weight:500;">Read More &rarr;</a>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:16px; background:#fff; padding:16px; border-radius:12px; border:1px solid var(--border); transition:transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.04)'" onmouseout="this.style.transform='none'; this.style.boxShadow='none'">
+        <div style="width:100px; height:100px; background:var(--light-gray); border-radius:8px; flex-shrink:0; display:flex; align-items:center; justify-content:center; color:#94a3b8;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg></div>
+        <div>
+          <span style="color:var(--primary-red); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;">Speech Therapy</span>
+          <h4 style="font-size:16px; color:var(--dark); margin:4px 0 8px; line-height:1.4;">Activities to Support Speech at Home</h4>
+          <a href="#" style="color:var(--text-secondary); text-decoration:none; font-size:13px; font-weight:500;">Read More &rarr;</a>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top:8px;">
+        <button class="btn-outline" style="padding:12px 30px; cursor:pointer; width:100%; border-radius:12px;">View All 24 Articles</button>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -953,121 +1208,130 @@ function updateModalImage(thumb) {
         <div><p style="color:var(--dark);font-size:15px;font-weight:700;margin:0">Request an Appointment</p><p style="color:var(--primary-blue);font-size:11px;margin:2px 0 0;letter-spacing:.3px">We'll confirm within 2 hours</p></div>
         <span style="background:rgba(0,200,100,0.15);border:1px solid rgba(0,200,100,0.25);color:#4ade80;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.5px">● ACCEPTING PATIENTS</span>
       </div>
-      <div class="form-grid-3">
-        <div class="cf"><label>First Name</label><input type="text" placeholder="Ahmad"/></div>
-        <div class="cf"><label>Last Name</label><input type="text" placeholder="Khan"/></div>
-        <div class="cf"><label>Age</label><input type="number" placeholder="32"/></div>
-      </div>
-      <div class="form-grid-2">
-        <div class="cf"><label>Phone</label><input type="tel" placeholder="+92 300 0000000"/></div>
-        <div class="cf"><label>Email</label><input type="email" placeholder="you@email.com"/></div>
-      </div>
-      <div class="form-grid-2">
-        <div class="cf"><label>Department</label>
-          <select id="deptSel" onchange="filterDoctors()"><option value="">Select...</option><option value="ear">Hearing Assessment</option><option value="nose">Hearing Aids</option><option value="throat">Speech Therapy</option><option value="diag">Voice Therapy</option></select>
+      <form id="appointmentForm" onsubmit="event.preventDefault(); if(this.checkValidity()) { document.getElementById('appointmentSuccessModal').style.display='flex'; this.reset(); }">
+        <div class="form-grid-3">
+          <div class="cf"><label>Full Name *</label><input type="text" required placeholder="Ahmad Khan"/></div>
+          <div class="cf"><label>Age</label><input type="number" placeholder="32"/></div>
+          <div class="cf"><label>Gender</label>
+            <select>
+              <option value="">Select...</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other</option>
+            </select>
+          </div>
         </div>
-        <div class="cf"><label>Date</label><input type="date"/></div>
-      </div>
-      <div class="form-grid-2">
-        <div class="cf"><label>Time Slot</label>
-          <select><option>Morning (9AM–12PM)</option><option>Afternoon (12PM–4PM)</option><option>Evening (4PM–8PM)</option></select>
+        <div class="form-grid-3">
+          <div class="cf"><label>Mobile Number *</label><input type="tel" required placeholder="+92 300 0000000"/></div>
+          <div class="cf"><label>Email *</label><input type="email" required placeholder="you@email.com"/></div>
+          <div class="cf"><label>City</label><input type="text" placeholder="Karachi"/></div>
         </div>
-        <div class="cf"><label>Available Doctor</label>
-          <select id="docSel"><option value="">Select department first...</option></select>
+        <div class="cf" style="margin-bottom:12px"><label>Hearing Concern *</label>
+          <input type="text" required placeholder="e.g., Difficulty hearing in noise, tinnitus..."/>
         </div>
-      </div>
-      <div class="cf" style="margin-bottom:12px"><label>Symptoms / Notes <span style="color:#4b5563;font-weight:400">(optional)</span></label>
-        <textarea placeholder="Briefly describe your concern..." style="min-height:60px;resize:none"></textarea>
-      </div>
-      <div style="display:flex;align-items:center;gap:12px">
-        <button class="submit-btn" style="flex:1;padding:11px; cursor:pointer" onclick="this.textContent='✓ Request Sent!';this.style.background='#16a34a';setTimeout(()=>{this.textContent='Book Appointment';this.style.background='';},3000)">Book Appointment</button>
-        <a href="tel:+922134567890" style="display:flex;align-items:center;gap:7px;background:rgba(79,121,177,0.1);border:1px solid rgba(79,121,177,0.25);color:var(--primary-blue);font-size:12px;font-weight:600;padding:11px 14px;border-radius:10px;white-space:nowrap;transition:background .2s;text-decoration:none" onmouseover="this.style.background='rgba(79,121,177,0.18)'" onmouseout="this.style.background='rgba(79,121,177,0.1)'">📞 Call Us</a>
-      </div>
+        <div class="form-grid-2">
+          <div class="cf"><label>Required Service *</label>
+            <select id="deptSel" required onchange="filterDoctors()"><option value="">Select...</option><option value="ear">Hearing Assessment</option><option value="nose">Hearing Aids</option><option value="throat">Speech Therapy</option><option value="diag">Voice Therapy</option></select>
+          </div>
+          <div class="cf"><label>Preferred Doctor</label>
+            <select id="docSel"><option value="">Select department first...</option></select>
+          </div>
+        </div>
+        <div class="form-grid-2">
+          <div class="cf"><label>Preferred Date *</label><input type="date" required/></div>
+          <div class="cf"><label>Preferred Time</label>
+            <select><option>Morning (9AM–12PM)</option><option>Afternoon (12PM–4PM)</option><option>Evening (4PM–8PM)</option></select>
+          </div>
+        </div>
+        <div class="cf" style="margin-bottom:12px"><label>Additional Notes <span style="color:#4b5563;font-weight:400">(optional)</span></label>
+          <textarea placeholder="Any other details..." style="min-height:60px;resize:none"></textarea>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <button type="submit" class="submit-btn" style="flex:1;padding:11px; cursor:pointer">Book Appointment</button>
+          <a href="tel:+922134567890" style="display:flex;align-items:center;gap:7px;background:rgba(79,121,177,0.1);border:1px solid rgba(79,121,177,0.25);color:var(--primary-blue);font-size:12px;font-weight:600;padding:11px 14px;border-radius:10px;white-space:nowrap;transition:background .2s;text-decoration:none" onmouseover="this.style.background='rgba(79,121,177,0.18)'" onmouseout="this.style.background='rgba(79,121,177,0.1)'">📞 Call Us</a>
+        </div>
+      </form>
     </div>
   </div>
 </section>
 
+<!-- APPOINTMENT SUCCESS MODAL -->
+<div id="appointmentSuccessModal" class="modal-overlay" style="display:none; z-index:10001;">
+  <div class="modal-content" style="max-width:450px; text-align:center; padding:40px;">
+    <div style="width:80px; height:80px; background:#dcfce7; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 24px;">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+    </div>
+    <h2 style="color:var(--dark); font-size:24px; font-weight:800; margin-bottom:12px;">Booking Confirmed!</h2>
+    <p style="color:var(--text-secondary); margin-bottom:32px;">Thank you for choosing AudSpeX. We have received your appointment request and will contact you shortly to confirm the exact time.</p>
+    <button class="btn-primary" style="width:100%; padding:14px; border:none; border-radius:12px; font-weight:600; cursor:pointer;" onclick="document.getElementById('appointmentSuccessModal').style.display='none'">Close Window</button>
+  </div>
+</div>
+
 <!-- 13. FOOTER -->
-<footer>
-  <div class="footer-top">
-    <!-- Brand -->
-    <div class="footer-brand">
-      <div class="logo">
-        <img src="images/logo/audspex-logo.png" alt="AudSpeX Logo" class="logo-img" />
-        <small style="color:#cbd5e1">Medical Center</small>
+<footer style="background:var(--dark); color:#fff; padding:60px 20px 20px;">
+  <div style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:40px; margin-bottom:40px;">
+    
+    <!-- Company Desc -->
+    <div>
+      <div style="margin-bottom:16px; background:#fff; display:inline-block; padding:6px 12px; border-radius:6px;">
+        <img src="images/logo/audspex-logo.png" alt="AudSpeX Logo" style="height: 32px; object-fit: contain; display: block;" />
       </div>
-      <p>Karachi's leading Audiology &amp; Speech center, delivering clinical excellence since 2012.</p>
-      <div class="footer-accreditation">
-        <span class="accred-badge">✓ PMDC Certified</span>
-        <span class="accred-badge">✓ ISO 9001</span>
-      </div>
-      <div class="social-row">
-        <a class="social-btn" href="#" title="Facebook">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-        </a>
-        <a class="social-btn" href="#" title="Instagram">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" style="stroke:var(--white);stroke-width:2"/></svg>
-        </a>
-        <a class="social-btn" href="#" title="X / Twitter">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 4l16 16M4 20L20 4"/><path d="M4 4h4l12 16h-4z"/></svg>
-        </a>
-        <a class="social-btn" href="#" title="WhatsApp">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-        </a>
+      <p style="color:#94a3b8; font-size:14px; line-height:1.6; margin-bottom:20px;">The premier Medical Center for advanced hearing diagnostics, hearing aid fitting, and professional speech therapy across Pakistan.</p>
+      <div style="display:flex; gap:12px;">
+        <a href="#" style="width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:#fff; transition:background 0.2s;" onmouseover="this.style.background='#2563eb'" onmouseout="this.style.background='rgba(255,255,255,0.05)'"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+        <a href="#" style="width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:#fff; transition:background 0.2s;" onmouseover="this.style.background='#2563eb'" onmouseout="this.style.background='rgba(255,255,255,0.05)'"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+        <a href="#" style="width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:#fff; transition:background 0.2s;" onmouseover="this.style.background='#2563eb'" onmouseout="this.style.background='rgba(255,255,255,0.05)'"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg></a>
       </div>
     </div>
 
-    <!-- Company -->
-    <div class="footer-col">
-      <h4>Company</h4>
-      <ul>
-        <li><a href="#why">About AudSpeX</a></li>
-        <li><a href="#doctors">Specialists</a></li>
-        <li><a href="#dealer-network">Become Partner</a></li>
-        <li><a href="#gallery">Hearing Aid Gallery</a></li>
+    <!-- Quick Links -->
+    <div>
+      <h4 style="font-size:16px; font-weight:700; margin-bottom:20px; color:#fff;">Quick Links</h4>
+      <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:12px;">
+        <li><a href="#home" style="color:#94a3b8; text-decoration:none; font-size:14px; transition:color 0.2s;" onmouseover="this.style.color='#2563eb'" onmouseout="this.style.color='#94a3b8'">Home</a></li>
+        <li><a href="#about" style="color:#94a3b8; text-decoration:none; font-size:14px; transition:color 0.2s;" onmouseover="this.style.color='#2563eb'" onmouseout="this.style.color='#94a3b8'">About AudSpeX</a></li>
+        <li><a href="#doctors" style="color:#94a3b8; text-decoration:none; font-size:14px; transition:color 0.2s;" onmouseover="this.style.color='#2563eb'" onmouseout="this.style.color='#94a3b8'">Our Specialists</a></li>
+        <li><a href="#blog" style="color:#94a3b8; text-decoration:none; font-size:14px; transition:color 0.2s;" onmouseover="this.style.color='#2563eb'" onmouseout="this.style.color='#94a3b8'">News & Blog</a></li>
       </ul>
     </div>
 
     <!-- Services -->
-    <div class="footer-col">
-      <h4>Services</h4>
-      <ul>
-        <li><a href="#services">Hearing Assessment</a></li>
-        <li><a href="#services">Hearing Aids</a></li>
-        <li><a href="#services">Speech Therapy</a></li>
-        <li><a href="#services">Voice Therapy</a></li>
+    <div>
+      <h4 style="font-size:16px; font-weight:700; margin-bottom:20px; color:#fff;">Our Services</h4>
+      <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:12px;">
+        <li><a href="#" onclick="event.preventDefault(); openServiceModal('hearing-assessment')" style="color:#94a3b8; text-decoration:none; font-size:14px; transition:color 0.2s;" onmouseover="this.style.color='#2563eb'" onmouseout="this.style.color='#94a3b8'">Hearing Assessment</a></li>
+        <li><a href="#" onclick="event.preventDefault(); openServiceModal('hearing-aids')" style="color:#94a3b8; text-decoration:none; font-size:14px; transition:color 0.2s;" onmouseover="this.style.color='#2563eb'" onmouseout="this.style.color='#94a3b8'">Hearing Aids Fitting</a></li>
+        <li><a href="#" onclick="event.preventDefault(); openServiceModal('speech-therapy')" style="color:#94a3b8; text-decoration:none; font-size:14px; transition:color 0.2s;" onmouseover="this.style.color='#2563eb'" onmouseout="this.style.color='#94a3b8'">Speech Therapy</a></li>
+        <li><a href="#" onclick="event.preventDefault(); openServiceModal('tinnitus')" style="color:#94a3b8; text-decoration:none; font-size:14px; transition:color 0.2s;" onmouseover="this.style.color='#2563eb'" onmouseout="this.style.color='#94a3b8'">Tinnitus Management</a></li>
       </ul>
     </div>
 
-    <!-- Contact -->
-    <div class="footer-col">
-      <h4>Contact Us</h4>
-      <div class="footer-contact-item">
-        <span class="fci">📍</span>
-        <p><strong>Address</strong>12 Clifton Block 5,<br>Karachi, Pakistan</p>
-      </div>
-      <div class="footer-contact-item">
-        <span class="fci">📞</span>
-        <p><strong>Phone</strong>+92 21 3456 7890</p>
-      </div>
-      <div class="footer-contact-item">
-        <span class="fci">💬</span>
-        <p><strong>WhatsApp</strong>+92 300 1234567</p>
-      </div>
-      <div class="footer-contact-item">
-        <span class="fci">✉️</span>
-        <p><strong>Email</strong>info@audspex.com</p>
-      </div>
+    <!-- Contact Details -->
+    <div>
+      <h4 style="font-size:16px; font-weight:700; margin-bottom:20px; color:#fff;">Contact Us</h4>
+      <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:16px;">
+        <li style="display:flex; gap:12px; color:#94a3b8; font-size:14px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" style="flex-shrink:0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          12 Clifton Block 5, Karachi, Pakistan
+        </li>
+        <li style="display:flex; gap:12px; color:#94a3b8; font-size:14px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" style="flex-shrink:0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          <a href="tel:+922134567890" style="color:#94a3b8; text-decoration:none;">+92 21 3456 7890</a>
+        </li>
+        <li style="display:flex; gap:12px; color:#94a3b8; font-size:14px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" style="flex-shrink:0"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          <a href="mailto:info@audspex.com" style="color:#94a3b8; text-decoration:none;">info@audspex.com</a>
+        </li>
+      </ul>
     </div>
   </div>
 
-  <div class="footer-bottom">
-    <p class="footer-copy">© 2026 <span><a href="/" style="color: inherit; text-decoration: none;">AudSpex Medical Center</a></span>. All rights reserved. Karachi, Pakistan.</p>
-    <div class="footer-legal">
-      <a href="#faq">FAQ</a>
-      <a href="#blog">Blog</a>
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms &amp; Conditions</a>
+  <div style="max-width:1200px; margin:0 auto; padding-top:20px; border-top:1px solid rgba(255,255,255,0.1); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;">
+    <p style="color:#64748b; font-size:13px; margin:0;">&copy; 2026 AudSpeX Medical Center. All rights reserved. Karachi, Pakistan.</p>
+    <div style="display:flex; gap:20px;">
+      <a href="#" style="color:#64748b; font-size:13px; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#64748b'">Privacy Policy</a>
+      <a href="#" style="color:#64748b; font-size:13px; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#64748b'">Terms &amp; Conditions</a>
+      <a href="#" style="color:#64748b; font-size:13px; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#64748b'">Disclaimer</a>
     </div>
   </div>
 </footer>
@@ -1240,6 +1504,76 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', highlightNav);
   highlightNav();
 });
+const servicesData = {
+  'hearing-assessment': {
+    title: 'Hearing Assessment',
+    overview: 'Comprehensive diagnostic assessments using state-of-the-art audiometric equipment to accurately identify hearing thresholds and middle ear function across all frequencies.',
+    conditions: ['Sensorineural Hearing Loss', 'Conductive Hearing Loss', 'Mixed Hearing Loss'],
+    methods: ['Pure Tone Audiometry (PTA)', 'Tympanometry', 'Otoacoustic Emissions (OAE)', 'ABR'],
+    benefits: ['Accurate Diagnosis', 'Customized Treatment Plan', 'Painless Procedure', 'Immediate Results']
+  },
+  'hearing-aids': {
+    title: 'Hearing Aids Solutions',
+    overview: 'Professional selection, computerized fitting, and programming of advanced digital and rechargeable hearing devices from the world�s leading manufacturers.',
+    conditions: ['Age-related Hearing Loss', 'Noise-induced Hearing Loss', 'Tinnitus'],
+    methods: ['Real-Ear Measurement (REM)', 'Speech Mapping', 'Lifestyle Assessment'],
+    benefits: ['Enhanced Communication', 'Invisible Options', 'Bluetooth Connectivity', 'Rechargeable Batteries']
+  },
+  'speech-therapy': {
+    title: 'Speech Therapy',
+    overview: 'Structured clinical training designed to address delays, articulation disorders, and language development issues for patients of all ages, from toddlers to adults.',
+    conditions: ['Speech Delay', 'Articulation Disorders', 'Stuttering', 'Aphasia'],
+    methods: ['Articulation Therapy', 'Language Intervention', 'Oral-Motor Therapy'],
+    benefits: ['Improved Confidence', 'Better Social Interaction', 'Clearer Pronunciation', 'Tailored Programs']
+  },
+  'voice-therapy': {
+    title: 'Voice Therapy',
+    overview: 'Targeted vocal exercises for recovering from vocal cord strains, chronic hoarseness, and pitch adjustment for professional voice users and individuals with laryngeal disorders.',
+    conditions: ['Vocal Nodules', 'Chronic Hoarseness', 'Vocal Cord Paralysis'],
+    methods: ['Vocal Function Exercises', 'Laryngeal Massage', 'Pitch Modulation'],
+    benefits: ['Restored Vocal Range', 'Pain Relief', 'Preventive Care', 'Enhanced Vocal Stamina']
+  },
+  'pediatric': {
+    title: 'Pediatric Audiology',
+    overview: 'Specialized newborn hearing screenings, play audiometry, and comprehensive child hearing assessments using tools specifically designed for infants and children.',
+    conditions: ['Congenital Hearing Loss', 'Otitis Media (Ear Infections)', 'Auditory Processing Disorder'],
+    methods: ['Visual Reinforcement Audiometry', 'Play Audiometry', 'ABR Screening'],
+    benefits: ['Early Intervention', 'Child-Friendly Environment', 'Parental Guidance', 'School Readiness']
+  },
+  'tinnitus': {
+    title: 'Tinnitus Management',
+    overview: 'Comprehensive tinnitus diagnostics, personalized counseling, and advanced sound masking therapies designed to significantly reduce the perception of ear ringing.',
+    conditions: ['Subjective Tinnitus', 'Objective Tinnitus', 'Hyperacusis'],
+    methods: ['Tinnitus Pitch Matching', 'Loudness Matching', 'TRT Questionnaire'],
+    benefits: ['Reduced Stress', 'Improved Sleep', 'Custom Masking Devices', 'Ongoing Counseling']
+  },
+  'cochlear': {
+    title: 'Cochlear Implant Support',
+    overview: 'Thorough pre-implant surgical evaluation, post-surgery processor mapping, and systematic auditory-verbal rehabilitation to maximize the benefit of cochlear implants.',
+    conditions: ['Profound Sensorineural Loss', 'Single-Sided Deafness', 'Failed Hearing Aid Trials'],
+    methods: ['Pre-Implant Audiologic Battery', 'Telemetry', 'Processor Programming/Mapping'],
+    benefits: ['Access to Sound', 'Speech Understanding', 'Dedicated Rehab Team', 'Long-term Support']
+  }
+};
+
+function openServiceModal(id) {
+  const data = servicesData[id];
+  if(!data) return;
+  document.getElementById('srvTitle').innerText = data.title;
+  document.getElementById('srvOverview').innerText = data.overview;
+  
+  const checkSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary-blue)" stroke-width="2" style="margin-right:8px; flex-shrink:0"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+  
+  document.getElementById('srvConditions').innerHTML = data.conditions.map(c => <li style="display:flex;align-items:center;color:var(--text-secondary);font-size:14px;"> + checkSvg + c + </li>).join('');
+  document.getElementById('srvMethods').innerHTML = data.methods.map(m => <li style="display:flex;align-items:center;color:var(--text-secondary);font-size:14px;"> + checkSvg + m + </li>).join('');
+  document.getElementById('srvBenefits').innerHTML = data.benefits.map(b => <li style="display:flex;align-items:center;color:var(--text-secondary);font-size:14px;"> + checkSvg + b + </li>).join('');
+  
+  document.getElementById('serviceModal').style.display = 'flex';
+}
+
+function closeServiceModal() {
+  document.getElementById('serviceModal').style.display = 'none';
+}
 </script>
 <!-- FLOATING BUTTONS -->
 <div id="float-wrap" style="position:fixed;bottom:60px;right:5%;z-index:9999;display:flex;flex-direction:column;align-items:flex-end;gap:12px">
@@ -1356,7 +1690,81 @@ function addMsg(text,role){
   c.appendChild(wrap);
   c.scrollTop=c.scrollHeight;
 }
+const servicesData = {
+  'hearing-assessment': {
+    title: 'Hearing Assessment',
+    overview: 'Comprehensive diagnostic assessments using state-of-the-art audiometric equipment to accurately identify hearing thresholds and middle ear function across all frequencies.',
+    conditions: ['Sensorineural Hearing Loss', 'Conductive Hearing Loss', 'Mixed Hearing Loss'],
+    methods: ['Pure Tone Audiometry (PTA)', 'Tympanometry', 'Otoacoustic Emissions (OAE)', 'ABR'],
+    benefits: ['Accurate Diagnosis', 'Customized Treatment Plan', 'Painless Procedure', 'Immediate Results']
+  },
+  'hearing-aids': {
+    title: 'Hearing Aids Solutions',
+    overview: 'Professional selection, computerized fitting, and programming of advanced digital and rechargeable hearing devices from the world�s leading manufacturers.',
+    conditions: ['Age-related Hearing Loss', 'Noise-induced Hearing Loss', 'Tinnitus'],
+    methods: ['Real-Ear Measurement (REM)', 'Speech Mapping', 'Lifestyle Assessment'],
+    benefits: ['Enhanced Communication', 'Invisible Options', 'Bluetooth Connectivity', 'Rechargeable Batteries']
+  },
+  'speech-therapy': {
+    title: 'Speech Therapy',
+    overview: 'Structured clinical training designed to address delays, articulation disorders, and language development issues for patients of all ages, from toddlers to adults.',
+    conditions: ['Speech Delay', 'Articulation Disorders', 'Stuttering', 'Aphasia'],
+    methods: ['Articulation Therapy', 'Language Intervention', 'Oral-Motor Therapy'],
+    benefits: ['Improved Confidence', 'Better Social Interaction', 'Clearer Pronunciation', 'Tailored Programs']
+  },
+  'voice-therapy': {
+    title: 'Voice Therapy',
+    overview: 'Targeted vocal exercises for recovering from vocal cord strains, chronic hoarseness, and pitch adjustment for professional voice users and individuals with laryngeal disorders.',
+    conditions: ['Vocal Nodules', 'Chronic Hoarseness', 'Vocal Cord Paralysis'],
+    methods: ['Vocal Function Exercises', 'Laryngeal Massage', 'Pitch Modulation'],
+    benefits: ['Restored Vocal Range', 'Pain Relief', 'Preventive Care', 'Enhanced Vocal Stamina']
+  },
+  'pediatric': {
+    title: 'Pediatric Audiology',
+    overview: 'Specialized newborn hearing screenings, play audiometry, and comprehensive child hearing assessments using tools specifically designed for infants and children.',
+    conditions: ['Congenital Hearing Loss', 'Otitis Media (Ear Infections)', 'Auditory Processing Disorder'],
+    methods: ['Visual Reinforcement Audiometry', 'Play Audiometry', 'ABR Screening'],
+    benefits: ['Early Intervention', 'Child-Friendly Environment', 'Parental Guidance', 'School Readiness']
+  },
+  'tinnitus': {
+    title: 'Tinnitus Management',
+    overview: 'Comprehensive tinnitus diagnostics, personalized counseling, and advanced sound masking therapies designed to significantly reduce the perception of ear ringing.',
+    conditions: ['Subjective Tinnitus', 'Objective Tinnitus', 'Hyperacusis'],
+    methods: ['Tinnitus Pitch Matching', 'Loudness Matching', 'TRT Questionnaire'],
+    benefits: ['Reduced Stress', 'Improved Sleep', 'Custom Masking Devices', 'Ongoing Counseling']
+  },
+  'cochlear': {
+    title: 'Cochlear Implant Support',
+    overview: 'Thorough pre-implant surgical evaluation, post-surgery processor mapping, and systematic auditory-verbal rehabilitation to maximize the benefit of cochlear implants.',
+    conditions: ['Profound Sensorineural Loss', 'Single-Sided Deafness', 'Failed Hearing Aid Trials'],
+    methods: ['Pre-Implant Audiologic Battery', 'Telemetry', 'Processor Programming/Mapping'],
+    benefits: ['Access to Sound', 'Speech Understanding', 'Dedicated Rehab Team', 'Long-term Support']
+  }
+};
+
+function openServiceModal(id) {
+  const data = servicesData[id];
+  if(!data) return;
+  document.getElementById('srvTitle').innerText = data.title;
+  document.getElementById('srvOverview').innerText = data.overview;
+  
+  const checkSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary-blue)" stroke-width="2" style="margin-right:8px; flex-shrink:0"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+  
+  document.getElementById('srvConditions').innerHTML = data.conditions.map(c => <li style="display:flex;align-items:center;color:var(--text-secondary);font-size:14px;"> + checkSvg + c + </li>).join('');
+  document.getElementById('srvMethods').innerHTML = data.methods.map(m => <li style="display:flex;align-items:center;color:var(--text-secondary);font-size:14px;"> + checkSvg + m + </li>).join('');
+  document.getElementById('srvBenefits').innerHTML = data.benefits.map(b => <li style="display:flex;align-items:center;color:var(--text-secondary);font-size:14px;"> + checkSvg + b + </li>).join('');
+  
+  document.getElementById('serviceModal').style.display = 'flex';
+}
+
+function closeServiceModal() {
+  document.getElementById('serviceModal').style.display = 'none';
+}
 </script>
 </body>
 </html>
+
+
+
+
 
