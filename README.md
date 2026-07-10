@@ -1,88 +1,385 @@
-# AudSpex Website
+# AudSpeX – Global Hearing Healthcare Ecosystem
 
-## Project Overview
+## Phase 1 – Corporate Website ✅
 
-AudSpex is a specialized Hearing & Speech Care Center website focused on:
+Status: Completed
 
-- Audiology
-- Hearing Assessment
-- Hearing Aids
-- Speech Therapy
-- Voice Disorders
-- Pediatric Audiology
-- Hearing Rehabilitation
+The corporate website has been designed to establish AudSpeX as a modern hearing healthcare organization and provide information about services, specialists, hearing solutions, partner enrollment, and appointment booking.
 
----
+### Completed Modules
 
-## Brand Identity
-
-### Brand Name
-AudSpex
-
-### Tagline
-TEAM OF AUDIOLOGISTS AND SPEECH EXPERTS
-
----
-
-## Project Structure
-
-AudSpex/
-│
-├── index.html
-├── pages/
-├── css/
-├── js/
-└── images/
-
----
-
-## Homepage Flow
-
-1. Header
-2. Hero Section
-3. About AudSpex
-4. Services
-5. Why Choose AudSpex
-6. Meet Our Specialists
-7. Partners & Dealers Network
-8. Hearing Aid Gallery
-9. Hearing Solutions
-10. Appointment Form
-11. Testimonials
-12. FAQ
-13. Blog
-14. Contact
-15. Footer
-
----
-
-## Pages
-
-- Home
-- About AudSpex
+- Responsive Corporate Website
+- Brand Identity & Theme
+- Home Page
+- About AudSpeX
 - Services
-- Specialists
+- Why Choose AudSpeX
+- Meet Our Specialists
 - Partners & Dealers
+- Partner Enrollment Form
+- Hearing Aid Gallery
 - Hearing Solutions
-- Appointment
+- Appointment Form
+- Testimonials
+- FAQ
 - Blog
 - Contact
+- Footer
+- Responsive Design
+- SEO Foundation
 
 ---
 
-## Future Development
+# Phase 2 – Healthcare Management Platform
 
-- Admin Panel
-- Patient Portal
-- Dealer Portal
-- Hearing Test Reports
-- Hearing Aid Inventory
-- Software Integration
-- Online Consultation
+## Objective
+
+Transform the corporate website into a complete Hearing Healthcare Management System capable of managing patients, hearing assessments, hearing aids, dealers, clinics, and future healthcare ecosystem services.
 
 ---
 
-## Status
+## Phase 2 Modules
 
-Current Phase:
-Website Finalization & UI Development
+### Module 1 – Authentication & User Management
+
+Purpose:
+
+Provide secure login and role-based access for all system users.
+
+User Roles
+
+- Super Administrator
+- Clinic Administrator
+- Receptionist
+- Audiologist
+- ENT Specialist
+- Speech Therapist
+- Hearing Aid Consultant
+- Patient
+- Dealer
+- Wholesaler
+- Manufacturer
+
+Features
+
+- Login
+- Logout
+- Forgot Password
+- Reset Password
+- Role Based Access
+- Session Management
+
+---
+
+### Module 2 – Admin Dashboard
+
+Dashboard Overview
+
+- Total Patients
+- Today's Appointments
+- Pending Reports
+- Hearing Tests
+- Hearing Aid Sales
+- Dealer Requests
+- Notifications
+- Analytics
+
+Quick Actions
+
+- Register Patient
+- Book Appointment
+- Upload Report
+- Add Hearing Aid
+- Approve Dealer
+
+---
+
+### Module 3 – Patient Management
+
+Patient Registration
+
+Patient Profile
+
+Medical History
+
+Appointment History
+
+Audiograms
+
+Reports
+
+Hearing Aid History
+
+Follow-up History
+
+Digital Patient File
+
+---
+
+### Module 4 – Appointment Management
+
+Workflow
+
+Patient
+
+↓
+
+Appointment Request
+
+↓
+
+Reception
+
+↓
+
+Audiologist
+
+↓
+
+Consultation
+
+↓
+
+Testing
+
+↓
+
+Report
+
+↓
+
+Treatment
+
+↓
+
+Follow-up
+
+Status
+
+- Pending
+- Confirmed
+- Checked In
+- Consultation
+- Testing
+- Completed
+- Cancelled
+
+---
+
+### Module 5 – Audiologist Portal
+
+Features
+
+- Today's Patients
+- Hearing Tests
+- Upload Reports
+- Prescriptions
+- Patient History
+- Follow-up Notes
+
+---
+
+### Module 6 – Hearing Test Software Integration
+
+Purpose
+
+Connect existing Audiology Software with AudSpeX.
+
+Possible Integration Methods
+
+- REST API
+- Database Connector
+- PDF Report Upload
+- XML/JSON Import
+
+Supported Report Types
+
+- Audiogram
+- PTA
+- Tympanometry
+- OAE
+- ABR
+- Hearing Assessment Report
+
+---
+
+### Module 7 – Hearing Aid Management
+
+Inventory
+
+Brands
+
+Manufacturers
+
+Models
+
+Technology Levels
+
+Accessories
+
+Warranty
+
+Patient Fittings
+
+Recommendations
+
+---
+
+### Module 8 – Dealer & Partner Portal
+
+Dealer Dashboard
+
+Product Management
+
+Orders
+
+Business Profile
+
+Approval Workflow
+
+Document Verification
+
+---
+
+### Module 9 – Reports & Analytics
+
+Patient Reports
+
+Appointment Reports
+
+Revenue Reports
+
+Dealer Reports
+
+Inventory Reports
+
+Growth Statistics
+
+Export PDF
+
+Export Excel
+
+---
+
+### Module 10 – Notifications
+
+Email
+
+SMS
+
+WhatsApp
+
+Appointment Reminder
+
+Follow-up Reminder
+
+Dealer Approval
+
+Marketing Campaigns
+
+---
+
+# Future Ecosystem Modules (Phase 3+)
+
+- Global Hearing Healthcare Directory
+- Marketplace
+- Hearing Aid eCommerce
+- AI Hearing Assessment
+- Online Hearing Screening
+- Tele-Audiology
+- Video Consultation
+- Insurance Integration
+- Donation Platform
+- Scholarship Portal
+- Hearing Aid Equipment Bank
+- Job Portal
+- Research Portal
+- Training & Education Platform
+- Learning Management System
+- Community Forum
+- Referral System
+- Multi-Language Support
+
+---
+
+# Technology Stack
+
+Frontend
+
+- HTML5
+- Tailwind CSS
+- JavaScript
+
+Backend
+
+- Supabase
+
+Database
+
+- PostgreSQL
+
+Authentication
+
+- Supabase Auth
+
+Storage
+
+- Supabase Storage
+
+Hosting
+
+- GitHub Pages
+- Supabase
+
+---
+
+# Folder Structure
+
+AudSpeX/
+
+├── index.html
+├── README.md
+├── css/
+├── js/
+├── pages/
+├── images/
+├── docs/
+├── assets/
+├── admin/
+├── portal/
+├── database/
+└── api/
+
+---
+
+# Development Status
+
+Phase 1
+Completed
+
+Phase 2
+Planning
+
+Phase 3
+Future Development
+
+---
+
+# Maintained By
+
+Orion Fx Software Solutions
+
+https://orionfxservis.github.io/
+
+/docs/
+│
+├── PROJECT-ROADMAP.md
+├── PHASE-1.md
+├── PHASE-2.md
+├── DATABASE-DESIGN.md
+├── USER-ROLES.md
+├── API-INTEGRATION.md
+├── HEARING-SOFTWARE-INTEGRATION.md
+├── UI-GUIDELINES.md
+├── CHANGELOG.md
+└── CLIENT-REQUIREMENTS.md
