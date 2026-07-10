@@ -2077,3 +2077,64 @@ footer {
 button:focus-visible, a:focus-visible {
     outline: 2px solid var(--primary-red) !important;
 }
+
+/* PREMIUM CATALOG UPGRADES */
+.gallery-card {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0,0,0,0.03);
+  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.gallery-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+.gallery-badge {
+  background: var(--dark);
+  color: #fff;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.tech-level {
+  background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+.modal-main-img-wrap {
+  position: relative;
+  overflow: hidden;
+  cursor: zoom-in;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+}
+.modal-main-img {
+  transition: transform 0.1s ease-out;
+  pointer-events: none;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-blue), #1e3a8a) !important;
+  box-shadow: 0 10px 20px rgba(37,99,235,0.2);
+}
+.btn-primary:hover {
+  box-shadow: 0 12px 25px rgba(37,99,235,0.3);
+  transform: translateY(-2px);
+}
+.btn-whatsapp {
+  background: linear-gradient(135deg, #25d366, #128c7e) !important;
+  box-shadow: 0 10px 20px rgba(37,211,102,0.2);
+}
+.btn-whatsapp:hover {
+  box-shadow: 0 12px 25px rgba(37,211,102,0.3);
+  transform: translateY(-2px);
+}
+
+/* BLOG NEW LAYOUT */
+@media (min-width: 900px) {
+  .blog-layout {
+    grid-template-columns: 1.5fr 1fr !important;
+  }
+}
