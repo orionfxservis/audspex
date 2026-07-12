@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Appointments | AudSpeX</title>
+  <title>Inventory | AudSpeX</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -27,7 +27,7 @@
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
         Patient Management
       </a>
-      <a href="../Appointments/index.html" class="nav-item" class="nav-item active">
+      <a href="../Appointments/index.html" class="nav-item" data-id="Appointments">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
         Appointments
       </a>
@@ -39,7 +39,7 @@
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
         Hearing Tests
       </a>
-      <a href="../hearing-aids/index.html" class="nav-item" data-id="Hearing Aids">
+      <a href="../hearing-aids/index.html" class="nav-item" class="nav-item active">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
         Hearing Aids
       </a>
@@ -67,116 +67,102 @@
 
   <!-- MAIN WRAPPER -->
   <main class="main-wrapper">
-    
     <!-- TOP HEADER -->
     <header class="top-header">
       <div class="header-search">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        <input type="text" placeholder="Search appointments...">
-      </div>
-      <div class="header-actions">
-        <div class="user-profile">
-          <div class="avatar">R</div>
-          <div class="user-info">
-            <h5>Receptionist</h5>
-            <span>Front Desk</span>
-          </div>
-        </div>
+        <input type="text" placeholder="Search devices by serial or brand...">
       </div>
     </header>
 
     <!-- CONTENT AREA -->
     <div class="content-area">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
-        <h2 class="page-title" style="margin:0;">Appointment Flow</h2>
-        <button style="background:var(--primary-blue); color:#fff; border:none; padding:10px 20px; border-radius:8px; font-weight:600; cursor:pointer;">+ New Appointment</button>
-      </div>
-
-      <!-- KANBAN BOARD -->
-      <div class="kanban-board">
+      <h2 class="page-title">Hearing Aid Inventory & Fitting</h2>
+      
+      <div style="display:grid; grid-template-columns: 2fr 1fr; gap:24px;">
         
-        <!-- PENDING -->
-        <div class="kanban-column">
-          <div class="kanban-header">
-            <span><span class="status-dot pending" style="margin-right:8px;"></span>Pending (Online)</span>
-            <span class="count">2</span>
+        <!-- Inventory Stock Table -->
+        <div style="background:#fff; border-radius:12px; padding:24px; border:1px solid var(--border);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <h3 style="margin:0; font-size:18px;">Current Stock</h3>
+            <button style="background:var(--primary-blue); color:#fff; border:none; padding:8px 16px; border-radius:8px; font-weight:600; cursor:pointer;">+ Add Stock</button>
           </div>
-          <div class="kanban-body">
-            <div class="kanban-card" draggable="true">
-              <h4>Sarah Connor</h4>
-              <p>Hearing Test Evaluation</p>
-              <div class="kanban-card-footer">
-                <span class="time"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 10:00 AM</span>
-                <button style="border:1px solid var(--border); background:#fff; padding:4px 8px; border-radius:4px; font-size:11px; cursor:pointer;" onclick="alert('Action Modal Opened')">Action</button>
-              </div>
-            </div>
-            <div class="kanban-card" draggable="true">
-              <h4>David Mitchell</h4>
-              <p>Tinnitus Consultation</p>
-              <div class="kanban-card-footer">
-                <span class="time"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 11:30 AM</span>
-                <button style="border:1px solid var(--border); background:#fff; padding:4px 8px; border-radius:4px; font-size:11px; cursor:pointer;">Action</button>
-              </div>
-            </div>
-          </div>
+          
+          <table style="width:100%; text-align:left; border-collapse:collapse; font-size:14px;">
+            <tr style="border-bottom:1px solid var(--border);">
+              <th style="padding:12px 8px; color:var(--text-secondary); font-weight:600;">Brand</th>
+              <th style="padding:12px 8px; color:var(--text-secondary); font-weight:600;">Model / Series</th>
+              <th style="padding:12px 8px; color:var(--text-secondary); font-weight:600;">Technology</th>
+              <th style="padding:12px 8px; color:var(--text-secondary); font-weight:600;">Stock (Qty)</th>
+              <th style="padding:12px 8px; color:var(--text-secondary); font-weight:600;">Status</th>
+            </tr>
+            <tr style="border-bottom:1px solid #f1f5f9;">
+              <td style="padding:12px 8px; font-weight:600;">Phonak</td>
+              <td style="padding:12px 8px;">Audeo Lumity L90-R</td>
+              <td style="padding:12px 8px;">RIC / Rechargeable</td>
+              <td style="padding:12px 8px;">12</td>
+              <td style="padding:12px 8px;"><span style="color:#10b981; font-weight:600;">In Stock</span></td>
+            </tr>
+            <tr style="border-bottom:1px solid #f1f5f9;">
+              <td style="padding:12px 8px; font-weight:600;">Signia</td>
+              <td style="padding:12px 8px;">Styletto AX 7</td>
+              <td style="padding:12px 8px;">Slim-RIC</td>
+              <td style="padding:12px 8px;">3</td>
+              <td style="padding:12px 8px;"><span style="color:#f59e0b; font-weight:600;">Low Stock</span></td>
+            </tr>
+            <tr style="border-bottom:1px solid #f1f5f9;">
+              <td style="padding:12px 8px; font-weight:600;">Oticon</td>
+              <td style="padding:12px 8px;">Real 1 miniRITE</td>
+              <td style="padding:12px 8px;">BTE</td>
+              <td style="padding:12px 8px;">0</td>
+              <td style="padding:12px 8px;"><span style="color:#ef4444; font-weight:600;">Out of Stock</span></td>
+            </tr>
+          </table>
         </div>
 
-        <!-- CONFIRMED -->
-        <div class="kanban-column">
-          <div class="kanban-header">
-            <span><span class="status-dot confirmed" style="margin-right:8px;"></span>Confirmed</span>
-            <span class="count">1</span>
-          </div>
-          <div class="kanban-body">
-            <div class="kanban-card" draggable="true">
-              <h4>Emma Watson</h4>
-              <p>Hearing Aid Fitting</p>
-              <div class="kanban-card-footer">
-                <span class="time"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 09:30 AM</span>
-              </div>
+        <!-- Patient Fitting Assignment -->
+        <div style="background:#fff; border-radius:12px; padding:24px; border:1px solid var(--border);">
+          <h3 style="margin:0 0 16px; font-size:16px;">Assign Device / Fitting</h3>
+          
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <label style="font-size:13px; font-weight:600; color:var(--dark);">Select Patient</label>
+              <select style="padding:10px; border:1px solid var(--border); border-radius:8px; outline:none;">
+                <option>John Doe (#PT-10492)</option>
+                <option>Emma Watson (#PT-10493)</option>
+              </select>
             </div>
-          </div>
-        </div>
+            
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <label style="font-size:13px; font-weight:600; color:var(--dark);">Select Device from Stock</label>
+              <select style="padding:10px; border:1px solid var(--border); border-radius:8px; outline:none;">
+                <option>Phonak Audeo Lumity L90-R (SN: PHX-8231)</option>
+                <option>Signia Styletto AX 7 (SN: SGX-1190)</option>
+              </select>
+            </div>
 
-        <!-- CHECKED IN (Waiting Room) -->
-        <div class="kanban-column" style="background:rgba(16,185,129,0.05); border-color:#10b981;">
-          <div class="kanban-header" style="border-color:#10b981;">
-            <span><span class="status-dot checkedin" style="margin-right:8px;"></span>Waiting Room</span>
-            <span class="count">1</span>
-          </div>
-          <div class="kanban-body">
-            <div class="kanban-card" draggable="true" style="border-left:4px solid #10b981;">
-              <h4>John Doe</h4>
-              <p>Follow-up (Bilateral Loss)</p>
-              <div class="kanban-card-footer">
-                <span class="time" style="color:#10b981;">Arrived 15 mins ago</span>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+              <div style="display:flex; flex-direction:column; gap:6px;">
+                <label style="font-size:13px; font-weight:600; color:var(--dark);">Warranty End</label>
+                <input type="date" style="padding:10px; border:1px solid var(--border); border-radius:8px; outline:none;">
+              </div>
+              <div style="display:flex; flex-direction:column; gap:6px;">
+                <label style="font-size:13px; font-weight:600; color:var(--dark);">Ear Side</label>
+                <select style="padding:10px; border:1px solid var(--border); border-radius:8px; outline:none;">
+                  <option>Bilateral (Both)</option>
+                  <option>Right Ear</option>
+                  <option>Left Ear</option>
+                </select>
               </div>
             </div>
-          </div>
-        </div>
 
-        <!-- TESTING / CONSULTATION -->
-        <div class="kanban-column" style="background:rgba(139,92,246,0.05); border-color:#8b5cf6;">
-          <div class="kanban-header" style="border-color:#8b5cf6;">
-            <span><span class="status-dot testing" style="margin-right:8px;"></span>With Audiologist</span>
-            <span class="count">1</span>
-          </div>
-          <div class="kanban-body">
-            <div class="kanban-card" draggable="true" style="border-left:4px solid #8b5cf6;">
-              <h4>Ali Khan</h4>
-              <p>PTA & Speech Audiometry</p>
-              <div class="kanban-card-footer">
-                <span class="time" style="color:#8b5cf6;">In Room A - Dr. Smith</span>
-              </div>
-            </div>
+            <button style="margin-top:8px; background:var(--dark); color:#fff; border:none; padding:12px; border-radius:8px; font-weight:600; cursor:pointer;">Assign & Update Patient Record</button>
           </div>
         </div>
 
       </div>
-
     </div>
   </main>
-
 </body>
 </html>
 
