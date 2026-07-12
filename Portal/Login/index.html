@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | AudSpeX Medical Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../Website/css/style.min.css">
+  <link rel="stylesheet" href="../../Website/css/login.css">
+</head>
+<body>
+
+  <div class="login-container">
+    <!-- Brand Side (Left) -->
+    <div class="login-brand">
+      <div class="login-brand-content">
+        <img src="../../Website/images/logo/audspex-logo.png" alt="AudSpeX Logo">
+        <h1>Welcome Back</h1>
+        <p>Access the AudSpeX Medical Portal to manage patient records, appointments, and view real-time clinical reports.</p>
+      </div>
+    </div>
+
+    <!-- Form Side (Right) -->
+    <div class="login-form-wrapper">
+      
+      <!-- SIGN IN FORM -->
+      <div class="login-form-inner fade-in" id="signInForm">
+        <h2>Sign In</h2>
+        <p>Enter your credentials to access your dashboard.</p>
+
+        <div class="input-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="e.g. doctor@audspex.com" id="loginEmail">
+        </div>
+
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" placeholder="••••••••" id="loginPassword">
+          <svg class="eye-icon" onclick="togglePassword('loginPassword', this)" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+          <a href="#" class="forgot-pwd" onclick="switchView('forgotForm')">Forgot Password?</a>
+        </div>
+
+        <div class="input-group">
+          <label>Select Role</label>
+          <select class="role-select" id="loginRole">
+            <option value="admin">Administrator</option>
+            <option value="doctor">Audiologist / Doctor</option>
+            <option value="patient">Patient</option>
+            <option value="dealer">Dealer / Partner</option>
+          </select>
+        </div>
+
+        <button class="btn-submit" onclick="handleLogin()">Login to Portal</button>
+
+        <div class="form-toggle">
+          Don't have an account? <a onclick="switchView('signUpForm')">Sign Up</a>
+        </div>
+      </div>
+
+      <!-- SIGN UP FORM -->
+      <div class="login-form-inner fade-in" id="signUpForm" style="display:none;">
+        <h2>Create Account</h2>
+        <p>Join AudSpeX to manage your hearing health profile.</p>
+
+        <div class="input-group">
+          <label>Full Name</label>
+          <input type="text" placeholder="John Doe">
+        </div>
+
+        <div class="input-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="e.g. john@example.com">
+        </div>
+
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" placeholder="••••••••" id="regPassword">
+          <svg class="eye-icon" onclick="togglePassword('regPassword', this)" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+        </div>
+
+        <div class="input-group">
+          <label>Re-enter Password</label>
+          <input type="password" placeholder="••••••••" id="regPasswordConfirm">
+          <svg class="eye-icon" onclick="togglePassword('regPasswordConfirm', this)" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+        </div>
+
+        <button class="btn-submit">Sign Up</button>
+
+        <div class="form-toggle">
+          Already have an account? <a onclick="switchView('signInForm')">Sign In</a>
+        </div>
+      </div>
+
+      <!-- FORGOT PASSWORD FORM -->
+      <div class="login-form-inner fade-in" id="forgotForm" style="display:none;">
+        <h2>Reset Password</h2>
+        <p>Enter your email address and we'll send you a secure link to reset your password.</p>
+
+        <div class="input-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="e.g. doctor@audspex.com">
+        </div>
+
+        <button class="btn-submit">Send Reset Link</button>
+
+        <div class="form-toggle">
+          Remembered your password? <a onclick="switchView('signInForm')">Back to Sign In</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Toggle Password Visibility (Fish Eye)
+    function togglePassword(inputId, svgElement) {
+      const input = document.getElementById(inputId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        // Change icon to eye-off (crossed out eye)
+        svgElement.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>';
+      } else {
+        input.type = 'password';
+        // Revert icon to standard eye
+        svgElement.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
+      }
+    }
+
+    // Switch between Sign In / Sign Up / Forgot Password views
+    function switchView(viewId) {
+      document.getElementById('signInForm').style.display = 'none';
+      document.getElementById('signUpForm').style.display = 'none';
+      document.getElementById('forgotForm').style.display = 'none';
+      
+      const target = document.getElementById(viewId);
+      target.style.display = 'block';
+      
+      // Re-trigger fade animation
+      target.classList.remove('fade-in');
+      void target.offsetWidth; 
+      target.classList.add('fade-in');
+    }
+
+    // Simulated Role-Based Routing
+    function handleLogin() {
+      const role = document.getElementById('loginRole').value;
+      const btn = document.querySelector('.btn-submit');
+      const originalText = btn.innerText;
+      
+      btn.innerText = 'Authenticating...';
+      btn.style.opacity = '0.8';
+
+      setTimeout(() => {
+        if (role === 'admin') {
+          window.location.href = '../Dashboard/index.html';
+        } else if (role === 'patient') {
+          window.location.href = '../Patients/index.html';
+        } else if (role === 'audiologist') {
+          window.location.href = '../Audiologist/index.html';
+        } else if (role === 'reception') {
+          window.location.href = '../Appointments/index.html';
+        } else if (role === 'dealer') {
+          window.location.href = '../Dealers/index.html';
+        } else {
+          window.location.href = '../Dashboard/index.html';
+        }
+      }, 800);
+    }
+  </script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory | AudSpeX</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../Website/css/style.min.css">
+  <link rel="stylesheet" href="../../Website/css/dashboard.css">
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <img src="../../Website/images/logo/audspex-logo.png" alt="AudSpeX Logo">
+    </div>
+    
+        <nav class="sidebar-nav">
+      <a href="../Dashboard/index.html" class="nav-item" data-id="Dashboard">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        Admin Dashboard
+      </a>
+      <a href="../Patients/index.html" class="nav-item" data-id="Patients">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        Patient Management
+      </a>
+      <a href="../Appointments/index.html" class="nav-item" data-id="Appointments">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        Appointments
+      </a>
+      <a href="../Audiologist/index.html" class="nav-item" data-id="Audiologist">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+        Audiologist Module
+      </a>
+      <a href="../Hearing Tests/index.html" class="nav-item" data-id="Hearing Tests">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+        Hearing Tests
+      </a>
+      <a href="../Hearing Aids/index.html" class="nav-item" class="nav-item active">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+        Hearing Aids
+      </a>
+      <a href="../Dealers/index.html" class="nav-item" data-id="Dealers">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+        Dealer Portal
+      </a>
+      <a href="../Reports/index.html" class="nav-item" data-id="Reports">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+        Reports & Analytics
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="../Settings/index.html" class="logout-btn" data-id="Settings">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        Settings
+      </a>
+      <a href="../Login/index.html" class="logout-btn" >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+        Logout
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN WRAPPER -->
+  <main class="main-wrapper">
+    <!-- TOP HEADER -->
+    <header class="top-header">
+      <div class="header-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" placeholder="Search devices by serial or brand...">
+      </div>
+    </header>
+
+    <!-- CONTENT AREA -->
+    <div class="content-area">
+      <h2 class="page-title">Hearing Aid Inventory & Fitting</h2>
+      
+      <div style="display:grid; grid-template-columns: 2fr 1fr; gap:24px;">
+        
+        <!-- Inventory Stock Table -->
+        <div style="background:#fff; border-radius:12px; padding:24px; border:1px solid var(--border);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <h3 style="margin:0; font-size:18px;">Current Stock</h3>
+            <button style="background:var(--primary-blue); color:#fff; border:none; padding:8px 16px; border-radius:8px; font-weight:600; cursor:pointer;">+ Add Stock</button>
+          </div>
+          
+          <table style="width:100%; text-align:left; border-collapse:collapse; font-size:14px;">
+            <tr style="border-bottom:1px solid var(--border);">
+              <th style="padding:12px 8px; color:var(--text-secondary); font-weight:600;">Brand</th>
+              <th style="padding:12px 8px; color:var(--text-secondary); font-weight:600;">Model / Series</th>
+              <th style="padding:12px 8px; color:var(--text-secondary); font-weight:600;">Technology</th>
+              <th style="padding:12px 8px; color:var(--text-secondary); font-weight:600;">Stock (Qty)</th>
+              <th style="padding:12px 8px; color:var(--text-secondary); font-weight:600;">Status</th>
+            </tr>
+            <tr style="border-bottom:1px solid #f1f5f9;">
+              <td style="padding:12px 8px; font-weight:600;">Phonak</td>
+              <td style="padding:12px 8px;">Audeo Lumity L90-R</td>
+              <td style="padding:12px 8px;">RIC / Rechargeable</td>
+              <td style="padding:12px 8px;">12</td>
+              <td style="padding:12px 8px;"><span style="color:#10b981; font-weight:600;">In Stock</span></td>
+            </tr>
+            <tr style="border-bottom:1px solid #f1f5f9;">
+              <td style="padding:12px 8px; font-weight:600;">Signia</td>
+              <td style="padding:12px 8px;">Styletto AX 7</td>
+              <td style="padding:12px 8px;">Slim-RIC</td>
+              <td style="padding:12px 8px;">3</td>
+              <td style="padding:12px 8px;"><span style="color:#f59e0b; font-weight:600;">Low Stock</span></td>
+            </tr>
+            <tr style="border-bottom:1px solid #f1f5f9;">
+              <td style="padding:12px 8px; font-weight:600;">Oticon</td>
+              <td style="padding:12px 8px;">Real 1 miniRITE</td>
+              <td style="padding:12px 8px;">BTE</td>
+              <td style="padding:12px 8px;">0</td>
+              <td style="padding:12px 8px;"><span style="color:#ef4444; font-weight:600;">Out of Stock</span></td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- Patient Fitting Assignment -->
+        <div style="background:#fff; border-radius:12px; padding:24px; border:1px solid var(--border);">
+          <h3 style="margin:0 0 16px; font-size:16px;">Assign Device / Fitting</h3>
+          
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <label style="font-size:13px; font-weight:600; color:var(--dark);">Select Patient</label>
+              <select style="padding:10px; border:1px solid var(--border); border-radius:8px; outline:none;">
+                <option>John Doe (#PT-10492)</option>
+                <option>Emma Watson (#PT-10493)</option>
+              </select>
+            </div>
+            
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <label style="font-size:13px; font-weight:600; color:var(--dark);">Select Device from Stock</label>
+              <select style="padding:10px; border:1px solid var(--border); border-radius:8px; outline:none;">
+                <option>Phonak Audeo Lumity L90-R (SN: PHX-8231)</option>
+                <option>Signia Styletto AX 7 (SN: SGX-1190)</option>
+              </select>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+              <div style="display:flex; flex-direction:column; gap:6px;">
+                <label style="font-size:13px; font-weight:600; color:var(--dark);">Warranty End</label>
+                <input type="date" style="padding:10px; border:1px solid var(--border); border-radius:8px; outline:none;">
+              </div>
+              <div style="display:flex; flex-direction:column; gap:6px;">
+                <label style="font-size:13px; font-weight:600; color:var(--dark);">Ear Side</label>
+                <select style="padding:10px; border:1px solid var(--border); border-radius:8px; outline:none;">
+                  <option>Bilateral (Both)</option>
+                  <option>Right Ear</option>
+                  <option>Left Ear</option>
+                </select>
+              </div>
+            </div>
+
+            <button style="margin-top:8px; background:var(--dark); color:#fff; border:none; padding:12px; border-radius:8px; font-weight:600; cursor:pointer;">Assign & Update Patient Record</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</body>
+</html>
+
+
+
+
+
