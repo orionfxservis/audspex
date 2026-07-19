@@ -126,16 +126,37 @@ const PortalDB = (() => {
   const SEED_NOTIFICATIONS = [
     {
       id: "NT-001",
-      text: "Ahmed Khan registered as a new patient",
+      text: "Today's Schedule: 12 appointments scheduled for today.",
       type: "info",
-      time: "1 hour ago",
+      time: "10 mins ago",
       read: false
     },
     {
       id: "NT-002",
-      text: "Appointment booked for Zainab Bibi",
+      text: "Appointment for John Doe has been cancelled.",
+      type: "critical",
+      time: "1 hour ago",
+      read: false
+    },
+    {
+      id: "NT-003",
+      text: "Appointment for Sara Ali rescheduled to July 21st.",
       type: "success",
-      time: "2 hours ago",
+      time: "3 hours ago",
+      read: true
+    },
+    {
+      id: "NT-004",
+      text: "Missed appointment: Ali Raza did not show up.",
+      type: "critical",
+      time: "5 hours ago",
+      read: true
+    },
+    {
+      id: "NT-005",
+      text: "Reminder: 15 appointments scheduled for tomorrow.",
+      type: "info",
+      time: "1 day ago",
       read: true
     }
   ];
