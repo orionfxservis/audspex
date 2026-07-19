@@ -25,6 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="css/style.min.css"/>
+<script src="../Portal/assets/js/portal-db.js"></script>
 <!-- Schema.org JSON-LD -->
 <script type="application/ld+json">
 {
@@ -1182,7 +1183,7 @@ function setupZoom() {
         </div>
         <span style="background:rgba(0,200,100,0.15);border:1px solid rgba(0,200,100,0.25);color:#4ade80;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.5px">● ACCEPTING PATIENTS</span>
       </div>
-      <form id="appointmentForm" onsubmit="event.preventDefault(); if(this.checkValidity()) { document.getElementById('appointmentSuccessModal').style.display='flex'; this.reset(); }">
+      <form id="appointmentForm" onsubmit="handleOnlineBooking(event)">
         <div class="form-grid-3">
           <div class="cf">
             <label for="fullName">Full Name *</label>
@@ -1351,6 +1352,67 @@ function setupZoom() {
 </footer>
 
 <script>
+function handleOnlineBooking(event) {
+  event.preventDefault();
+  const form = document.getElementById('appointmentForm');
+  if (!form.checkValidity()) return;
+
+  const fullName = document.getElementById('fullName').value;
+  const age = document.getElementById('patientAge').value || '';
+  const gender = document.getElementById('patientGender').value || '';
+  const mobile = document.getElementById('mobileNumber').value;
+  const email = document.getElementById('patientEmail').value;
+  const city = document.getElementById('patientCity').value || '';
+  const concern = document.getElementById('hearingConcern').value;
+  const serviceSelect = document.getElementById('deptSel');
+  const service = serviceSelect.options[serviceSelect.selectedIndex].text;
+  const specialist = document.getElementById('docSel').value || 'Dr. Sarah';
+  const date = document.getElementById('preferredDate').value;
+  const prefTime = document.getElementById('preferredTime').value;
+  const additionalNotes = document.getElementById('additionalNotes').value || '';
+
+  // Map slot
+  let time = '09:00';
+  if (prefTime.includes('Afternoon')) time = '12:00';
+  if (prefTime.includes('Evening')) time = '16:00';
+
+  // 1. Add Patient record via PortalDB
+  const newPatient = PortalDB.addPatient({
+    fullName: fullName,
+    fatherName: '—',
+    gender: gender || 'Male',
+    dob: '',
+    age: age,
+    cnic: '',
+    mobile: mobile,
+    whatsApp: mobile,
+    email: email,
+    address: '',
+    city: city,
+    firstVisit: 'Yes',
+    referral: 'Online Website',
+    reason: `Website Request: ${concern}`,
+    notes: additionalNotes
+  });
+
+  // 2. Add Appointment record
+  PortalDB.addAppointment({
+    patientId: newPatient.id,
+    patientName: fullName,
+    date: date,
+    time: time,
+    service: service,
+    specialist: specialist,
+    priority: 'Normal',
+    status: 'Pending',
+    notes: additionalNotes
+  });
+
+  // Show Success Modal
+  document.getElementById('appointmentSuccessModal').style.display = 'flex';
+  form.reset();
+}
+
 const doctors={
   ear:[{n:'Dr. Ahmed Khan',s:'Audiologist & Otolaryngologist'},{n:'Dr. Nadia Farooq',s:'Pediatric Audiologist'}],
   nose:[{n:'Dr. Sara Rehman',s:'Rhinologist & Allergist'},{n:'Dr. Ahmed Khan',s:'Audiologist'}],
