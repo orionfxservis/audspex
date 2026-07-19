@@ -290,11 +290,11 @@
 
             <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); padding-top:20px;">
               <div>
-                <button type="button" id="btnDeletePatient" onclick="deleteActivePatient()" style="background:#ef4444; color:#fff; border:none; padding:12px 24px; border-radius:8px; font-weight:600; font-size:14px; cursor:pointer; display:none;">Delete Patient</button>
+                <button type="button" id="btnDeletePatient" onclick="deleteActivePatient()" style="background:#ef4444; color:#fff; border:none; padding:12px 24px; border-radius:8px; font-weight:600; font-size:14px; cursor:pointer; display:none;">Delete</button>
               </div>
               <div style="display:flex; gap:12px;">
                 <button type="button" onclick="resetPatientForm()" style="background:#f1f5f9; color:var(--dark); border:1px solid var(--border); padding:12px 24px; border-radius:8px; font-weight:600; font-size:14px; cursor:pointer;">Reset Form</button>
-                <button type="submit" id="btnSavePatient" style="background:var(--primary-blue); color:#fff; border:none; padding:12px 24px; border-radius:8px; font-weight:600; font-size:14px; cursor:pointer;">Save Patient</button>
+                <button type="submit" id="btnSavePatient" style="background:var(--primary-blue); color:#fff; border:none; padding:12px 24px; border-radius:8px; font-weight:600; font-size:14px; cursor:pointer;">Save</button>
               </div>
             </div>
           </form>
@@ -617,7 +617,7 @@
           <p style="margin:0; color:var(--text-secondary); font-size:14px;">MRN: ${p.id} &nbsp;|&nbsp; ${p.age || '—'} Years &nbsp;|&nbsp; ${p.gender} &nbsp;|&nbsp; ${p.mobile}</p>
         </div>
         <div style="display:flex; gap:10px;">
-          <button onclick="printRegistrationSlip('${p.id}')" style="background:#22c55e; color:#fff; border:none; padding:10px 20px; border-radius:8px; font-weight:600; font-size:13px; cursor:pointer;">Print Slip</button>
+          <button onclick="printRegistrationSlip('${p.id}')" style="background:#22c55e; color:#fff; border:none; padding:10px 20px; border-radius:8px; font-weight:600; font-size:13px; cursor:pointer;">Print Registration</button>
           <button onclick="editPatientProfile('${p.id}')" style="background:#f1f5f9; color:var(--dark); border:1px solid var(--border); padding:10px 20px; border-radius:8px; font-weight:600; font-size:13px; cursor:pointer;">Edit Profile</button>
         </div>
       `;
@@ -713,7 +713,7 @@
       document.getElementById('regNotes').value = p.notes || '';
 
       document.getElementById('btnDeletePatient').style.display = 'inline-block';
-      document.getElementById('btnSavePatient').innerText = 'Update Patient';
+      document.getElementById('btnSavePatient').innerText = 'Update';
 
       switchView('registrationView', document.querySelectorAll('.view-tab')[1]);
     }
@@ -724,7 +724,7 @@
       document.getElementById('regIdDisplay').value = '';
       document.getElementById('regDate').value = new Date().toISOString().split('T')[0];
       document.getElementById('btnDeletePatient').style.display = 'none';
-      document.getElementById('btnSavePatient').innerText = 'Save Patient';
+      document.getElementById('btnSavePatient').innerText = 'Save';
     }
 
     function savePatientData(event) {

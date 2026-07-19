@@ -247,11 +247,17 @@
       <form id="bookingForm" onsubmit="saveAppointmentData(event)">
         <input type="hidden" id="editAppointmentId" value="">
         <div style="display:flex; flex-direction:column; gap:16px;">
-          <div class="form-group">
-            <label for="bookPatient" style="display:block; margin-bottom:6px; font-weight:500; font-size:13px;">Select Patient *</label>
-            <select id="bookPatient" required style="width:100%; padding:10px; border:1px solid var(--border); border-radius:6px;">
-              <option value="">-- Choose Patient --</option>
-            </select>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div class="form-group">
+              <label for="bookIdDisplay" style="display:block; margin-bottom:6px; font-weight:500; font-size:13px;">Appointment ID</label>
+              <input type="text" id="bookIdDisplay" placeholder="Will generate automatically" disabled style="width:100%; padding:10px; border:1px solid var(--border); border-radius:6px; background:#f1f5f9; cursor:not-allowed;">
+            </div>
+            <div class="form-group">
+              <label for="bookPatient" style="display:block; margin-bottom:6px; font-weight:500; font-size:13px;">Select Patient *</label>
+              <select id="bookPatient" required style="width:100%; padding:10px; border:1px solid var(--border); border-radius:6px;">
+                <option value="">-- Choose Patient --</option>
+              </select>
+            </div>
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
             <div class="form-group">
@@ -566,6 +572,7 @@
     function openBookingModal() {
       document.getElementById('bookingForm').reset();
       document.getElementById('editAppointmentId').value = '';
+      document.getElementById('bookIdDisplay').value = 'Will generate automatically';
       document.getElementById('btnDeleteApp').style.display = 'none';
       document.getElementById('modalHeaderTitle').textContent = 'Schedule Appointment';
       document.getElementById('bookStatus').value = 'Pending';
@@ -583,6 +590,7 @@
       if (!app) return;
 
       document.getElementById('editAppointmentId').value = app.id;
+      document.getElementById('bookIdDisplay').value = app.id;
       document.getElementById('modalHeaderTitle').textContent = `Appointment Details (${app.id})`;
       
       populatePatientDropdown();
