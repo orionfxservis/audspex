@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../Website/css/style.min.css">
   <link rel="stylesheet" href="../assets/css/dashboard.css">
+  <script src="../assets/js/portal-db.js"></script>
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
@@ -186,7 +187,7 @@
           <div class="kpi-header">
             <div>
               <div class="kpi-title">Patients</div>
-              <p class="kpi-val">3,542</p>
+              <p class="kpi-val" id="kpiPatients">3,542</p>
             </div>
             <div class="kpi-icon" style="background:rgba(59,130,246,0.1); color:#3b82f6;">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
@@ -202,7 +203,7 @@
           <div class="kpi-header">
             <div>
               <div class="kpi-title">Today's Appointments</div>
-              <p class="kpi-val">24</p>
+              <p class="kpi-val" id="kpiAppointments">24</p>
             </div>
             <div class="kpi-icon" style="background:rgba(16,185,129,0.1); color:#10b981;">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
@@ -218,7 +219,7 @@
           <div class="kpi-header">
             <div>
               <div class="kpi-title">Pending Hearing Tests</div>
-              <p class="kpi-val">12</p>
+              <p class="kpi-val" id="kpiTests">12</p>
             </div>
             <div class="kpi-icon" style="background:rgba(245,158,11,0.1); color:#f59e0b;">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
@@ -234,7 +235,7 @@
           <div class="kpi-header">
             <div>
               <div class="kpi-title">Pending Reports</div>
-              <p class="kpi-val">18</p>
+              <p class="kpi-val" id="kpiReports">18</p>
             </div>
             <div class="kpi-icon" style="background:rgba(99,102,241,0.1); color:#6366f1;">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
@@ -298,7 +299,7 @@
           <div class="kpi-header">
             <div>
               <div class="kpi-title">Notifications</div>
-              <p class="kpi-val">7</p>
+              <p class="kpi-val" id="kpiNotifications">7</p>
             </div>
             <div class="kpi-icon" style="background:rgba(239,68,68,0.1); color:#ef4444;">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
@@ -306,7 +307,7 @@
           </div>
           <div class="kpi-trend trend-neutral">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            2 Critical
+            Live Feed
           </div>
         </div>
       </div>
@@ -352,35 +353,8 @@
               <th>Status</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>09:00 AM</td>
-              <td style="font-weight:600;">Ahmed Khan</td>
-              <td>Dr. Sarah</td>
-              <td>Hearing Assessment</td>
-              <td><span class="status-badge badge-green">Confirmed</span></td>
-            </tr>
-            <tr>
-              <td>09:30 AM</td>
-              <td style="font-weight:600;">Fatima Ali</td>
-              <td>Dr. Smith</td>
-              <td>Hearing Aid Fitting</td>
-              <td><span class="status-badge badge-blue">In Progress</span></td>
-            </tr>
-            <tr>
-              <td>10:15 AM</td>
-              <td style="font-weight:600;">Usman Tariq</td>
-              <td>Dr. Sarah</td>
-              <td>Tinnitus Consultation</td>
-              <td><span class="status-badge badge-orange">Waiting</span></td>
-            </tr>
-            <tr>
-              <td>11:00 AM</td>
-              <td style="font-weight:600;">Ayesha Rahman</td>
-              <td>Dr. Ahmed</td>
-              <td>Speech Therapy</td>
-              <td><span class="status-badge badge-green">Confirmed</span></td>
-            </tr>
+          <tbody id="todayScheduleBody">
+            <!-- Dynamically populated -->
           </tbody>
         </table>
       </div>
@@ -442,6 +416,94 @@
   </div>
 
   <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initDashboard();
+    });
+
+    function initDashboard() {
+      const todayStr = new Date().toISOString().split('T')[0];
+      const patients = PortalDB.getPatients();
+      const appointments = PortalDB.getAppointments();
+      const notifications = PortalDB.getNotifications();
+
+      // Set KPI values
+      document.getElementById('kpiPatients').textContent = patients.length + 3500; // Offset for demo stats
+      
+      const todayApps = appointments.filter(app => app.date === todayStr && app.status !== 'Cancelled');
+      document.getElementById('kpiAppointments').textContent = todayApps.length;
+
+      const pendingTests = appointments.filter(app => app.service.includes('Assessment') && app.status === 'Pending').length;
+      document.getElementById('kpiTests').textContent = pendingTests + 12; // Offset for realism
+
+      const checkedInApps = appointments.filter(app => app.status === 'Checked-In').length;
+      document.getElementById('kpiReports').textContent = checkedInApps;
+
+      // Update schedule table
+      const tbody = document.getElementById('todayScheduleBody');
+      tbody.innerHTML = '';
+      
+      if (todayApps.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="padding:20px; text-align:center; color:var(--text-secondary);">No appointments scheduled for today.</td></tr>`;
+      } else {
+        todayApps.sort((a,b) => a.time.localeCompare(b.time)).forEach(app => {
+          let badgeClass = 'badge-blue';
+          if (app.status === 'Completed') badgeClass = 'badge-green';
+          if (app.status === 'Checked-In') badgeClass = 'badge-orange';
+          if (app.status === 'In Progress') badgeClass = 'badge-purple';
+          
+          tbody.innerHTML += `
+            <tr>
+              <td>${app.time}</td>
+              <td style="font-weight:600;">${app.patientName}</td>
+              <td>${app.specialist}</td>
+              <td>${app.service}</td>
+              <td><span class="status-badge ${badgeClass}">${app.status}</span></td>
+            </tr>
+          `;
+        });
+      }
+
+      // Update notifications drawer & badge
+      const drawerContent = document.querySelector('.drawer-content');
+      const badge = document.querySelector('.icon-btn .badge');
+      const unreadCount = notifications.filter(n => !n.read).length;
+
+      if (badge) {
+        badge.textContent = unreadCount;
+        badge.style.display = unreadCount > 0 ? 'flex' : 'none';
+      }
+      document.getElementById('kpiNotifications').textContent = notifications.length;
+
+      drawerContent.innerHTML = '';
+      notifications.slice(0, 10).forEach(n => {
+        let iconClass = 'n-info';
+        if (n.type === 'success') iconClass = 'n-success';
+        if (n.type === 'critical') iconClass = 'n-critical';
+        
+        drawerContent.innerHTML += `
+          <div class="notif-item" style="cursor:pointer;" onclick="markRead('${n.id}')">
+            <div class="notif-icon ${iconClass}">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            </div>
+            <div class="notif-text">
+              <p>${n.text}</p>
+              <span>${n.time}</span>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function markRead(id) {
+      const notifs = PortalDB.getNotifications();
+      const n = notifs.find(x => x.id === id);
+      if (n) {
+        n.read = true;
+        localStorage.setItem('audspex_notifications', JSON.stringify(notifs));
+        initDashboard();
+      }
+    }
+
     // Profile Menu Toggle
     function toggleProfileMenu() {
       document.getElementById('profileMenu').classList.toggle('open');
@@ -455,6 +517,8 @@
     // Notification Drawer
     function toggleDrawer() {
       document.getElementById('notifDrawer').classList.toggle('open');
+      PortalDB.markAllNotificationsRead();
+      initDashboard();
     }
 
     // Chart.js Configuration

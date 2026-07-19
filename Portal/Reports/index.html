@@ -11,6 +11,7 @@
   <!-- Existing Styles for Sidebar & Layout -->
   <link rel="stylesheet" href="../../Website/css/style.min.css">
   <link rel="stylesheet" href="../assets/css/dashboard.css">
+  <script src="../assets/js/portal-db.js"></script>
   
   <!-- Tailwind CSS Integration -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -110,51 +111,22 @@
     <header class="top-header shrink-0 flex justify-between items-center bg-white px-8 py-4 border-b border-slate-200">
       <div class="header-search flex items-center gap-2 text-slate-400 bg-slate-50 px-4 py-2 rounded-xl border border-slate-200 w-80">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        <input type="text" placeholder="Search Patients, Appointments, Reports, Dealers..." class="bg-transparent border-none outline-none text-sm w-full text-slate-800">
+        <input type="text" id="reportSearch" placeholder="Filter current register..." class="bg-transparent border-none outline-none text-sm w-full text-slate-800" oninput="loadRegisters()">
       </div>
 
       <div class="flex gap-4 items-center">
-        <select class="bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-lg block p-2 outline-none font-semibold">
-          <option>This Month (July 2026)</option>
-          <option>Last Month</option>
-          <option>Q3 2026</option>
-          <option>Year to Date</option>
-        </select>
-        
-        <button class="bg-white border border-slate-300 text-slate-700 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-slate-50 flex items-center gap-2">
+        <button onclick="printReports()" class="bg-white border border-slate-300 text-slate-700 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-slate-50 flex items-center gap-2 cursor-pointer">
+          🖨️ Print Slip
+        </button>
+        <button onclick="exportCSV()" class="bg-brand text-white px-4 py-2 rounded-lg text-sm font-semibold hover:opacity-90 flex items-center gap-2 cursor-pointer">
           Export CSV
         </button>
-      </div>
-
-      <div class="header-actions">
-        <button class="icon-btn" onclick="toggleDrawer()">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-          <span class="badge" style="background:#ef4444; color:#fff; position:absolute; top:-2px; right:-2px; width:16px; height:16px; display:flex; align-items:center; justify-content:center; padding:0; border-radius:50%; font-size:10px;">3</span>
-        </button>
-
-        <div class="profile-dropdown">
-          <div class="user-profile" onclick="toggleProfileMenu()" style="cursor:pointer;">
-            <div class="avatar" style="background:var(--primary-blue); color:#fff;">AK</div>
-            <div class="user-info">
-              <h5>Ahmed Khan</h5>
-              <span>Admin Role</span>
-            </div>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:8px; color:var(--text-secondary);"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </div>
-          <div class="profile-menu" id="profileMenu">
-            <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> My Profile</a>
-            <a href="../Settings/index.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg> Settings</a>
-            <a href="#" onclick="toggleDrawer()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg> Notifications</a>
-            <hr style="border:none; border-top:1px solid var(--border); margin:4px 0;">
-            <a href="../Login/index.html" style="color:#ef4444;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg> Logout</a>
-          </div>
-        </div>
       </div>
     </header>
 
     <!-- CONTENT AREA -->
-    <div class="content-area flex-1 overflow-y-auto p-8 bg-slate-50">
-      <div class="breadcrumb">Dashboard <span>&gt;</span> Reports</div>
+    <div class="content-area flex-1 overflow-y-auto p-8 bg-slate-50" id="printSection">
+      <div class="breadcrumb no-print">Dashboard <span>&gt;</span> Reports</div>
       <div class="mb-8">
         <h2 class="text-2xl font-extrabold text-slate-900 m-0">Business Analytics</h2>
         <p class="text-sm text-slate-500 mt-1">Real-time insights across clinical operations, wholesale dealers, and product performance.</p>
@@ -166,16 +138,12 @@
         <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm relative overflow-hidden">
           <div class="flex justify-between items-start">
             <div>
-              <p class="text-slate-500 text-sm font-semibold m-0 mb-1">Total Revenue</p>
-              <h3 class="text-2xl font-black text-slate-800 m-0">Rs. 8.4M</h3>
+              <p class="text-slate-500 text-sm font-semibold m-0 mb-1">Total Patients Registered</p>
+              <h3 class="text-2xl font-black text-slate-800 m-0" id="repPatientsCount">3,542</h3>
             </div>
             <div class="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-500">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
             </div>
-          </div>
-          <div class="mt-4 flex items-center gap-2 text-xs font-semibold text-emerald-600 bg-emerald-50 w-max px-2.5 py-1 rounded-md">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
-            +14.5% vs last month
           </div>
         </div>
 
@@ -183,143 +151,67 @@
           <div class="flex justify-between items-start">
             <div>
               <p class="text-slate-500 text-sm font-semibold m-0 mb-1">Patient Appointments</p>
-              <h3 class="text-2xl font-black text-slate-800 m-0">1,240</h3>
+              <h3 class="text-2xl font-black text-slate-800 m-0" id="repAppsCount">1,240</h3>
             </div>
             <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-500">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
             </div>
           </div>
-          <div class="mt-4 flex items-center gap-2 text-xs font-semibold text-blue-600 bg-blue-50 w-max px-2.5 py-1 rounded-md">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
-            +5.2% vs last month
-          </div>
         </div>
 
         <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm relative overflow-hidden">
           <div class="flex justify-between items-start">
             <div>
-              <p class="text-slate-500 text-sm font-semibold m-0 mb-1">Hearing Aids Fitted</p>
-              <h3 class="text-2xl font-black text-slate-800 m-0">342</h3>
+              <p class="text-slate-500 text-sm font-semibold m-0 mb-1">Completed Treatments</p>
+              <h3 class="text-2xl font-black text-slate-800 m-0" id="repCompletedCount">342</h3>
             </div>
             <div class="w-10 h-10 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-500">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
             </div>
-          </div>
-          <div class="mt-4 flex items-center gap-2 text-xs font-semibold text-indigo-600 bg-indigo-50 w-max px-2.5 py-1 rounded-md">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
-            +2.4% vs last month
           </div>
         </div>
 
         <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm relative overflow-hidden">
           <div class="flex justify-between items-start">
             <div>
-              <p class="text-slate-500 text-sm font-semibold m-0 mb-1">Wholesale Orders</p>
-              <h3 class="text-2xl font-black text-slate-800 m-0">86</h3>
+              <p class="text-slate-500 text-sm font-semibold m-0 mb-1">Missed Appointments</p>
+              <h3 class="text-2xl font-black text-slate-800 m-0" id="repMissedCount">86</h3>
             </div>
             <div class="w-10 h-10 rounded-full bg-amber-50 flex items-center justify-center text-amber-500">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
-            </div>
-          </div>
-          <div class="mt-4 flex items-center gap-2 text-xs font-semibold text-amber-600 bg-amber-50 w-max px-2.5 py-1 rounded-md">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
-            +8.1% vs last month
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Charts Area -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        
-        <!-- Clinical vs Wholesale Revenue -->
-        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
-          <h3 class="font-bold text-lg text-slate-800 m-0 mb-6">Revenue Breakdown (Millions Rs.)</h3>
-          
-          <div class="flex flex-col gap-4">
-            <!-- Simulated Chart Bars -->
-            <div class="flex items-end gap-2 h-48 border-b border-slate-100 pb-2">
-              <div class="flex flex-col items-center flex-1 gap-2">
-                <div class="w-full bg-brand rounded-t-sm" style="height: 60%"></div>
-                <span class="text-xs text-slate-500 font-semibold">Jan</span>
-              </div>
-              <div class="flex flex-col items-center flex-1 gap-2">
-                <div class="w-full bg-brand rounded-t-sm" style="height: 65%"></div>
-                <span class="text-xs text-slate-500 font-semibold">Feb</span>
-              </div>
-              <div class="flex flex-col items-center flex-1 gap-2">
-                <div class="w-full bg-brand rounded-t-sm" style="height: 55%"></div>
-                <span class="text-xs text-slate-500 font-semibold">Mar</span>
-              </div>
-              <div class="flex flex-col items-center flex-1 gap-2">
-                <div class="w-full bg-accent rounded-t-sm" style="height: 80%"></div>
-                <span class="text-xs text-slate-500 font-semibold">Apr</span>
-              </div>
-              <div class="flex flex-col items-center flex-1 gap-2">
-                <div class="w-full bg-accent rounded-t-sm" style="height: 75%"></div>
-                <span class="text-xs text-slate-500 font-semibold">May</span>
-              </div>
-              <div class="flex flex-col items-center flex-1 gap-2">
-                <div class="w-full bg-accent rounded-t-sm" style="height: 90%"></div>
-                <span class="text-xs text-slate-500 font-semibold">Jun</span>
-              </div>
-            </div>
-            
-            <div class="flex justify-center gap-6 mt-2">
-              <div class="flex items-center gap-2 text-sm text-slate-600 font-semibold"><span class="w-3 h-3 rounded-full bg-brand"></span> Clinical</div>
-              <div class="flex items-center gap-2 text-sm text-slate-600 font-semibold"><span class="w-3 h-3 rounded-full bg-accent"></span> Wholesale</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Top Products -->
-        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
-          <h3 class="font-bold text-lg text-slate-800 m-0 mb-6">Top Performing Products</h3>
-          
-          <div class="flex flex-col gap-5">
-            <div>
-              <div class="flex justify-between text-sm mb-2 font-semibold">
-                <span class="text-slate-700">Phonak Audeo Lumity L90</span>
-                <span class="text-slate-900">142 Units</span>
-              </div>
-              <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                <div class="h-full bg-blue-500" style="width: 85%"></div>
-              </div>
-            </div>
-            
-            <div>
-              <div class="flex justify-between text-sm mb-2 font-semibold">
-                <span class="text-slate-700">Signia Styletto AX 7</span>
-                <span class="text-slate-900">98 Units</span>
-              </div>
-              <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                <div class="h-full bg-indigo-500" style="width: 60%"></div>
-              </div>
-            </div>
-
-            <div>
-              <div class="flex justify-between text-sm mb-2 font-semibold">
-                <span class="text-slate-700">Oticon Real 1</span>
-                <span class="text-slate-900">76 Units</span>
-              </div>
-              <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                <div class="h-full bg-purple-500" style="width: 45%"></div>
-              </div>
-            </div>
-            
-            <div>
-              <div class="flex justify-between text-sm mb-2 font-semibold">
-                <span class="text-slate-700">Custom Earmolds (Misc)</span>
-                <span class="text-slate-900">210 Units</span>
-              </div>
-              <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                <div class="h-full bg-emerald-500" style="width: 95%"></div>
-              </div>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
             </div>
           </div>
         </div>
 
       </div>
+
+      <!-- DETAILED REGISTRY TABS -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 mb-8">
+        <div class="flex justify-between items-center border-b border-slate-100 pb-4 mb-6 flex-wrap gap-4 no-print">
+          <div class="flex gap-4">
+            <button onclick="switchRegisterTab('patients')" id="btnTabPatients" class="px-4 py-2 font-bold text-sm rounded-lg bg-brand text-white border-none cursor-pointer">Patients Register</button>
+            <button onclick="switchRegisterTab('appointments')" id="btnTabAppointments" class="px-4 py-2 font-bold text-sm rounded-lg bg-slate-100 text-slate-600 border-none cursor-pointer">Appointments Register</button>
+          </div>
+          <div class="flex gap-2 items-center text-sm font-semibold text-slate-600">
+            <span>Filter Category:</span>
+            <select id="registerFilterSelect" class="bg-slate-50 border border-slate-200 rounded p-1 outline-none" onchange="loadRegisters()">
+              <option value="">All Rows</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm border-collapse">
+            <thead id="registerTableHead">
+              <!-- Dynamically rendered head -->
+            </thead>
+            <tbody id="registerTableBody">
+              <!-- Dynamically populated body -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
   </main>
 
@@ -372,6 +264,203 @@
   </div>
 
   <script>
+    let activeRegisterTab = 'patients'; // 'patients' or 'appointments'
+    let currentFilterOptions = [];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Load initial layout
+      switchRegisterTab('patients');
+      updateKPIs();
+    });
+
+    function updateKPIs() {
+      const patients = PortalDB.getPatients();
+      const appointments = PortalDB.getAppointments();
+
+      document.getElementById('repPatientsCount').textContent = patients.length + 3500; // Realistic base + data
+      document.getElementById('repAppsCount').textContent = appointments.length;
+
+      const completed = appointments.filter(a => a.status === 'Completed').length;
+      document.getElementById('repCompletedCount').textContent = completed;
+
+      const missed = appointments.filter(a => a.status === 'No Show' || a.status === 'Cancelled').length;
+      document.getElementById('repMissedCount').textContent = missed;
+    }
+
+    function switchRegisterTab(tab) {
+      activeRegisterTab = tab;
+      const btnPatients = document.getElementById('btnTabPatients');
+      const btnApps = document.getElementById('btnTabAppointments');
+      const filterSelect = document.getElementById('registerFilterSelect');
+
+      if (tab === 'patients') {
+        btnPatients.className = 'px-4 py-2 font-bold text-sm rounded-lg bg-brand text-white border-none cursor-pointer';
+        btnApps.className = 'px-4 py-2 font-bold text-sm rounded-lg bg-slate-100 text-slate-600 border-none cursor-pointer';
+        
+        // Configure filter categories for patients
+        filterSelect.innerHTML = `
+          <option value="">All Genders</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        `;
+      } else {
+        btnPatients.className = 'px-4 py-2 font-bold text-sm rounded-lg bg-slate-100 text-slate-600 border-none cursor-pointer';
+        btnApps.className = 'px-4 py-2 font-bold text-sm rounded-lg bg-brand text-white border-none cursor-pointer';
+        
+        // Configure filter categories for appointments
+        filterSelect.innerHTML = `
+          <option value="">All Services</option>
+          <option value="Hearing Assessment">Hearing Assessment</option>
+          <option value="Hearing Aids Fitting">Hearing Aids Fitting</option>
+          <option value="Speech Therapy">Speech Therapy</option>
+          <option value="Voice Therapy">Voice Therapy</option>
+          <option value="Tinnitus Consultation">Tinnitus Consultation</option>
+        `;
+      }
+
+      loadRegisters();
+    }
+
+    function loadRegisters() {
+      const search = document.getElementById('reportSearch').value.toLowerCase();
+      const filterVal = document.getElementById('registerFilterSelect').value;
+      const head = document.getElementById('registerTableHead');
+      const body = document.getElementById('registerTableBody');
+
+      head.innerHTML = '';
+      body.innerHTML = '';
+
+      if (activeRegisterTab === 'patients') {
+        // Headers
+        head.innerHTML = `
+          <tr class="border-b border-slate-200 text-slate-500 font-semibold">
+            <th class="py-3 px-4">Patient ID</th>
+            <th class="py-3 px-4">Full Name</th>
+            <th class="py-3 px-4">DOB (Age)</th>
+            <th class="py-3 px-4">CNIC / Passport</th>
+            <th class="py-3 px-4">Gender</th>
+            <th class="py-3 px-4">Contact</th>
+            <th class="py-3 px-4">Reg Date</th>
+          </tr>
+        `;
+
+        const patients = PortalDB.getPatients();
+        const filtered = patients.filter(p => {
+          const matchSearch = p.fullName.toLowerCase().includes(search) || p.id.toLowerCase().includes(search) || p.mobile.includes(search);
+          const matchGender = !filterVal || p.gender === filterVal;
+          return matchSearch && matchGender;
+        });
+
+        if (filtered.length === 0) {
+          body.innerHTML = `<tr><td colspan="7" class="py-6 text-center text-slate-400">No patient registrations found matching criteria.</td></tr>`;
+        } else {
+          filtered.forEach(p => {
+            body.innerHTML += `
+              <tr class="border-b border-slate-100 hover:bg-slate-50 text-slate-700">
+                <td class="py-3 px-4 font-bold text-brand">${p.id}</td>
+                <td class="py-3 px-4 font-semibold">${p.fullName}</td>
+                <td class="py-3 px-4">${p.dob} (${p.age})</td>
+                <td class="py-3 px-4">${p.cnic || '—'}</td>
+                <td class="py-3 px-4">${p.gender}</td>
+                <td class="py-3 px-4">${p.mobile}</td>
+                <td class="py-3 px-4">${p.regDate || '—'}</td>
+              </tr>
+            `;
+          });
+        }
+      } else {
+        // Appointments
+        head.innerHTML = `
+          <tr class="border-b border-slate-200 text-slate-500 font-semibold">
+            <th class="py-3 px-4">Appt ID</th>
+            <th class="py-3 px-4">Patient</th>
+            <th class="py-3 px-4">Specialist</th>
+            <th class="py-3 px-4">Service</th>
+            <th class="py-3 px-4">Date & Time</th>
+            <th class="py-3 px-4">Priority</th>
+            <th class="py-3 px-4">Status</th>
+          </tr>
+        `;
+
+        const appointments = PortalDB.getAppointments();
+        const filtered = appointments.filter(a => {
+          const matchSearch = a.patientName.toLowerCase().includes(search) || a.id.toLowerCase().includes(search) || a.specialist.toLowerCase().includes(search);
+          const matchService = !filterVal || a.service === filterVal;
+          return matchSearch && matchService;
+        });
+
+        if (filtered.length === 0) {
+          body.innerHTML = `<tr><td colspan="7" class="py-6 text-center text-slate-400">No appointments found matching criteria.</td></tr>`;
+        } else {
+          filtered.forEach(a => {
+            let statusColor = 'text-slate-600 bg-slate-100';
+            if (a.status === 'Completed') statusColor = 'text-emerald-700 bg-emerald-50';
+            if (a.status === 'Checked-In') statusColor = 'text-blue-700 bg-blue-50';
+            if (a.status === 'Pending') statusColor = 'text-amber-700 bg-amber-50';
+            if (a.status === 'Cancelled' || a.status === 'No Show') statusColor = 'text-rose-700 bg-rose-50';
+
+            body.innerHTML += `
+              <tr class="border-b border-slate-100 hover:bg-slate-50 text-slate-700">
+                <td class="py-3 px-4 font-bold text-brand">${a.id}</td>
+                <td class="py-3 px-4 font-semibold">${a.patientName}</td>
+                <td class="py-3 px-4">${a.specialist}</td>
+                <td class="py-3 px-4">${a.service}</td>
+                <td class="py-3 px-4">${a.date} (${a.time})</td>
+                <td class="py-3 px-4 font-semibold ${a.priority === 'Urgent' ? 'text-red-500' : 'text-slate-500'}">${a.priority}</td>
+                <td class="py-3 px-4">
+                  <span class="px-2.5 py-1 rounded-full text-xs font-bold ${statusColor}">${a.status}</span>
+                </td>
+              </tr>
+            `;
+          });
+        }
+      }
+    }
+
+    function exportCSV() {
+      let csvContent = "data:text/csv;charset=utf-8,";
+      const search = document.getElementById('reportSearch').value.toLowerCase();
+      const filterVal = document.getElementById('registerFilterSelect').value;
+
+      if (activeRegisterTab === 'patients') {
+        csvContent += "Patient ID,Full Name,Father Name,DOB,Age,Gender,CNIC,Mobile,WhatsApp,City,Address,Reason\n";
+        const patients = PortalDB.getPatients();
+        const filtered = patients.filter(p => {
+          const matchSearch = p.fullName.toLowerCase().includes(search) || p.id.toLowerCase().includes(search) || p.mobile.includes(search);
+          const matchGender = !filterVal || p.gender === filterVal;
+          return matchSearch && matchGender;
+        });
+
+        filtered.forEach(p => {
+          csvContent += `"${p.id}","${p.fullName}","${p.fatherName || ''}","${p.dob}","${p.age}","${p.gender}","${p.cnic || ''}","${p.mobile}","${p.whatsApp || ''}","${p.city || ''}","${p.address || ''}","${p.reason || ''}"\n`;
+        });
+      } else {
+        csvContent += "Appointment ID,Patient Name,Date,Time,Service,Specialist,Priority,Status,Notes\n";
+        const appointments = PortalDB.getAppointments();
+        const filtered = appointments.filter(a => {
+          const matchSearch = a.patientName.toLowerCase().includes(search) || a.id.toLowerCase().includes(search);
+          const matchService = !filterVal || a.service === filterVal;
+          return matchSearch && matchService;
+        });
+
+        filtered.forEach(a => {
+          csvContent += `"${a.id}","${a.patientName}","${a.date}","${a.time}","${a.service}","${a.specialist}","${a.priority}","${a.status}","${a.notes || ''}"\n`;
+        });
+      }
+
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", `${activeRegisterTab}_report_${new Date().toISOString().split('T')[0]}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function printReports() {
+      window.print();
+    }
+
     // Profile Menu Toggle
     function toggleProfileMenu() {
       document.getElementById('profileMenu').classList.toggle('open');

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Appointment Queue | AudSpeX</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../Website/css/style.min.css">
+  <link rel="stylesheet" href="../assets/css/dashboard.css">
+  <script src="../assets/js/portal-db.js"></script>
+</head>
+<body>
+
+  <!-- UNIFIED SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <img src="../../Website/images/logo/audspex-logo.png" alt="AudSpeX Logo">
+    </div>
+    
+    <nav class="sidebar-nav">
+      <a href="../Dashboard/index.html" class="nav-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        Dashboard
+      </a>
+      <a href="../Patients/index.html" class="nav-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+        Patients
+      </a>
+      <a href="../Appointments/index.html" class="nav-item active">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        Appointments
+      </a>
+      <a href="../Audiologist/index.html" class="nav-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+        Audiologists
+      </a>
+      <a href="../hearing-tests/index.html" class="nav-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+        Hearing Tests
+      </a>
+      <a href="#" class="nav-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+        Hearing Reports
+      </a>
+      <a href="../hearing-aids/index.html" class="nav-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+        Hearing Aids
+      </a>
+      <a href="../Dealers/index.html" class="nav-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        Dealers
+      </a>
+      <a href="../Reports/index.html" class="nav-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+        Reports
+      </a>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <a href="../Settings/index.html" class="nav-item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        Settings
+      </a>
+      <a href="../Login/index.html" class="logout-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+        Logout
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN WRAPPER -->
+  <main class="main-wrapper">
+    
+    <!-- TOP HEADER -->
+    <header class="top-header">
+      <div class="header-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" placeholder="Search Patients, Appointments...">
+      </div>
+
+      <div class="header-actions">
+        <div class="profile-dropdown">
+          <div class="user-profile" onclick="toggleProfileMenu()" style="cursor:pointer;">
+            <div class="avatar" style="background:var(--primary-blue); color:#fff;">AK</div>
+            <div class="user-info">
+              <h5>Ahmed Khan</h5>
+              <span>Admin Role</span>
+            </div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:8px; color:var(--text-secondary);"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+          <div class="profile-menu" id="profileMenu">
+            <a href="../Settings/index.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg> Settings</a>
+            <hr style="border:none; border-top:1px solid var(--border); margin:4px 0;">
+            <a href="../Login/index.html" style="color:#ef4444;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg> Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTENT AREA -->
+    <div class="content-area">
+      <div class="breadcrumb">Dashboard <span>&gt;</span> Appointments <span>&gt;</span> Live Queue</div>
+      
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+        <h2 class="page-title" style="margin:0;">Live Patient Queue</h2>
+        <div style="display:flex; gap:12px;">
+          <a href="index.html" style="background:#f1f5f9; color:var(--dark); text-decoration:none; padding:10px 20px; border-radius:8px; font-weight:600; font-size:13px; border:1px solid var(--border); display:flex; align-items:center; gap:8px;">&larr; Back to Calendar</a>
+        </div>
+      </div>
+
+      <!-- VOICE CALL DISPLAY BANNER -->
+      <div id="callBanner" style="background:linear-gradient(135deg, #1e3a8a, #3b82f6); color:#fff; border-radius:12px; padding:24px; margin-bottom:24px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 10px 20px rgba(30, 58, 138, 0.15); transition:all 0.3s;">
+        <div>
+          <span style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:#93c5fd;">Now Calling</span>
+          <h2 id="callingName" style="margin:8px 0 0; font-size:32px; font-weight:800; text-shadow:0 2px 4px rgba(0,0,0,0.1);">No Active Call</h2>
+          <p id="callingDetail" style="margin:4px 0 0; font-size:14px; color:#bfdbfe;">Please call the next patient in queue.</p>
+        </div>
+        <div style="text-align:right;">
+          <span style="font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:#93c5fd; display:block;">Token Number</span>
+          <div id="callingToken" style="font-size:48px; font-weight:900; line-height:1; margin-top:4px; text-shadow:0 2px 4px rgba(0,0,0,0.1);">—</div>
+        </div>
+      </div>
+
+      <!-- QUEUE MODULE GRID -->
+      <div style="display:grid; grid-template-columns: 2fr 1fr; gap:24px; align-items:start;">
+        
+        <!-- ACTIVE QUEUE TABLE -->
+        <div style="background:#fff; border-radius:12px; padding:24px; border:1px solid var(--border);">
+          <h3 style="margin:0 0 16px; font-size:16px;">Queue Overview</h3>
+          <table style="width:100%; border-collapse:collapse; text-align:left; font-size:13.5px;">
+            <thead>
+              <tr style="border-bottom:1px solid var(--border); color:var(--text-secondary);">
+                <th style="padding:12px; font-weight:600; width:10%;">Token</th>
+                <th style="padding:12px; font-weight:600; width:25%;">Patient Name</th>
+                <th style="padding:12px; font-weight:600; width:15%;">Appt Time</th>
+                <th style="padding:12px; font-weight:600; width:20%;">Required Service</th>
+                <th style="padding:12px; font-weight:600; width:15%;">Status</th>
+                <th style="padding:12px; font-weight:600; width:15%; text-align:right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="queueTableBody">
+              <!-- Dynamically populated today's appointments -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- RECEPTIONIST QUICK PANEL -->
+        <div style="display:flex; flex-direction:column; gap:24px;">
+          
+          <!-- CONTROLS -->
+          <div style="background:#fff; border-radius:12px; padding:24px; border:1px solid var(--border);">
+            <h3 style="margin:0 0 16px; font-size:16px;">Desk Controls</h3>
+            <button onclick="callNextPatient()" style="width:100%; background:#10b981; color:#fff; border:none; padding:14px; border-radius:8px; font-weight:700; font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:12px;">
+              🔊 Call Next Patient
+            </button>
+            <button onclick="repeatCurrentCall()" style="width:100%; background:#f1f5f9; color:var(--dark); border:1px solid var(--border); padding:10px; border-radius:8px; font-weight:600; font-size:13px; cursor:pointer; margin-bottom:12px;">
+              🔄 Repeat Announcement
+            </button>
+            <hr style="border:none; border-top:1px solid var(--border); margin:16px 0;">
+            
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:13px; margin-bottom:10px;">
+              <span style="color:var(--text-secondary);">Waiting Room:</span>
+              <strong id="statWaiting" style="color:var(--primary-blue);">0 Patients</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:13px; margin-bottom:10px;">
+              <span style="color:var(--text-secondary);">In Progress:</span>
+              <strong id="statProgress" style="color:#7c3aed;">0 Patients</strong>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:13px;">
+              <span style="color:var(--text-secondary);">Completed:</span>
+              <strong id="statCompleted" style="color:#10b981;">0 Patients</strong>
+            </div>
+          </div>
+
+          <!-- AUDIO SYNTHESIS STATUS -->
+          <div style="background:#f8fafc; border-radius:12px; padding:16px; border:1px solid var(--border); font-size:12.5px; color:var(--text-secondary);">
+            <span style="font-weight:600; color:var(--dark); display:block; margin-bottom:4px;">💡 Desk Tip</span>
+            The Call Next button uses text-to-speech to announce the patient's token and name over clinic speakers.
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    let todayApps = [];
+    let currentCallingApp = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadQueue();
+    });
+
+    function loadQueue() {
+      const allApps = PortalDB.getAppointments();
+      const todayStr = new Date().toISOString().split('T')[0];
+      
+      // Filter for today's visits
+      todayApps = allApps
+        .filter(app => app.date === todayStr && app.status !== 'Cancelled')
+        .sort((a, b) => a.time.localeCompare(b.time));
+
+      const tbody = document.getElementById('queueTableBody');
+      tbody.innerHTML = '';
+
+      let waitingCount = 0;
+      let progressCount = 0;
+      let completedCount = 0;
+
+      todayApps.forEach((app, idx) => {
+        const token = idx + 1; // Sequential token number for today
+        const tr = document.createElement('tr');
+        tr.style.borderBottom = '1px solid var(--border)';
+        
+        let statusBadge = '';
+        if (app.status === 'Checked-In') {
+          statusBadge = `<span style="background:#dcfce7; color:#15803d; font-size:11px; padding:2px 8px; border-radius:10px; font-weight:600;">Waiting</span>`;
+          waitingCount++;
+        } else if (app.status === 'In Progress') {
+          statusBadge = `<span style="background:#f3e8ff; color:#6d28d9; font-size:11px; padding:2px 8px; border-radius:10px; font-weight:600;">In Progress</span>`;
+          progressCount++;
+        } else if (app.status === 'Completed') {
+          statusBadge = `<span style="background:#f3f4f6; color:#374151; font-size:11px; padding:2px 8px; border-radius:10px; font-weight:600;">Completed</span>`;
+          completedCount++;
+        } else {
+          statusBadge = `<span style="background:#f1f5f9; color:#64748b; font-size:11px; padding:2px 8px; border-radius:10px; font-weight:600;">Scheduled</span>`;
+        }
+
+        // Actions
+        let actionBtn = '';
+        if (app.status === 'Confirmed' || app.status === 'Pending') {
+          actionBtn = `<button onclick="updateQueueStatus('${app.id}', 'Checked-In')" style="background:#2563eb; color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:11px; cursor:pointer;">Check-In</button>`;
+        } else if (app.status === 'Checked-In') {
+          actionBtn = `<button onclick="startAppointment('${app.id}', ${token})" style="background:#7c3aed; color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:11px; cursor:pointer;">Call & Start</button>`;
+        } else if (app.status === 'In Progress') {
+          actionBtn = `<button onclick="updateQueueStatus('${app.id}', 'Completed')" style="background:#10b981; color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:11px; cursor:pointer;">Complete</button>`;
+        } else {
+          actionBtn = `<span style="color:#94a3b8; font-size:11px;">Done</span>`;
+        }
+
+        tr.innerHTML = `
+          <td style="padding:14px 12px; font-weight:700; color:var(--primary-blue);">#${token}</td>
+          <td style="padding:14px 12px; font-weight:600; color:var(--dark);">${app.patientName}</td>
+          <td style="padding:14px 12px; color:var(--text-secondary);">${app.time}</td>
+          <td style="padding:14px 12px; color:var(--text-secondary);">${app.service}</td>
+          <td style="padding:14px 12px;">${statusBadge}</td>
+          <td style="padding:14px 12px; text-align:right;">${actionBtn}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // Update counters
+      document.getElementById('statWaiting').textContent = `${waitingCount} Patients`;
+      document.getElementById('statProgress').textContent = `${progressCount} Patients`;
+      document.getElementById('statCompleted').textContent = `${completedCount} Patients`;
+    }
+
+    function updateQueueStatus(id, status) {
+      PortalDB.updateAppointment(id, { status });
+      loadQueue();
+    }
+
+    function startAppointment(id, token) {
+      PortalDB.updateAppointment(id, { status: 'In Progress' });
+      const app = PortalDB.getAppointmentById(id);
+      
+      currentCallingApp = {
+        token,
+        name: app.patientName,
+        service: app.service,
+        specialist: app.specialist
+      };
+
+      // Update display banner
+      document.getElementById('callingName').textContent = app.patientName;
+      document.getElementById('callingDetail').textContent = `${app.service} with ${app.specialist}`;
+      document.getElementById('callingToken').textContent = `#${token}`;
+
+      // Voice call out
+      speakCall(token, app.patientName, app.specialist);
+      
+      loadQueue();
+    }
+
+    function callNextPatient() {
+      // Find the first patient with status 'Checked-In'
+      let nextIdx = -1;
+      const nextApp = todayApps.find((app, idx) => {
+        if (app.status === 'Checked-In') {
+          nextIdx = idx;
+          return true;
+        }
+        return false;
+      });
+
+      if (nextApp) {
+        startAppointment(nextApp.id, nextIdx + 1);
+      } else {
+        alert("No checked-in patients waiting in the queue.");
+      }
+    }
+
+    function repeatCurrentCall() {
+      if (currentCallingApp) {
+        speakCall(currentCallingApp.token, currentCallingApp.name, currentCallingApp.specialist);
+      } else {
+        alert("No active patient is currently being called.");
+      }
+    }
+
+    function speakCall(token, name, specialist) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel(); // Clear any ongoing speech
+        const text = `Token number ${token}, patient ${name}, please proceed to ${specialist}.`;
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 0.9; // Slightly slower for clarity
+        window.speechSynthesis.speak(utterance);
+      } else {
+        // Fallback flashing banner
+        const banner = document.getElementById('callBanner');
+        banner.style.opacity = '0.3';
+        setTimeout(() => banner.style.opacity = '1', 300);
+      }
+    }
+
+    // Profile menu toggle
+    function toggleProfileMenu() {
+      document.getElementById('profileMenu').classList.toggle('open');
+    }
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.profile-dropdown')) {
+        const menu = document.getElementById('profileMenu');
+        if (menu) menu.classList.remove('open');
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../Website/css/style.min.css">
   <link rel="stylesheet" href="../assets/css/dashboard.css">
+  <script src="../assets/js/portal-db.js"></script>
 </head>
 <body>
 
@@ -193,100 +194,111 @@
 
             <!-- PATIENT REGISTRATION FORM VIEW -->
       <div id="registrationView" style="display:none;">
-        <form>
-          <!-- Personal Info -->
-          <div class="form-section">
-            <h3>Personal Information</h3>
-            <div class="form-grid">
-              <div class="form-group">
-                <label>Full Name *</label>
-                <input type="text" placeholder="Enter patient name" required>
-              </div>
-              <div class="form-group">
-                <label>Age / Date of Birth *</label>
-                <input type="date" required>
-              </div>
-              <div class="form-group">
-                <label>Gender *</label>
-                <select required>
-                  <option value="">Select Gender</option>
-                  <option>Male</option>
-                  <option>Female</option>
-                  <option>Other</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>CNIC / Passport</label>
-                <input type="text" placeholder="00000-0000000-0">
-              </div>
-              <div class="form-group">
-                <label>Mobile Number *</label>
-                <input type="tel" placeholder="+92 300 0000000" required>
-              </div>
-              <div class="form-group">
-                <label>Email Address</label>
-                <input type="email" placeholder="you@email.com">
-              </div>
-              <div class="form-group">
-                <label>City</label>
-                <input type="text" placeholder="Karachi">
-              </div>
-              <div class="form-group">
-                <label>Complete Address</label>
-                <input type="text" placeholder="House No, Street, Area...">
-              </div>
-            </div>
-          </div>
-
-          <!-- Medical & Appointment Info -->
-          <div class="form-section">
-            <h3>Medical & Initial Appointment</h3>
-            <div class="form-grid">
-              <div class="form-group" style="grid-column: 1 / -1;">
-                <label>Hearing Concern *</label>
-                <input type="text" placeholder="e.g., Difficulty hearing in noise, tinnitus..." required>
-              </div>
-              <div class="form-group">
-                <label>Required Service *</label>
-                <select required>
-                  <option value="">Select...</option>
-                  <option>Hearing Assessment</option>
-                  <option>Hearing Aids</option>
-                  <option>Speech Therapy</option>
-                  <option>Voice Therapy</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Assigned Doctor</label>
-                <select>
-                  <option>Select Doctor...</option>
-                  <option>Dr. Smith (Audiologist)</option>
-                  <option>Dr. Ahmed (ENT Specialist)</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Appointment Date *</label>
-                <input type="date" required>
-              </div>
-              <div class="form-group">
-                <label>Appointment Time</label>
-                <select>
-                  <option>Morning (9AM–12PM)</option>
-                  <option>Afternoon (12PM–4PM)</option>
-                  <option>Evening (4PM–8PM)</option>
-                </select>
-              </div>
-              <div class="form-group" style="grid-column: 1 / -1;">
-                <label>Additional Notes (optional)</label>
-                <textarea rows="2" placeholder="Any other details or medical history..."></textarea>
+        <div style="background:#fff; border-radius:12px; padding:24px; border:1px solid var(--border); margin-bottom:24px;">
+          <form id="patientRegForm" onsubmit="savePatientData(event)">
+            <input type="hidden" id="editPatientId" value="">
+            
+            <!-- Personal Info -->
+            <div class="form-section">
+              <h3 style="margin-top:0; margin-bottom:16px; border-bottom:1px solid var(--border); padding-bottom:8px; font-size:16px; color:var(--dark);">Personal Information</h3>
+              <div class="form-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:16px; margin-bottom:24px;">
+                <div class="form-group">
+                  <label for="regIdDisplay">Patient ID (Auto)</label>
+                  <input type="text" id="regIdDisplay" placeholder="Will generate automatically" disabled style="background:#f1f5f9; cursor:not-allowed;">
+                </div>
+                <div class="form-group">
+                  <label for="regDate">Registration Date</label>
+                  <input type="date" id="regDate" readonly style="background:#f1f5f9;">
+                </div>
+                <div class="form-group">
+                  <label for="regFullName">Full Name *</label>
+                  <input type="text" id="regFullName" placeholder="Enter patient name" required>
+                </div>
+                <div class="form-group">
+                  <label for="regParentName">Father / Husband Name *</label>
+                  <input type="text" id="regParentName" placeholder="Father or Husband's Name" required>
+                </div>
+                <div class="form-group">
+                  <label for="regGender">Gender *</label>
+                  <select id="regGender" required>
+                    <option value="">Select Gender</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="regDob">Date of Birth *</label>
+                  <input type="date" id="regDob" required onchange="calculateAgeFromDob()">
+                </div>
+                <div class="form-group">
+                  <label for="regAge">Age</label>
+                  <input type="number" id="regAge" placeholder="Age" min="0" max="150">
+                </div>
+                <div class="form-group">
+                  <label for="regCnic">CNIC / Passport</label>
+                  <input type="text" id="regCnic" placeholder="00000-0000000-0">
+                </div>
+                <div class="form-group">
+                  <label for="regMobile">Mobile Number *</label>
+                  <input type="tel" id="regMobile" placeholder="+92 300 0000000" required>
+                </div>
+                <div class="form-group">
+                  <label for="regWhatsapp">WhatsApp Number</label>
+                  <input type="tel" id="regWhatsapp" placeholder="+92 300 0000000">
+                </div>
+                <div class="form-group">
+                  <label for="regEmail">Email Address</label>
+                  <input type="email" id="regEmail" placeholder="you@email.com">
+                </div>
+                <div class="form-group">
+                  <label for="regCity">City</label>
+                  <input type="text" id="regCity" placeholder="Karachi" value="Karachi">
+                </div>
+                <div class="form-group" style="grid-column: span 2;">
+                  <label for="regAddress">Complete Address</label>
+                  <input type="text" id="regAddress" placeholder="House No, Street, Area...">
+                </div>
               </div>
             </div>
-          </div>
 
-          <div style="text-align:right;">
-            <button type="submit" style="background:var(--primary-blue); color:#fff; border:none; padding:14px 30px; border-radius:8px; font-weight:600; font-size:15px; cursor:pointer;">Register & Book Appointment</button>
-          </div>
-        </form>
+            <!-- Visit Info -->
+            <div class="form-section">
+              <h3 style="margin-top:0; margin-bottom:16px; border-bottom:1px solid var(--border); padding-bottom:8px; font-size:16px; color:var(--dark);">Visit Information</h3>
+              <div class="form-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:16px; margin-bottom:24px;">
+                <div class="form-group">
+                  <label for="regFirstVisit">First Visit?</label>
+                  <select id="regFirstVisit">
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="regReferral">Referral Source</label>
+                  <input type="text" id="regReferral" placeholder="e.g., Google, Doctor, Walk-in">
+                </div>
+                <div class="form-group" style="grid-column: span 2;">
+                  <label for="regReason">Reason for Visit</label>
+                  <input type="text" id="regReason" placeholder="Hearing loss, tinnitus, routine checkup...">
+                </div>
+                <div class="form-group" style="grid-column: 1 / -1;">
+                  <label for="regNotes">Clinical Notes (optional)</label>
+                  <textarea id="regNotes" rows="2" placeholder="Any additional notes..."></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); padding-top:20px;">
+              <div>
+                <button type="button" id="btnDeletePatient" onclick="deleteActivePatient()" style="background:#ef4444; color:#fff; border:none; padding:12px 24px; border-radius:8px; font-weight:600; font-size:14px; cursor:pointer; display:none;">Delete Patient</button>
+              </div>
+              <div style="display:flex; gap:12px;">
+                <button type="button" onclick="resetPatientForm()" style="background:#f1f5f9; color:var(--dark); border:1px solid var(--border); padding:12px 24px; border-radius:8px; font-weight:600; font-size:14px; cursor:pointer;">Reset Form</button>
+                <button type="submit" id="btnSavePatient" style="background:var(--primary-blue); color:#fff; border:none; padding:12px 24px; border-radius:8px; font-weight:600; font-size:14px; cursor:pointer;">Save Patient</button>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
 
       <!-- PATIENT PORTAL VIEW (Digital Medical Record) -->
@@ -425,20 +437,356 @@
     </div>
   </div>
 
+  <!-- PRINT SLIP AREA -->
+  <div id="printSlipArea">
+    <div style="text-align:center; margin-bottom:20px; border-bottom:2px solid #1e3a8a; padding-bottom:12px;">
+      <h2 style="margin:0; color:#1e3a8a; font-size:24px;">AudSpeX Healthcare Center</h2>
+      <p style="margin:4px 0 0; font-size:12px; color:#4b5563;">12 Clifton Block 5, Karachi, Pakistan | +92 21 3456 7890</p>
+      <h3 style="margin:10px 0 0; text-transform:uppercase; font-size:16px; letter-spacing:1px;">Patient Registration Slip</h3>
+    </div>
+    <table style="width:100%; border-collapse:collapse; margin-bottom:20px; font-size:14px;">
+      <tr>
+        <td style="padding:6px; font-weight:600; width:35%;">Patient ID (MRN):</td>
+        <td style="padding:6px;" id="printMrn">-</td>
+      </tr>
+      <tr>
+        <td style="padding:6px; font-weight:600;">Registration Date:</td>
+        <td style="padding:6px;" id="printRegDate">-</td>
+      </tr>
+      <tr>
+        <td style="padding:6px; font-weight:600;">Full Name:</td>
+        <td style="padding:6px; font-weight:600;" id="printName">-</td>
+      </tr>
+      <tr>
+        <td style="padding:6px; font-weight:600;">Father / Husband Name:</td>
+        <td style="padding:6px;" id="printParentName">-</td>
+      </tr>
+      <tr>
+        <td style="padding:6px; font-weight:600;">Age / Gender:</td>
+        <td style="padding:6px;" id="printAgeGender">-</td>
+      </tr>
+      <tr>
+        <td style="padding:6px; font-weight:600;">Mobile Number:</td>
+        <td style="padding:6px;" id="printMobile">-</td>
+      </tr>
+      <tr>
+        <td style="padding:6px; font-weight:600;">CNIC / Passport:</td>
+        <td style="padding:6px;" id="printCnic">-</td>
+      </tr>
+      <tr>
+        <td style="padding:6px; font-weight:600;">Address:</td>
+        <td style="padding:6px;" id="printAddress">-</td>
+      </tr>
+      <tr>
+        <td style="padding:6px; font-weight:600;">First Visit:</td>
+        <td style="padding:6px;" id="printFirstVisit">-</td>
+      </tr>
+      <tr>
+        <td style="padding:6px; font-weight:600;">Reason for Visit:</td>
+        <td style="padding:6px;" id="printReason">-</td>
+      </tr>
+    </table>
+    <div style="border-top:1px dashed #cbd5e1; padding-top:20px; margin-top:40px; text-align:center; font-size:11px; color:#64748b;">
+      <p>Thank you for choosing AudSpeX. Please keep this card for future visits.</p>
+      <p style="margin-top:6px; font-weight:600;">Powered by Orion Fx Software Solutions</p>
+    </div>
+  </div>
+
+  <style>
+    @media print {
+      body {
+        background: #fff !important;
+        color: #000 !important;
+      }
+      .sidebar, .top-header, .breadcrumb, .view-tabs, .page-title, #directoryView, #registrationView, #portalView, .notification-drawer {
+        display: none !important;
+      }
+      #printSlipArea {
+        display: block !important;
+        visibility: visible !important;
+        width: 100% !important;
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 30px;
+        border: 1px solid #000;
+        font-family: 'Inter', sans-serif;
+      }
+      #printSlipArea * {
+        visibility: visible !important;
+      }
+    }
+    #printSlipArea {
+      display: none;
+    }
+  </style>
+
   <script>
+    // State management
+    let activePatientId = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadPatientsList();
+      resetPatientForm();
+
+      // Hook search inputs
+      const searchInput = document.querySelector('#directoryView input[placeholder*="Search"]');
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          loadPatientsList(e.target.value);
+        });
+      }
+    });
+
     function switchView(viewId, btnElement) {
-      // Hide all views
       document.getElementById('directoryView').style.display = 'none';
       document.getElementById('registrationView').style.display = 'none';
       document.getElementById('portalView').style.display = 'none';
       
-      // Show selected view
       document.getElementById(viewId).style.display = 'block';
 
-      // Update active tab styling
       const tabs = document.querySelectorAll('.view-tab');
       tabs.forEach(tab => tab.classList.remove('active'));
-      btnElement.classList.add('active');
+      if (btnElement) {
+        btnElement.classList.add('active');
+      }
+    }
+
+    function calculateAgeFromDob() {
+      const dobVal = document.getElementById('regDob').value;
+      if (!dobVal) return;
+      const dob = new Date(dobVal);
+      const diffMs = Date.now() - dob.getTime();
+      const ageDate = new Date(diffMs);
+      const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+      document.getElementById('regAge').value = age;
+    }
+
+    function loadPatientsList(query = '') {
+      const patients = PortalDB.getPatients();
+      const tbody = document.querySelector('#directoryView tbody');
+      tbody.innerHTML = '';
+
+      const filtered = patients.filter(p => {
+        if (!query) return true;
+        const q = query.toLowerCase();
+        return (
+          p.id.toLowerCase().includes(q) ||
+          p.fullName.toLowerCase().includes(q) ||
+          p.mobile.toLowerCase().includes(q) ||
+          (p.cnic && p.cnic.toLowerCase().includes(q))
+        );
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="padding:20px; text-align:center; color:var(--text-secondary);">No patients found.</td></tr>`;
+        return;
+      }
+
+      filtered.forEach(p => {
+        const tr = document.createElement('tr');
+        tr.style.borderBottom = '1px solid var(--border)';
+        tr.innerHTML = `
+          <td style="padding:16px; font-weight:600; color:var(--primary-blue);">${p.id}</td>
+          <td style="padding:16px; font-weight:600; color:var(--dark);">${p.fullName}</td>
+          <td style="padding:16px; color:var(--text-secondary);">${p.age || '—'} / ${p.gender}</td>
+          <td style="padding:16px; color:var(--text-secondary);">${p.mobile}</td>
+          <td style="padding:16px; color:var(--text-secondary);">${p.regDate}</td>
+          <td style="padding:16px; display:flex; gap:8px;">
+            <button onclick="viewPatientProfile('${p.id}')" style="background:var(--primary-blue); color:#fff; border:none; padding:6px 12px; border-radius:4px; font-weight:600; font-size:12px; cursor:pointer;">View Profile</button>
+            <button onclick="editPatientProfile('${p.id}')" style="background:#f1f5f9; color:var(--dark); border:1px solid var(--border); padding:6px 12px; border-radius:4px; font-weight:600; font-size:12px; cursor:pointer;">Edit</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function viewPatientProfile(id) {
+      const p = PortalDB.getPatientById(id);
+      if (!p) return;
+
+      activePatientId = id;
+
+      // Update header
+      const header = document.querySelector('#portalView > div:first-child');
+      header.innerHTML = `
+        <div style="width:80px; height:80px; border-radius:50%; background:#f1f5f9; display:flex; align-items:center; justify-content:center; color:var(--text-secondary);">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        </div>
+        <div style="flex:1;">
+          <h2 style="margin:0 0 4px; font-size:24px; color:var(--dark);">${p.fullName}</h2>
+          <p style="margin:0; color:var(--text-secondary); font-size:14px;">MRN: ${p.id} &nbsp;|&nbsp; ${p.age || '—'} Years &nbsp;|&nbsp; ${p.gender} &nbsp;|&nbsp; ${p.mobile}</p>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <button onclick="printRegistrationSlip('${p.id}')" style="background:#22c55e; color:#fff; border:none; padding:10px 20px; border-radius:8px; font-weight:600; font-size:13px; cursor:pointer;">Print Slip</button>
+          <button onclick="editPatientProfile('${p.id}')" style="background:#f1f5f9; color:var(--dark); border:1px solid var(--border); padding:10px 20px; border-radius:8px; font-weight:600; font-size:13px; cursor:pointer;">Edit Profile</button>
+        </div>
+      `;
+
+      // Update summary cards
+      const summaryDiv = document.querySelector('#portalView div[style*="grid-template-columns: 1fr 1fr"]');
+      summaryDiv.innerHTML = `
+        <div>
+          <span style="display:block; font-size:12px; color:var(--text-secondary); margin-bottom:4px;">Father / Husband Name</span>
+          <strong style="font-size:14px; color:var(--dark);">${p.parentName || '—'}</strong>
+        </div>
+        <div>
+          <span style="display:block; font-size:12px; color:var(--text-secondary); margin-bottom:4px;">Primary Complaint</span>
+          <strong style="font-size:14px; color:var(--dark);">${p.reasonForVisit || 'None Reported'}</strong>
+        </div>
+        <div>
+          <span style="display:block; font-size:12px; color:var(--text-secondary); margin-bottom:4px;">Referral Source</span>
+          <strong style="font-size:14px; color:var(--dark);">${p.referralSource || 'Direct Walk-In'}</strong>
+        </div>
+        <div>
+          <span style="display:block; font-size:12px; color:var(--text-secondary); margin-bottom:4px;">WhatsApp Number</span>
+          <strong style="font-size:14px; color:var(--dark);">${p.whatsapp || '—'}</strong>
+        </div>
+        <div>
+          <span style="display:block; font-size:12px; color:var(--text-secondary); margin-bottom:4px;">Email</span>
+          <strong style="font-size:14px; color:var(--dark);">${p.email || '—'}</strong>
+        </div>
+        <div>
+          <span style="display:block; font-size:12px; color:var(--text-secondary); margin-bottom:4px;">City &amp; Address</span>
+          <strong style="font-size:14px; color:var(--dark);">${p.address || ''}, ${p.city}</strong>
+        </div>
+      `;
+
+      // Active devices list
+      const devicesCard = document.querySelector('#portalView div[style*="Active Devices"]');
+      if (devicesCard) {
+        devicesCard.nextElementSibling.innerHTML = `
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary-blue)" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+          <div>
+            <h4 style="margin:0 0 2px; font-size:14px; color:var(--dark);">${p.notes ? p.notes : 'No registered hearing devices.'}</h4>
+            <p style="margin:0; font-size:12px; color:var(--text-secondary);">Last updated: ${p.regDate}</p>
+          </div>
+        `;
+      }
+
+      // Check upcoming appointments
+      const upcomingCard = document.querySelector('#portalView div[style*="Upcoming Appointment"]');
+      if (upcomingCard) {
+        const nextApp = PortalDB.getAppointments().find(a => a.patientId === id && a.status !== 'Completed' && a.status !== 'Cancelled');
+        if (nextApp) {
+          const appDate = new Date(nextApp.date);
+          const month = appDate.toLocaleString('en-US', { month: 'short' });
+          const day = appDate.getDate();
+          upcomingCard.nextElementSibling.innerHTML = `
+            <div style="background:rgba(37,99,235,0.1); color:var(--primary-blue); padding:10px; border-radius:8px; text-align:center; min-width:60px;">
+              <span style="display:block; font-size:11px; font-weight:700; text-transform:uppercase;">${month}</span>
+              <strong style="display:block; font-size:20px;">${day}</strong>
+            </div>
+            <div>
+              <h4 style="margin:0 0 4px; font-size:14px; color:var(--dark);">${nextApp.service}</h4>
+              <p style="margin:0; font-size:13px; color:var(--text-secondary);">${nextApp.time} with ${nextApp.specialist}</p>
+            </div>
+          `;
+        } else {
+          upcomingCard.nextElementSibling.innerHTML = `<p style="margin:0; font-size:13px; color:var(--text-secondary);">No upcoming appointments scheduled.</p>`;
+        }
+      }
+
+      switchView('portalView', document.querySelectorAll('.view-tab')[2]);
+    }
+
+    function editPatientProfile(id) {
+      const p = PortalDB.getPatientById(id);
+      if (!p) return;
+
+      document.getElementById('editPatientId').value = p.id;
+      document.getElementById('regIdDisplay').value = p.id;
+      document.getElementById('regDate').value = p.regDate;
+      document.getElementById('regFullName').value = p.fullName;
+      document.getElementById('regParentName').value = p.parentName;
+      document.getElementById('regGender').value = p.gender;
+      document.getElementById('regDob').value = p.dob;
+      document.getElementById('regAge').value = p.age || '';
+      document.getElementById('regCnic').value = p.cnic || '';
+      document.getElementById('regMobile').value = p.mobile;
+      document.getElementById('regWhatsapp').value = p.whatsapp || '';
+      document.getElementById('regEmail').value = p.email || '';
+      document.getElementById('regCity').value = p.city || 'Karachi';
+      document.getElementById('regAddress').value = p.address || '';
+      document.getElementById('regFirstVisit').value = p.firstVisit || 'Yes';
+      document.getElementById('regReferral').value = p.referralSource || '';
+      document.getElementById('regReason').value = p.reasonForVisit || '';
+      document.getElementById('regNotes').value = p.notes || '';
+
+      document.getElementById('btnDeletePatient').style.display = 'inline-block';
+      document.getElementById('btnSavePatient').innerText = 'Update Patient';
+
+      switchView('registrationView', document.querySelectorAll('.view-tab')[1]);
+    }
+
+    function resetPatientForm() {
+      document.getElementById('patientRegForm').reset();
+      document.getElementById('editPatientId').value = '';
+      document.getElementById('regIdDisplay').value = '';
+      document.getElementById('regDate').value = new Date().toISOString().split('T')[0];
+      document.getElementById('btnDeletePatient').style.display = 'none';
+      document.getElementById('btnSavePatient').innerText = 'Save Patient';
+    }
+
+    function savePatientData(event) {
+      event.preventDefault();
+      
+      const payload = {
+        fullName: document.getElementById('regFullName').value,
+        parentName: document.getElementById('regParentName').value,
+        gender: document.getElementById('regGender').value,
+        dob: document.getElementById('regDob').value,
+        age: parseInt(document.getElementById('regAge').value || 0),
+        cnic: document.getElementById('regCnic').value,
+        mobile: document.getElementById('regMobile').value,
+        whatsapp: document.getElementById('regWhatsapp').value,
+        email: document.getElementById('regEmail').value,
+        city: document.getElementById('regCity').value,
+        address: document.getElementById('regAddress').value,
+        firstVisit: document.getElementById('regFirstVisit').value,
+        referralSource: document.getElementById('regReferral').value,
+        reasonForVisit: document.getElementById('regReason').value,
+        notes: document.getElementById('regNotes').value
+      };
+
+      const editId = document.getElementById('editPatientId').value;
+      if (editId) {
+        PortalDB.updatePatient(editId, payload);
+      } else {
+        PortalDB.addPatient(payload);
+      }
+
+      resetPatientForm();
+      loadPatientsList();
+      switchView('directoryView', document.querySelectorAll('.view-tab')[0]);
+    }
+
+    function deleteActivePatient() {
+      const id = document.getElementById('editPatientId').value;
+      if (!id) return;
+      if (confirm(`Are you sure you want to permanently delete Patient ${id}? All booked appointments will be cancelled.`)) {
+        PortalDB.deletePatient(id);
+        resetPatientForm();
+        loadPatientsList();
+        switchView('directoryView', document.querySelectorAll('.view-tab')[0]);
+      }
+    }
+
+    function printRegistrationSlip(id) {
+      const p = PortalDB.getPatientById(id);
+      if (!p) return;
+
+      document.getElementById('printMrn').innerText = p.id;
+      document.getElementById('printRegDate').innerText = p.regDate;
+      document.getElementById('printName').innerText = p.fullName;
+      document.getElementById('printParentName').innerText = p.parentName || '—';
+      document.getElementById('printAgeGender').innerText = `${p.age || '—'} / ${p.gender}`;
+      document.getElementById('printMobile').innerText = p.mobile;
+      document.getElementById('printCnic').innerText = p.cnic || '—';
+      document.getElementById('printAddress').innerText = `${p.address || ''}, ${p.city}`;
+      document.getElementById('printFirstVisit').innerText = p.firstVisit || 'Yes';
+      document.getElementById('printReason').innerText = p.reasonForVisit || '—';
+
+      window.print();
     }
 
     // Profile Menu Toggle

@@ -142,148 +142,118 @@
     <!-- CONTENT AREA -->
     <div class="content-area flex-1 overflow-y-auto p-8 bg-slate-50">
       <div class="breadcrumb">Dashboard <span>&gt;</span> Settings</div>
-      <div class="flex justify-between items-end mb-8">
-        <div>
-          <h2 class="text-2xl font-extrabold text-slate-900 m-0">Notification Settings</h2>
-          <p class="text-sm text-slate-500 mt-1">Configure automated communication channels and workflow templates.</p>
-        </div>
-        <button class="bg-brand hover:bg-blue-900 text-white px-5 py-2.5 rounded-xl text-sm font-semibold shadow-sm transition-colors">
-          Save Changes
-        </button>
-      </div>
       
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <form id="settingsForm" onsubmit="savePortalSettings(event)">
+        <div class="flex justify-between items-end mb-8">
+          <div>
+            <h2 class="text-2xl font-extrabold text-slate-900 m-0">Portal Settings</h2>
+            <p class="text-sm text-slate-500 mt-1">Configure clinic metadata, scheduler intervals, and automated workflow templates.</p>
+          </div>
+          <button type="submit" class="bg-brand hover:opacity-90 text-white px-5 py-2.5 rounded-xl text-sm font-semibold shadow-sm transition-colors border-none cursor-pointer">
+            Save Changes
+          </button>
+        </div>
         
-        <!-- Channels Status -->
-        <div class="lg:col-span-1 flex flex-col gap-6">
-          <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-            <h3 class="font-bold text-lg text-slate-800 m-0 mb-4">Active Channels</h3>
-            
-            <div class="flex flex-col gap-4">
-              <!-- Email -->
-              <div class="flex justify-between items-center p-3 border border-slate-200 rounded-xl">
-                <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                  </div>
-                  <div>
-                    <h4 class="font-bold text-sm text-slate-800 m-0">Email (SMTP)</h4>
-                    <p class="text-xs text-emerald-600 font-semibold m-0">Connected</p>
-                  </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          <!-- Clinic Details & Scheduler Config -->
+          <div class="lg:col-span-1 flex flex-col gap-6">
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+              <h3 class="font-bold text-lg text-slate-800 m-0 mb-4">Clinic Profile</h3>
+              
+              <div class="flex flex-col gap-4">
+                <div>
+                  <label class="text-xs font-bold text-slate-600 uppercase block mb-1">Clinic Name</label>
+                  <input type="text" id="setClinicName" required class="w-full p-2.5 border border-slate-200 rounded-lg text-sm outline-none focus:border-brand">
                 </div>
-                <!-- Toggle -->
-                <div class="w-10 h-6 bg-brand rounded-full relative cursor-pointer">
-                  <div class="absolute right-1 top-1 w-4 h-4 bg-white rounded-full"></div>
+                <div>
+                  <label class="text-xs font-bold text-slate-600 uppercase block mb-1">Clinic Phone</label>
+                  <input type="text" id="setClinicPhone" required class="w-full p-2.5 border border-slate-200 rounded-lg text-sm outline-none focus:border-brand">
                 </div>
-              </div>
-
-              <!-- SMS -->
-              <div class="flex justify-between items-center p-3 border border-slate-200 rounded-xl">
-                <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                  </div>
-                  <div>
-                    <h4 class="font-bold text-sm text-slate-800 m-0">SMS (Twilio)</h4>
-                    <p class="text-xs text-emerald-600 font-semibold m-0">Connected</p>
-                  </div>
+                <div>
+                  <label class="text-xs font-bold text-slate-600 uppercase block mb-1">Contact Email</label>
+                  <input type="email" id="setClinicEmail" required class="w-full p-2.5 border border-slate-200 rounded-lg text-sm outline-none focus:border-brand">
                 </div>
-                <div class="w-10 h-6 bg-brand rounded-full relative cursor-pointer">
-                  <div class="absolute right-1 top-1 w-4 h-4 bg-white rounded-full"></div>
+                <div>
+                  <label class="text-xs font-bold text-slate-600 uppercase block mb-1">Address</label>
+                  <textarea id="setClinicAddress" rows="2" class="w-full p-2.5 border border-slate-200 rounded-lg text-sm outline-none focus:border-brand resize-none"></textarea>
                 </div>
               </div>
+            </div>
 
-              <!-- WhatsApp -->
-              <div class="flex justify-between items-center p-3 border border-slate-200 rounded-xl">
-                <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-[#25D366]">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+              <h3 class="font-bold text-lg text-slate-800 m-0 mb-4">Scheduler Constraints</h3>
+              
+              <div class="flex flex-col gap-4">
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <label class="text-xs font-bold text-slate-600 uppercase block mb-1">Starts At</label>
+                    <input type="time" id="setHoursStart" required class="w-full p-2.5 border border-slate-200 rounded-lg text-sm outline-none focus:border-brand">
                   </div>
                   <div>
-                    <h4 class="font-bold text-sm text-slate-800 m-0">WhatsApp API</h4>
-                    <p class="text-xs text-slate-400 font-semibold m-0">Not Configured</p>
+                    <label class="text-xs font-bold text-slate-600 uppercase block mb-1">Ends At</label>
+                    <input type="time" id="setHoursEnd" required class="w-full p-2.5 border border-slate-200 rounded-lg text-sm outline-none focus:border-brand">
                   </div>
                 </div>
-                <div class="w-10 h-6 bg-slate-200 rounded-full relative cursor-pointer">
-                  <div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full"></div>
+                <div>
+                  <label class="text-xs font-bold text-slate-600 uppercase block mb-1">Slot Duration</label>
+                  <select id="setSlotInterval" required class="w-full p-2.5 border border-slate-200 rounded-lg text-sm outline-none focus:border-brand">
+                    <option value="15">15 Minutes</option>
+                    <option value="30">30 Minutes</option>
+                    <option value="45">45 Minutes</option>
+                    <option value="60">60 Minutes</option>
+                  </select>
                 </div>
               </div>
-
             </div>
           </div>
-        </div>
 
-        <!-- Automation Templates -->
-        <div class="lg:col-span-2 flex flex-col gap-6">
-          <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-            <h3 class="font-bold text-lg text-slate-800 m-0 mb-1">Workflow Templates</h3>
-            <p class="text-sm text-slate-500 mb-6">Customize the messages sent for different automated triggers.</p>
-            
-            <!-- Accordion items (simulated layout) -->
-            <div class="flex flex-col gap-4">
+          <!-- Automation Templates & Active Channels -->
+          <div class="lg:col-span-2 flex flex-col gap-6">
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+              <h3 class="font-bold text-lg text-slate-800 m-0 mb-1">Workflow Templates</h3>
+              <p class="text-sm text-slate-500 mb-6">Customize the messages sent for different automated triggers.</p>
               
-              <!-- Appointment Reminder -->
-              <div class="border border-slate-200 rounded-xl overflow-hidden">
-                <div class="bg-slate-50 p-4 border-b border-slate-200 flex justify-between items-center cursor-pointer">
-                  <h4 class="font-bold text-sm text-slate-800 m-0 flex items-center gap-2">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary-blue)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                    Appointment Reminder
-                  </h4>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                </div>
-                <div class="p-4 bg-white flex flex-col gap-4">
-                  <div class="flex items-center gap-4">
-                    <label class="text-sm font-semibold text-slate-700 w-24">Send Via:</label>
-                    <div class="flex gap-2">
-                      <span class="px-3 py-1 bg-brand text-white text-xs font-semibold rounded-md">SMS</span>
-                      <span class="px-3 py-1 bg-brand text-white text-xs font-semibold rounded-md">Email</span>
+              <div class="flex flex-col gap-4">
+                
+                <!-- Appointment Reminder -->
+                <div class="border border-slate-200 rounded-xl overflow-hidden">
+                  <div class="bg-slate-50 p-4 border-b border-slate-200 flex justify-between items-center">
+                    <h4 class="font-bold text-sm text-slate-800 m-0 flex items-center gap-2">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary-blue)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                      Appointment Confirmation Template
+                    </h4>
+                  </div>
+                  <div class="p-4 bg-white flex flex-col gap-3">
+                    <div>
+                      <label class="text-xs font-bold text-slate-600 block mb-2">Message Template (SMS & WhatsApp):</label>
+                      <textarea id="tplReminder" rows="3" required class="w-full p-3 border border-slate-200 rounded-lg text-sm outline-none focus:border-brand">Hi {{patient_name}}, this is a reminder for your appointment at AudSpeX on {{date}} at {{time}}.</textarea>
                     </div>
                   </div>
-                  <div>
-                    <label class="text-sm font-semibold text-slate-700 block mb-2">Message Template (SMS):</label>
-                    <textarea class="w-full h-20 p-3 border border-slate-200 rounded-lg text-sm outline-none focus:border-brand" placeholder="Hi {{patient_name}}, this is a reminder for your appointment at AudSpeX on {{date}} at {{time}}.">Hi {{patient_name}}, this is a reminder for your appointment at AudSpeX on {{date}} at {{time}}.</textarea>
+                </div>
+
+                <!-- Registration Welcome -->
+                <div class="border border-slate-200 rounded-xl overflow-hidden">
+                  <div class="bg-slate-50 p-4 border-b border-slate-200 flex justify-between items-center">
+                    <h4 class="font-bold text-sm text-slate-800 m-0 flex items-center gap-2">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary-blue)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 8h.01"></path><path d="M12 16v-4"></path></svg>
+                      Registration Welcome Template
+                    </h4>
+                  </div>
+                  <div class="p-4 bg-white flex flex-col gap-3">
+                    <div>
+                      <label class="text-xs font-bold text-slate-600 block mb-2">Message Template:</label>
+                      <textarea id="tplWelcome" rows="3" required class="w-full p-3 border border-slate-200 rounded-lg text-sm outline-none focus:border-brand">Dear {{patient_name}}, thank you for registering with AudSpeX Medical Center. Your Patient ID is {{patient_id}}.</textarea>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <!-- Follow-up Reminder -->
-              <div class="border border-slate-200 rounded-xl overflow-hidden">
-                <div class="bg-white p-4 flex justify-between items-center cursor-pointer">
-                  <h4 class="font-bold text-sm text-slate-800 m-0 flex items-center gap-2">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary-blue)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                    Follow-up Reminder
-                  </h4>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                </div>
               </div>
-
-              <!-- Warranty Expiry Alert -->
-              <div class="border border-slate-200 rounded-xl overflow-hidden">
-                <div class="bg-white p-4 flex justify-between items-center cursor-pointer">
-                  <h4 class="font-bold text-sm text-slate-800 m-0 flex items-center gap-2">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                    Warranty Expiry Alert (Hearing Aids)
-                  </h4>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                </div>
-              </div>
-
-              <!-- Dealer Approval -->
-              <div class="border border-slate-200 rounded-xl overflow-hidden">
-                <div class="bg-white p-4 flex justify-between items-center cursor-pointer">
-                  <h4 class="font-bold text-sm text-slate-800 m-0 flex items-center gap-2">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                    B2B Dealer Approval Status
-                  </h4>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                </div>
-              </div>
-
             </div>
           </div>
-        </div>
 
-      </div>
+        </div>
+      </form>
     </div>
   </main>
 
@@ -336,6 +306,46 @@
   </div>
 
   <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      loadPortalSettings();
+    });
+
+    function loadPortalSettings() {
+      const s = PortalDB.getSettings();
+      
+      document.getElementById('setClinicName').value = s.clinicName || '';
+      document.getElementById('setClinicPhone').value = s.clinicPhone || '';
+      document.getElementById('setClinicEmail').value = s.clinicEmail || '';
+      document.getElementById('setClinicAddress').value = s.clinicAddress || '';
+      document.getElementById('setHoursStart').value = s.workingHoursStart || '';
+      document.getElementById('setHoursEnd').value = s.workingHoursEnd || '';
+      document.getElementById('setSlotInterval').value = s.slotInterval || '30';
+      document.getElementById('tplReminder').value = s.reminderTemplate || '';
+      document.getElementById('tplWelcome').value = s.welcomeTemplate || '';
+    }
+
+    function savePortalSettings(e) {
+      e.preventDefault();
+      
+      const payload = {
+        clinicName: document.getElementById('setClinicName').value,
+        clinicPhone: document.getElementById('setClinicPhone').value,
+        clinicEmail: document.getElementById('setClinicEmail').value,
+        clinicAddress: document.getElementById('setClinicAddress').value,
+        workingHoursStart: document.getElementById('setHoursStart').value,
+        workingHoursEnd: document.getElementById('setHoursEnd').value,
+        slotInterval: parseInt(document.getElementById('setSlotInterval').value),
+        reminderTemplate: document.getElementById('tplReminder').value,
+        welcomeTemplate: document.getElementById('tplWelcome').value
+      };
+
+      PortalDB.updateSettings(payload);
+      
+      // Push notification
+      PortalDB.addNotification('Settings updated successfully.', 'success');
+      alert('Settings saved and synchronized successfully!');
+    }
+
     // Profile Menu Toggle
     function toggleProfileMenu() {
       document.getElementById('profileMenu').classList.toggle('open');
