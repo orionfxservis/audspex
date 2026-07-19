@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -44,6 +44,8 @@
     "contactType": "customer service"
   }
 }
+</script>
+<script>
 const servicesData = {
   'hearing-assessment': {
     title: 'Hearing Assessment',
@@ -796,76 +798,6 @@ function setupZoom() {
     img.style.transform = 'scale(1)';
   };
 }
-const servicesData = {
-  'hearing-assessment': {
-    title: 'Hearing Assessment',
-    overview: 'Comprehensive diagnostic assessments using state-of-the-art audiometric equipment to accurately identify hearing thresholds and middle ear function across all frequencies.',
-    conditions: ['Sensorineural Hearing Loss', 'Conductive Hearing Loss', 'Mixed Hearing Loss'],
-    methods: ['Pure Tone Audiometry (PTA)', 'Tympanometry', 'Otoacoustic Emissions (OAE)', 'ABR'],
-    benefits: ['Accurate Diagnosis', 'Customized Treatment Plan', 'Painless Procedure', 'Immediate Results']
-  },
-  'hearing-aids': {
-    title: 'Hearing Aids Solutions',
-    overview: 'Professional selection, computerized fitting, and programming of advanced digital and rechargeable hearing devices from the world�s leading manufacturers.',
-    conditions: ['Age-related Hearing Loss', 'Noise-induced Hearing Loss', 'Tinnitus'],
-    methods: ['Real-Ear Measurement (REM)', 'Speech Mapping', 'Lifestyle Assessment'],
-    benefits: ['Enhanced Communication', 'Invisible Options', 'Bluetooth Connectivity', 'Rechargeable Batteries']
-  },
-  'speech-therapy': {
-    title: 'Speech Therapy',
-    overview: 'Structured clinical training designed to address delays, articulation disorders, and language development issues for patients of all ages, from toddlers to adults.',
-    conditions: ['Speech Delay', 'Articulation Disorders', 'Stuttering', 'Aphasia'],
-    methods: ['Articulation Therapy', 'Language Intervention', 'Oral-Motor Therapy'],
-    benefits: ['Improved Confidence', 'Better Social Interaction', 'Clearer Pronunciation', 'Tailored Programs']
-  },
-  'voice-therapy': {
-    title: 'Voice Therapy',
-    overview: 'Targeted vocal exercises for recovering from vocal cord strains, chronic hoarseness, and pitch adjustment for professional voice users and individuals with laryngeal disorders.',
-    conditions: ['Vocal Nodules', 'Chronic Hoarseness', 'Vocal Cord Paralysis'],
-    methods: ['Vocal Function Exercises', 'Laryngeal Massage', 'Pitch Modulation'],
-    benefits: ['Restored Vocal Range', 'Pain Relief', 'Preventive Care', 'Enhanced Vocal Stamina']
-  },
-  'pediatric': {
-    title: 'Pediatric Audiology',
-    overview: 'Specialized newborn hearing screenings, play audiometry, and comprehensive child hearing assessments using tools specifically designed for infants and children.',
-    conditions: ['Congenital Hearing Loss', 'Otitis Media (Ear Infections)', 'Auditory Processing Disorder'],
-    methods: ['Visual Reinforcement Audiometry', 'Play Audiometry', 'ABR Screening'],
-    benefits: ['Early Intervention', 'Child-Friendly Environment', 'Parental Guidance', 'School Readiness']
-  },
-  'tinnitus': {
-    title: 'Tinnitus Management',
-    overview: 'Comprehensive tinnitus diagnostics, personalized counseling, and advanced sound masking therapies designed to significantly reduce the perception of ear ringing.',
-    conditions: ['Subjective Tinnitus', 'Objective Tinnitus', 'Hyperacusis'],
-    methods: ['Tinnitus Pitch Matching', 'Loudness Matching', 'TRT Questionnaire'],
-    benefits: ['Reduced Stress', 'Improved Sleep', 'Custom Masking Devices', 'Ongoing Counseling']
-  },
-  'cochlear': {
-    title: 'Cochlear Implant Support',
-    overview: 'Thorough pre-implant surgical evaluation, post-surgery processor mapping, and systematic auditory-verbal rehabilitation to maximize the benefit of cochlear implants.',
-    conditions: ['Profound Sensorineural Loss', 'Single-Sided Deafness', 'Failed Hearing Aid Trials'],
-    methods: ['Pre-Implant Audiologic Battery', 'Telemetry', 'Processor Programming/Mapping'],
-    benefits: ['Access to Sound', 'Speech Understanding', 'Dedicated Rehab Team', 'Long-term Support']
-  }
-};
-
-function openServiceModal(id) {
-  const data = servicesData[id];
-  if(!data) return;
-  document.getElementById('srvTitle').innerText = data.title;
-  document.getElementById('srvOverview').innerText = data.overview;
-  
-  const checkSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary-blue)" stroke-width="2" style="margin-right:8px; flex-shrink:0"><polyline points="20 6 9 17 4 12"></polyline></svg>';
-  
-  document.getElementById('srvConditions').innerHTML = data.conditions.map(c => '<li style="display:flex;align-items:center;color:var(--text-secondary);font-size:14px;">' + checkSvg + c + '</li>').join('');
-  document.getElementById('srvMethods').innerHTML = data.methods.map(m => '<li style="display:flex;align-items:center;color:var(--text-secondary);font-size:14px;">' + checkSvg + m + '</li>').join('');
-  document.getElementById('srvBenefits').innerHTML = data.benefits.map(b => '<li style="display:flex;align-items:center;color:var(--text-secondary);font-size:14px;">' + checkSvg + b + '</li>').join('');
-  
-  document.getElementById('serviceModal').style.display = 'flex';
-}
-
-function closeServiceModal() {
-  document.getElementById('serviceModal').style.display = 'none';
-}
 </script>
 
 <!-- 8. BECOME AN AUTHORIZED AUDSpex PARTNER -->
@@ -1199,23 +1131,70 @@ function closeServiceModal() {
       <h2 class="section-title">Book Your <span>Appointment</span></h2>
       <p style="color:var(--text-secondary);font-size:15px;line-height:1.7;margin-top:12px">Take the first step toward better health. Our team will confirm your appointment within 2 hours.</p>
       <div class="contact-info">
-        <div class="contact-item"><div class="ci-icon">📍</div><div class="ci-text"><h4>Address</h4><p>12 Clifton Block 5, Karachi, Pakistan</p></div></div>
-        <div class="contact-item"><div class="ci-icon">📞</div><div class="ci-text"><h4>Phone</h4><p>+92 21 3456 7890</p></div></div>
-        <div class="contact-item"><div class="ci-icon">🕐</div><div class="ci-text"><h4>Hours</h4><p>Mon – Sat: 9:00 AM – 8:00 PM</p></div></div>
-        <div class="contact-item"><div class="ci-icon">✉️</div><div class="ci-text"><h4>Email</h4><p>appointments@audspex.com</p></div></div>
+        <div class="contact-item">
+          <div class="ci-icon">📍</div>
+          <div class="ci-text">
+            <h4>Address</h4>
+            <p>12 Clifton Block 5, Karachi, Pakistan</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">📞</div>
+          <div class="ci-text">
+            <h4>Phone</h4>
+            <p><a href="tel:+922134567890" style="color:inherit;text-decoration:none;">+92 21 3456 7890</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">💬</div>
+          <div class="ci-text">
+            <h4>WhatsApp</h4>
+            <p><a href="https://wa.me/923001234567" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;">+92 300 123 4567</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">✉️</div>
+          <div class="ci-text">
+            <h4>Email</h4>
+            <p><a href="mailto:appointments@audspex.com" style="color:inherit;text-decoration:none;">appointments@audspex.com</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">🕐</div>
+          <div class="ci-text">
+            <h4>Working Hours</h4>
+            <p>Mon – Sat: 9:00 AM – 8:00 PM</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Embedded Google Map -->
+      <div style="margin-top: 24px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow-sm); height: 250px;">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3621.3697960309485!2d67.03154817590807!3d24.816999647333675!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33d95166ca367%3A0xe67cf77df76c6c7d!2sClifton%2C%20Karachi%2C%20Pakistan!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="AudSpeX Clinic Map Location"></iframe>
       </div>
     </div>
+    
     <div class="form-card" id="appointment">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--border)">
-        <div><p style="color:var(--dark);font-size:15px;font-weight:700;margin:0">Request an Appointment</p><p style="color:var(--primary-blue);font-size:11px;margin:2px 0 0;letter-spacing:.3px">We'll confirm within 2 hours</p></div>
+        <div>
+          <p style="color:var(--dark);font-size:15px;font-weight:700;margin:0">Request an Appointment</p>
+          <p style="color:var(--primary-blue);font-size:11px;margin:2px 0 0;letter-spacing:.3px">We'll confirm within 2 hours</p>
+        </div>
         <span style="background:rgba(0,200,100,0.15);border:1px solid rgba(0,200,100,0.25);color:#4ade80;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.5px">● ACCEPTING PATIENTS</span>
       </div>
       <form id="appointmentForm" onsubmit="event.preventDefault(); if(this.checkValidity()) { document.getElementById('appointmentSuccessModal').style.display='flex'; this.reset(); }">
         <div class="form-grid-3">
-          <div class="cf"><label>Full Name *</label><input type="text" required placeholder="Ahmad Khan"/></div>
-          <div class="cf"><label>Age</label><input type="number" placeholder="32"/></div>
-          <div class="cf"><label>Gender</label>
-            <select>
+          <div class="cf">
+            <label for="fullName">Full Name *</label>
+            <input type="text" id="fullName" required placeholder="Ahmad Khan"/>
+          </div>
+          <div class="cf">
+            <label for="patientAge">Age</label>
+            <input type="number" id="patientAge" placeholder="32"/>
+          </div>
+          <div class="cf">
+            <label for="patientGender">Gender</label>
+            <select id="patientGender">
               <option value="">Select...</option>
               <option>Male</option>
               <option>Female</option>
@@ -1224,29 +1203,58 @@ function closeServiceModal() {
           </div>
         </div>
         <div class="form-grid-3">
-          <div class="cf"><label>Mobile Number *</label><input type="tel" required placeholder="+92 300 0000000"/></div>
-          <div class="cf"><label>Email *</label><input type="email" required placeholder="you@email.com"/></div>
-          <div class="cf"><label>City</label><input type="text" placeholder="Karachi"/></div>
+          <div class="cf">
+            <label for="mobileNumber">Mobile Number *</label>
+            <input type="tel" id="mobileNumber" required placeholder="+92 300 0000000"/>
+          </div>
+          <div class="cf">
+            <label for="patientEmail">Email *</label>
+            <input type="email" id="patientEmail" required placeholder="you@email.com"/>
+          </div>
+          <div class="cf">
+            <label for="patientCity">City</label>
+            <input type="text" id="patientCity" placeholder="Karachi"/>
+          </div>
         </div>
-        <div class="cf" style="margin-bottom:12px"><label>Hearing Concern *</label>
-          <input type="text" required placeholder="e.g., Difficulty hearing in noise, tinnitus..."/>
+        <div class="cf" style="margin-bottom:12px">
+          <label for="hearingConcern">Hearing Concern *</label>
+          <input type="text" id="hearingConcern" required placeholder="e.g., Difficulty hearing in noise, tinnitus..."/>
         </div>
         <div class="form-grid-2">
-          <div class="cf"><label>Required Service *</label>
-            <select id="deptSel" required onchange="filterDoctors()"><option value="">Select...</option><option value="ear">Hearing Assessment</option><option value="nose">Hearing Aids</option><option value="throat">Speech Therapy</option><option value="diag">Voice Therapy</option></select>
+          <div class="cf">
+            <label for="deptSel">Required Service *</label>
+            <select id="deptSel" required onchange="filterDoctors()">
+              <option value="">Select...</option>
+              <option value="ear">Hearing Assessment</option>
+              <option value="nose">Hearing Aids</option>
+              <option value="throat">Speech Therapy</option>
+              <option value="diag">Voice Therapy</option>
+            </select>
           </div>
-          <div class="cf"><label>Preferred Doctor</label>
-            <select id="docSel"><option value="">Select department first...</option></select>
+          <div class="cf">
+            <label for="docSel">Preferred Doctor</label>
+            <select id="docSel">
+              <option value="">Select department first...</option>
+            </select>
           </div>
         </div>
         <div class="form-grid-2">
-          <div class="cf"><label>Preferred Date *</label><input type="date" required/></div>
-          <div class="cf"><label>Preferred Time</label>
-            <select><option>Morning (9AM–12PM)</option><option>Afternoon (12PM–4PM)</option><option>Evening (4PM–8PM)</option></select>
+          <div class="cf">
+            <label for="preferredDate">Preferred Date *</label>
+            <input type="date" id="preferredDate" required/>
+          </div>
+          <div class="cf">
+            <label for="preferredTime">Preferred Time</label>
+            <select id="preferredTime">
+              <option>Morning (9AM–12PM)</option>
+              <option>Afternoon (12PM–4PM)</option>
+              <option>Evening (4PM–8PM)</option>
+            </select>
           </div>
         </div>
-        <div class="cf" style="margin-bottom:12px"><label>Additional Notes <span style="color:#4b5563;font-weight:400">(optional)</span></label>
-          <textarea placeholder="Any other details..." style="min-height:60px;resize:none"></textarea>
+        <div class="cf" style="margin-bottom:12px">
+          <label for="additionalNotes">Additional Notes <span style="color:#4b5563;font-weight:400">(optional)</span></label>
+          <textarea id="additionalNotes" placeholder="Any other details..." style="min-height:60px;resize:none"></textarea>
         </div>
         <div style="display:flex;align-items:center;gap:12px">
           <button type="submit" class="submit-btn" style="flex:1;padding:11px; cursor:pointer">Book Appointment</button>
@@ -1329,11 +1337,15 @@ function closeServiceModal() {
   </div>
 
   <div style="max-width:1200px; margin:0 auto; padding-top:20px; border-top:1px solid rgba(255,255,255,0.1); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;">
-    <p style="color:#64748b; font-size:13px; margin:0;">&copy; 2026 AudSpeX Medical Center. All rights reserved. Karachi, Pakistan.</p>
+    <div>
+      <p style="color:#64748b; font-size:13px; margin:0 0 4px 0;">&copy; 2026 AudSpeX Medical Center. All rights reserved. Karachi, Pakistan.</p>
+      <p style="color:#475569; font-size:11px; margin:0;">Powered by <a href="https://www.orionfx.net/" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration:underline; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='inherit'">Orion Fx</a> Software Solutions &bull; Version 1.0.0</p>
+    </div>
     <div style="display:flex; gap:20px;">
       <a href="#" style="color:#64748b; font-size:13px; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#64748b'">Privacy Policy</a>
       <a href="#" style="color:#64748b; font-size:13px; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#64748b'">Terms &amp; Conditions</a>
       <a href="#" style="color:#64748b; font-size:13px; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#64748b'">Disclaimer</a>
+      <a href="#" style="color:#64748b; font-size:13px; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#64748b'">Sitemap</a>
     </div>
   </div>
 </footer>
