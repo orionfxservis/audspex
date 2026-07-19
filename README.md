@@ -1,8 +1,18 @@
 # AudSpeX – Global Hearing Healthcare Ecosystem
 
-## Phase 1 – Corporate Website ✅
+## Current Version
 
-Status: Completed
+Version : v1.0.0
+
+Phase : Phase 1 – Corporate Website
+
+Status : Completed
+
+Last Updated : July 2026
+
+Developer : Orion Fx Software Solutions
+
+---
 
 The corporate website has been designed to establish AudSpeX as a modern hearing healthcare organization and provide information about services, specialists, hearing solutions, partner enrollment, and appointment booking.
 
