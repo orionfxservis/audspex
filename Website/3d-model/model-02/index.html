@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUDSPEX Pro X1 - Interactive 3D Hearing Aid Showcase</title>
+    <style>
+        :root {
+            --primary: #1a3880;
+            --primary-light: #2a52be;
+            --accent: #00d2ff;
+            --bg-dark: #0a0d14;
+            --panel-bg: rgba(13, 18, 30, 0.75);
+            --panel-border: rgba(0, 210, 255, 0.2);
+            --text-light: #f0f4f8;
+            --text-dim: #8a99ad;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: var(--bg-dark);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-light);
+        }
+
+        #webgl-container {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        /* Glassmorphism UI Panels */
+        .glass-panel {
+            background: var(--panel-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--panel-border);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Header */
+        header {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            z-index: 10;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            pointer-events: auto;
+        }
+
+        .logo-mark {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, var(--accent), var(--primary-light));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 20px;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+        }
+
+        .brand-title h1 {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #ffffff, #a5c7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-title p {
+            font-size: 11px;
+            color: var(--text-dim);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        /* Color Customizer Panel */
+        .color-panel {
+            position: absolute;
+            bottom: 24px;
+            left: 24px;
+            z-index: 10;
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .panel-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--text-dim);
+            font-weight: 600;
+        }
+
+        .color-options {
+            display: flex;
+            gap: 12px;
+        }
+
+        .color-swatch {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .color-swatch:hover {
+            transform: scale(1.15);
+        }
+
+        .color-swatch.active {
+            border-color: #ffffff;
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+            transform: scale(1.1);
+        }
+
+        /* Feature Focus Sidebar */
+        .controls-panel {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            z-index: 10;
+            padding: 20px;
+            width: 280px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            background: rgba(0, 210, 255, 0.15);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        .btn.active {
+            background: var(--primary-light);
+            border-color: var(--accent);
+            box-shadow: 0 0 10px rgba(42, 82, 190, 0.4);
+        }
+
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 20px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #334155;
+            transition: .3s;
+            border-radius: 20px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 14px;
+            width: 14px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--accent);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(20px);
+        }
+
+        /* Annotations / Hotspots */
+        .hotspot {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(0, 210, 255, 0.25);
+            border: 2px solid var(--accent);
+            cursor: pointer;
+            z-index: 5;
+            transform: translate(-50%, -50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, background-color 0.2s;
+            pointer-events: auto;
+        }
+
+        .hotspot::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ffffff;
+            box-shadow: 0 0 8px var(--accent);
+        }
+
+        .hotspot:hover {
+            transform: translate(-50%, -50%) scale(1.3);
+            background: rgba(0, 210, 255, 0.5);
+        }
+
+        .hotspot-tooltip {
+            position: absolute;
+            left: 32px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(10, 13, 20, 0.9);
+            border: 1px solid var(--accent);
+            padding: 8px 12px;
+            border-radius: 6px;
+            white-space: nowrap;
+            font-size: 12px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        .hotspot:hover .hotspot-tooltip {
+            opacity: 1;
+        }
+
+        /* Sound Pulse Wave Overlay */
+        .audio-wave-bar {
+            position: absolute;
+            bottom: 24px;
+            right: 24px;
+            z-index: 10;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .wave-container {
+            display: flex;
+            align-items: flex-end;
+            gap: 4px;
+            height: 24px;
+        }
+
+        .wave-bar {
+            width: 4px;
+            height: 100%;
+            background: var(--accent);
+            border-radius: 2px;
+            animation: pulse 1.2s ease-in-out infinite alternate;
+        }
+
+        .wave-bar:nth-child(1) { animation-delay: 0.1s; height: 30%; }
+        .wave-bar:nth-child(2) { animation-delay: 0.3s; height: 70%; }
+        .wave-bar:nth-child(3) { animation-delay: 0.2s; height: 100%; }
+        .wave-bar:nth-child(4) { animation-delay: 0.4s; height: 50%; }
+        .wave-bar:nth-child(5) { animation-delay: 0.5s; height: 85%; }
+
+        @keyframes pulse {
+            0% { transform: scaleY(0.2); }
+            100% { transform: scaleY(1); }
+        }
+
+        .wave-container.paused .wave-bar {
+            animation-play-state: paused;
+            transform: scaleY(0.2);
+        }
+
+        /* Loading Screen */
+        #loader {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-dark);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            transition: opacity 0.6s ease;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(0, 210, 255, 0.1);
+            border-top: 3px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .controls-panel { display: none; }
+            header { top: 12px; left: 12px; }
+            .color-panel { bottom: 12px; left: 12px; }
+            .audio-wave-bar { bottom: 12px; right: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loader">
+        <div class="spinner"></div>
+        <p style="letter-spacing: 2px; font-size: 12px; color: var(--accent);">LOADING 3D MODEL...</p>
+    </div>
+
+    <!-- WebGL Canvas Container -->
+    <div id="webgl-container"></div>
+
+    <!-- UI Overlay Header -->
+    <header class="glass-panel">
+        <div class="logo-mark">A</div>
+        <div class="brand-title">
+            <h1>AUDSPEX PRO X1</h1>
+            <p>Medical Hearing Architecture</p>
+        </div>
+    </header>
+
+    <!-- Color Selection Panel -->
+    <div class="color-panel glass-panel">
+        <div class="panel-label">Shell Finish</div>
+        <div class="color-options">
+            <div class="color-swatch active" data-color="blue" style="background: linear-gradient(135deg, #1a3880, #0a1b40);" title="Royal Sapphire Metallic"></div>
+            <div class="color-swatch" data-color="silver" style="background: linear-gradient(135deg, #e2e8f0, #94a3b8);" title="Platinum Silver"></div>
+            <div class="color-swatch" data-color="black" style="background: linear-gradient(135deg, #334155, #0f172a);" title="Onyx Matte Black"></div>
+            <div class="color-swatch" data-color="rosegold" style="background: linear-gradient(135deg, #e0a996, #a16452);" title="Rose Gold"></div>
+        </div>
+    </div>
+
+    <!-- Interactive Controls Panel -->
+    <div class="controls-panel glass-panel">
+        <div class="panel-label">Interactive Controls</div>
+        
+        <div class="control-group">
+            <button class="btn" id="btn-reset">
+                <span>Reset Camera</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            </button>
+            <button class="btn" id="btn-explode">
+                <span id="explode-text">Explode Components</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3l5 5-5 5"/><path d="M8 21l-5-5 5-5"/><path d="M21 8H9"/><path d="M3 16h12"/></svg>
+            </button>
+        </div>
+
+        <div class="panel-label" style="margin-top: 8px;">Focus Preset</div>
+        <div class="control-group">
+            <button class="btn" id="btn-focus-body">Main Shell Body</button>
+            <button class="btn" id="btn-focus-controls">Volume & Program Switch</button>
+            <button class="btn" id="btn-focus-hook">Ear Hook & Tube</button>
+            <button class="btn" id="btn-focus-dome">Silicone Ear Tip Dome</button>
+        </div>
+
+        <div class="toggle-switch" style="margin-top: 8px;">
+            <span>Auto Rotate</span>
+            <label class="switch">
+                <input type="checkbox" id="toggle-rotate" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
+
+    <!-- Audio Wave Active Indicator -->
+    <div class="audio-wave-bar glass-panel">
+        <div class="panel-label" style="margin: 0 8px 0 0;">HD Audio Engine</div>
+        <div class="wave-container" id="wave-anim">
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+        </div>
+    </div>
+
+    <!-- Dynamic 2D Hotspot Anchors -->
+    <div id="hotspot-wheel" class="hotspot" style="display:none;">
+        <div class="hotspot-tooltip">Digital Volume Thumbwheel</div>
+    </div>
+    <div id="hotspot-mode" class="hotspot" style="display:none;">
+        <div class="hotspot-tooltip">Mode Switch (M)</div>
+    </div>
+    <div id="hotspot-switch" class="hotspot" style="display:none;">
+        <div class="hotspot-tooltip">Power Switch (O / N)</div>
+    </div>
+    <div id="hotspot-dome" class="hotspot" style="display:none;">
+        <div class="hotspot-tooltip">Acoustic Comfort Dome</div>
+    </div>
+
+    <!-- Include Three.js & Dependencies via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.umd.js"></script>
+
+    <script>
+        // --- Global Application State ---
+        let scene, camera, renderer, controls;
+        let hearingAidGroup, bodyMesh, domeMesh, tubeMesh, controlsGroup, hookMesh;
+        let audioRings = [];
+        let exploded = false;
+        let isAutoRotating = true;
+
+        // Component Groups for Assembly / Disassembly Animation
+        const parts = {
+            body: new THREE.Group(),
+            hook: new THREE.Group(),
+            tube: new THREE.Group(),
+            earpiece: new THREE.Group(),
+            controls: new THREE.Group()
+        };
+
+        // Finishes Materials Presets
+        const colorPresets = {
+            blue: { bodyColor: 0x1a3880, metalness: 0.55, roughness: 0.28, clearcoat: 0.8 },
+            silver: { bodyColor: 0xd0d8e0, metalness: 0.85, roughness: 0.2, clearcoat: 0.9 },
+            black: { bodyColor: 0x1b222d, metalness: 0.3, roughness: 0.4, clearcoat: 0.5 },
+            rosegold: { bodyColor: 0xb87363, metalness: 0.7, roughness: 0.25, clearcoat: 0.85 }
+        };
+
+        // Hotspot 3D Vector Positions
+        const hotspotPositions = {
+            wheel: new THREE.Vector3(0.55, 1.8, -0.65),
+            mode: new THREE.Vector3(0.52, 0.3, -0.62),
+            switch: new THREE.Vector3(0.48, -0.8, -0.55),
+            dome: new THREE.Vector3(-1.8, -1.9, 2.2)
+        };
+
+        // --- Init Function ---
+        function init() {
+            const container = document.getElementById('webgl-container');
+
+            // 1. Scene Setup
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x0a0d14);
+            scene.fog = new THREE.FogExp2(0x0a0d14, 0.035);
+
+            // 2. Camera Setup
+            camera = new THREE.PerspectiveCamera(38, window.innerWidth / window.innerHeight, 0.1, 100);
+            camera.position.set(9, 3, 11);
+
+            // 3. Renderer Setup
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            renderer.toneMapping = THREE.ACESFilmicToneMapping;
+            renderer.toneMappingExposure = 1.25;
+            container.appendChild(renderer.domElement);
+
+            // 4. Orbit Controls
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.maxDistance = 25;
+            controls.minDistance = 4;
+            controls.target.set(0, 0, 0);
+
+            // 5. Lighting Setup
+            setupLighting();
+
+            // 6. Studio Ground Pedestal & Grid Visual
+            setupEnvironment();
+
+            // 7. Build Hearing Aid Model
+            buildHearingAidModel();
+
+            // 8. Event Listeners
+            window.addEventListener('resize', onWindowResize);
+            setupUIEventListeners();
+
+            // 9. Hide Loader after construction
+            setTimeout(() => {
+                document.getElementById('loader').style.opacity = '0';
+                setTimeout(() => document.getElementById('loader').style.display = 'none', 600);
+            }, 800);
+
+            // Render loop
+            animate();
+        }
+
+        // --- Lighting Environment ---
+        function setupLighting() {
+            // Key Light
+            const keyLight = new THREE.DirectionalLight(0xffffff, 2.2);
+            keyLight.position.set(6, 12, 8);
+            keyLight.castShadow = true;
+            keyLight.shadow.mapSize.width = 2048;
+            keyLight.shadow.mapSize.height = 2048;
+            keyLight.shadow.bias = -0.0001;
+            scene.add(keyLight);
+
+            // Fill Light (Cool Teal/Blue accent)
+            const fillLight = new THREE.DirectionalLight(0x50b4ff, 1.2);
+            fillLight.position.set(-8, 4, -6);
+            scene.add(fillLight);
+
+            // Rim / Back Highlight
+            const rimLight = new THREE.DirectionalLight(0xffffff, 1.8);
+            rimLight.position.set(2, -6, -10);
+            scene.add(rimLight);
+
+            // Soft Ambient Light
+            const ambientLight = new THREE.AmbientLight(0xd0e0ff, 0.6);
+            scene.add(ambientLight);
+        }
+
+        // --- Studio Ground & Floor Visual ---
+        function setupEnvironment() {
+            // Shadow Receiver Floor Plane
+            const floorGeo = new THREE.PlaneGeometry(60, 60);
+            const floorMat = new THREE.ShadowMaterial({ opacity: 0.4 });
+            const floor = new THREE.Mesh(floorGeo, floorMat);
+            floor.rotation.x = -Math.PI / 2;
+            floor.position.y = -4.5;
+            floor.receiveShadow = true;
+            scene.add(floor);
+
+            // Subtle Circular Tech Grid
+            const grid = new THREE.PolarGridHelper(15, 16, 8, 64, 0x00d2ff, 0x1e293b);
+            grid.position.y = -4.49;
+            grid.material.opacity = 0.15;
+            grid.material.transparent = true;
+            scene.add(grid);
+        }
+
+        // --- Model Construction ---
+        function buildHearingAidModel() {
+            hearingAidGroup = new THREE.Group();
+
+            // Add part sub-groups to main hearing aid group
+            hearingAidGroup.add(parts.body);
+            hearingAidGroup.add(parts.hook);
+            hearingAidGroup.add(parts.tube);
+            hearingAidGroup.add(parts.earpiece);
+            hearingAidGroup.add(parts.controls);
+
+            // Shared PBR Materials
+            const bodyMat = new THREE.MeshPhysicalMaterial({
+                color: colorPresets.blue.bodyColor,
+                metalness: colorPresets.blue.metalness,
+                roughness: colorPresets.blue.roughness,
+                clearcoat: colorPresets.blue.clearcoat,
+                clearcoatRoughness: 0.1,
+                reflectivity: 0.9
+            });
+
+            const chromeMat = new THREE.MeshStandardMaterial({
+                color: 0xe0e8f0,
+                metalness: 0.95,
+                roughness: 0.15
+            });
+
+            const clearTubeMat = new THREE.MeshPhysicalMaterial({
+                color: 0xffffff,
+                transparent: true,
+                opacity: 0.65,
+                transmission: 0.85,
+                roughness: 0.1,
+                ior: 1.45,
+                thickness: 0.4
+            });
+
+            const siliconeMat = new THREE.MeshPhysicalMaterial({
+                color: 0xf0f4f8,
+                transparent: true,
+                opacity: 0.75,
+                transmission: 0.6,
+                roughness: 0.35,
+                ior: 1.4,
+                side: THREE.DoubleSide
+            });
+
+            // 1. MAIN BODY SHELL (Lofted Curve Mesh)
+            const spinePoints = [
+                new THREE.Vector3(0, 2.8, 0.1),
+                new THREE.Vector3(0.2, 2.5, -0.2),
+                new THREE.Vector3(0.5, 1.4, -0.6),
+                new THREE.Vector3(0.55, 0.0, -0.65),
+                new THREE.Vector3(0.4, -1.5, -0.5),
+                new THREE.Vector3(0.1, -2.6, -0.2),
+                new THREE.Vector3(-0.1, -3.2, 0.0)
+            ];
+
+            const bodyCurve = new THREE.CatmullRomCurve3(spinePoints);
+            const segments = 60;
+            const radialSegments = 32;
+            const bodyGeo = new THREE.BufferGeometry();
+
+            const positions = [];
+            const normals = [];
+            const uvs = [];
+            const indices = [];
+
+            // Custom parametric loft along curve with teardrop/oval cross section
+            for (let i = 0; i <= segments; i++) {
+                const t = i / segments;
+                const point = bodyCurve.getPointAt(t);
+                const tangent = bodyCurve.getTangentAt(t);
+
+                // Compute orthogonal frame
+                const up = new THREE.Vector3(0, 0, 1);
+                const normal = new THREE.Vector3().crossVectors(tangent, up).normalize();
+                const binormal = new THREE.Vector3().crossVectors(tangent, normal).normalize();
+
+                // Profile width scale along length
+                let scaleX = Math.sin(t * Math.PI) * 0.45 + 0.25;
+                let scaleZ = Math.sin(t * Math.PI) * 0.75 + 0.3;
+
+                // Slender ends taper
+                if (t < 0.15) {
+                    scaleX *= (t / 0.15) * 0.5 + 0.5;
+                    scaleZ *= (t / 0.15) * 0.5 + 0.5;
+                } else if (t > 0.85) {
+                    const factor = (1 - t) / 0.15;
+                    scaleX *= factor * 0.6 + 0.4;
+                    scaleZ *= factor * 0.6 + 0.4;
+                }
+
+                for (let j = 0; j <= radialSegments; j++) {
+                    const theta = (j / radialSegments) * Math.PI * 2;
+                    
+                    // Asymmetric teardrop shaping
+                    let radX = Math.cos(theta) * scaleX;
+                    let radZ = Math.sin(theta) * scaleZ;
+                    if (Math.sin(theta) < 0) radZ *= 0.8; // Flatten front face slightly
+
+                    const v = new THREE.Vector3()
+                        .copy(point)
+                        .addScaledVector(normal, radX)
+                        .addScaledVector(binormal, radZ);
+
+                    positions.push(v.x, v.y, v.z);
+
+                    const norm = new THREE.Vector3().subVectors(v, point).normalize();
+                    normals.push(norm.x, norm.y, norm.z);
+                    uvs.push(j / radialSegments, t);
+                }
+            }
+
+            // Create triangles indices
+            for (let i = 0; i < segments; i++) {
+                for (let j = 0; j < radialSegments; j++) {
+                    const a = i * (radialSegments + 1) + j;
+                    const b = (i + 1) * (radialSegments + 1) + j;
+                    const c = (i + 1) * (radialSegments + 1) + (j + 1);
+                    const d = i * (radialSegments + 1) + (j + 1);
+
+                    indices.push(a, b, d);
+                    indices.push(b, c, d);
+                }
+            }
+
+            bodyGeo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+            bodyGeo.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+            bodyGeo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+            bodyGeo.setIndex(indices);
+            bodyGeo.computeVertexNormals();
+
+            bodyMesh = new THREE.Mesh(bodyGeo, bodyMat);
+            bodyMesh.castShadow = true;
+            bodyMesh.receiveShadow = true;
+            parts.body.add(bodyMesh);
+
+            // 2. CONTROLS & BACK SPINE BUTTONS
+            
+            // Top Metallic Volume Thumbwheel
+            const wheelGeo = new THREE.CylinderGeometry(0.22, 0.22, 0.28, 32);
+            // Ribbed teeth texture for volume wheel
+            const wheelTeethGeo = new THREE.CylinderGeometry(0.23, 0.23, 0.26, 24);
+            const wheelGroup = new THREE.Group();
+            
+            const wheelBase = new THREE.Mesh(wheelGeo, chromeMat);
+            const wheelTeeth = new THREE.Mesh(wheelTeethGeo, chromeMat);
+            wheelGroup.add(wheelBase, wheelTeeth);
+            wheelGroup.position.set(0.52, 1.8, -0.65);
+            wheelGroup.rotation.z = Math.PI / 2;
+            wheelGroup.rotation.y = 0.2;
+            parts.controls.add(wheelGroup);
+
+            // Canvas Generated Label Textures for 'M', 'O', 'N'
+            function createTextTexture(text) {
+                const canvas = document.createElement('canvas');
+                canvas.width = 128; canvas.height = 128;
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, 128, 128);
+                ctx.fillStyle = '#111111';
+                ctx.font = 'Bold 70px -apple-system, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(text, 64, 64);
+                return new THREE.CanvasTexture(canvas);
+            }
+
+            // Mode 'M' Button
+            const mTex = createTextTexture('M');
+            const mMat = new THREE.MeshStandardMaterial({
+                color: 0xdddddd,
+                metalness: 0.8,
+                roughness: 0.2,
+                map: mTex
+            });
+            const modeBtnGeo = new THREE.CylinderGeometry(0.18, 0.18, 0.08, 32);
+            const modeBtn = new THREE.Mesh(modeBtnGeo, mMat);
+            modeBtn.position.set(0.52, 0.3, -0.62);
+            modeBtn.rotation.z = -Math.PI / 2.3;
+            modeBtn.rotation.y = 0.15;
+            parts.controls.add(modeBtn);
+
+            // Power Slider Base Switch & Markings O / N
+            const oTex = createTextTexture('O');
+            const nTex = createTextTexture('N');
+            
+            const switchHousingGeo = new THREE.BoxGeometry(0.1, 0.8, 0.22);
+            const switchHousing = new THREE.Mesh(switchHousingGeo, chromeMat);
+            switchHousing.position.set(0.48, -0.8, -0.55);
+            switchHousing.rotation.z = -0.2;
+            parts.controls.add(switchHousing);
+
+            const switchToggleGeo = new THREE.BoxGeometry(0.14, 0.22, 0.24);
+            const switchToggle = new THREE.Mesh(switchToggleGeo, chromeMat);
+            switchToggle.position.set(0.51, -0.72, -0.55);
+            switchToggle.rotation.z = -0.2;
+            parts.controls.add(switchToggle);
+
+            // Small Crystal LED / Mic Indicator Dot near bottom
+            const micDotGeo = new THREE.SphereGeometry(0.06, 16, 16);
+            const micDotMat = new THREE.MeshPhysicalMaterial({ color: 0x00d2ff, emissive: 0x0077aa, roughness: 0.1 });
+            const micDot = new THREE.Mesh(micDotGeo, micDotMat);
+            micDot.position.set(0.1, -3.0, -0.15);
+            parts.controls.add(micDot);
+
+            // 3. TRANSPARENT EAR HOOK (Top Curved Tube Connector)
+            const hookPoints = [
+                new THREE.Vector3(0, 2.7, 0.1),
+                new THREE.Vector3(-0.1, 3.5, 0.4),
+                new THREE.Vector3(-0.3, 4.0, 1.2),
+                new THREE.Vector3(-0.6, 3.8, 2.0),
+                new THREE.Vector3(-0.9, 3.0, 2.4),
+                new THREE.Vector3(-1.1, 1.8, 2.4)
+            ];
+            const hookCurve = new THREE.CatmullRomCurve3(hookPoints);
+            const hookGeo = new THREE.TubeGeometry(hookCurve, 40, 0.18, 20, false);
+            hookMesh = new THREE.Mesh(hookGeo, clearTubeMat);
+            hookMesh.castShadow = true;
+            parts.hook.add(hookMesh);
+
+            // Metal Collars at hook ends
+            const collarGeo = new THREE.CylinderGeometry(0.22, 0.22, 0.18, 24);
+            const collar1 = new THREE.Mesh(collarGeo, chromeMat);
+            collar1.position.set(0, 2.75, 0.1);
+            
+            const collar2 = new THREE.Mesh(collarGeo, bodyMat);
+            collar2.position.set(-1.1, 1.8, 2.4);
+            parts.hook.add(collar1, collar2);
+
+            // 4. SOUND TUBE (Flexible Thin Tube extending down to ear canal)
+            const tubePoints = [
+                new THREE.Vector3(-1.1, 1.8, 2.4),
+                new THREE.Vector3(-1.2, 0.5, 2.45),
+                new THREE.Vector3(-1.3, -0.8, 2.4),
+                new THREE.Vector3(-1.4, -1.8, 2.3)
+            ];
+            const tubeCurve = new THREE.CatmullRomCurve3(tubePoints);
+            const tubeGeo = new THREE.TubeGeometry(tubeCurve, 30, 0.09, 16, false);
+            tubeMesh = new THREE.Mesh(tubeGeo, clearTubeMat);
+            parts.tube.add(tubeMesh);
+
+            // Segmented ring ribs on plastic tube
+            for (let r = 0.2; r < 0.8; r += 0.2) {
+                const pt = tubeCurve.getPointAt(r);
+                const ringGeo = new THREE.TorusGeometry(0.1, 0.02, 12, 24);
+                const ring = new THREE.Mesh(ringGeo, clearTubeMat);
+                ring.position.copy(pt);
+                ring.rotation.x = Math.PI / 2;
+                parts.tube.add(ring);
+            }
+
+            // 5. EARPIECE HOUSING & SILICONE DOME
+            const earpieceBaseGeo = new THREE.CylinderGeometry(0.28, 0.22, 0.4, 24);
+            const earpieceBase = new THREE.Mesh(earpieceBaseGeo, bodyMat);
+            earpieceBase.position.set(-1.4, -1.8, 2.3);
+            earpieceBase.rotation.x = Math.PI / 3;
+            earpieceBase.rotation.z = -Math.PI / 6;
+            parts.earpiece.add(earpieceBase);
+
+            // Multi-Flange Soft Silicone Dome Geometry (Double Umbrella Tier)
+            const domeGroup = new THREE.Group();
+            
+            // Primary Outer Flange
+            const flange1Geo = new THREE.ConeGeometry(0.65, 0.45, 32, 1, true);
+            const flange1 = new THREE.Mesh(flange1Geo, siliconeMat);
+            flange1.rotation.x = -Math.PI / 3;
+
+            // Secondary Inner Flange
+            const flange2Geo = new THREE.ConeGeometry(0.5, 0.38, 32, 1, true);
+            const flange2 = new THREE.Mesh(flange2Geo, siliconeMat);
+            flange2.position.set(0, -0.2, 0.12);
+            flange2.rotation.x = -Math.PI / 3;
+
+            // Central Sound Nozzle Tube
+            const nozzleGeo = new THREE.CylinderGeometry(0.12, 0.12, 0.7, 16);
+            const nozzleMat = new THREE.MeshStandardMaterial({ color: 0xdddddd, roughness: 0.3 });
+            const nozzle = new THREE.Mesh(nozzleGeo, nozzleMat);
+            nozzle.position.set(0, -0.15, 0.1);
+            nozzle.rotation.x = -Math.PI / 3;
+
+            domeGroup.add(flange1, flange2, nozzle);
+            domeGroup.position.set(-1.6, -2.1, 2.5);
+            parts.earpiece.add(domeGroup);
+
+            // Animated Audio Rings emitting out of dome tip
+            const ringGroup = new THREE.Group();
+            ringGroup.position.copy(domeGroup.position);
+            ringGroup.rotation.x = -Math.PI / 3;
+            
+            for (let i = 0; i < 3; i++) {
+                const waveGeo = new THREE.RingGeometry(0.2, 0.25, 32);
+                const waveMat = new THREE.MeshBasicMaterial({
+                    color: 0x00d2ff,
+                    transparent: true,
+                    opacity: 0,
+                    side: THREE.DoubleSide
+                });
+                const wave = new THREE.Mesh(waveGeo, waveMat);
+                wave.position.z = -0.3 - (i * 0.3);
+                audioRings.push({ mesh: wave, delay: i * 0.4 });
+                ringGroup.add(wave);
+            }
+            parts.earpiece.add(ringGroup);
+
+            // Adjust main group center of rotation
+            hearingAidGroup.position.set(0, 0, -1);
+            scene.add(hearingAidGroup);
+        }
+
+        // --- Interaction & UI Setup ---
+        function setupUIEventListeners() {
+            // Finish / Color Switcher
+            document.querySelectorAll('.color-swatch').forEach(swatch => {
+                swatch.addEventListener('click', (e) => {
+                    document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+                    e.target.classList.add('active');
+                    const colorKey = e.target.getAttribute('data-color');
+                    changeModelColor(colorPresets[colorKey]);
+                });
+            });
+
+            // Camera Focus Presets Buttons
+            document.getElementById('btn-reset').addEventListener('click', () => {
+                tweenCamera(new THREE.Vector3(9, 3, 11), new THREE.Vector3(0, 0, 0));
+            });
+
+            document.getElementById('btn-focus-body').addEventListener('click', () => {
+                tweenCamera(new THREE.Vector3(4, 1, 5), new THREE.Vector3(0.2, 0, -0.5));
+            });
+
+            document.getElementById('btn-focus-controls').addEventListener('click', () => {
+                tweenCamera(new THREE.Vector3(3.5, 0.5, -2.5), new THREE.Vector3(0.5, 0.2, -0.6));
+            });
+
+            document.getElementById('btn-focus-hook').addEventListener('click', () => {
+                tweenCamera(new THREE.Vector3(-2, 5, 5), new THREE.Vector3(-0.5, 2.5, 1.2));
+            });
+
+            document.getElementById('btn-focus-dome').addEventListener('click', () => {
+                tweenCamera(new THREE.Vector3(-4, -2, 5), new THREE.Vector3(-1.6, -2.0, 2.4));
+            });
+
+            // Explode Components Toggle Button
+            document.getElementById('btn-explode').addEventListener('click', toggleExplodeView);
+
+            // Auto-Rotate Switch
+            const rotateToggle = document.getElementById('toggle-rotate');
+            rotateToggle.addEventListener('change', (e) => {
+                isAutoRotating = e.target.checked;
+            });
+        }
+
+        // --- Change Shell Color Finish ---
+        function changeModelColor(preset) {
+            new TWEEN.Tween(bodyMesh.material.color)
+                .to(new THREE.Color(preset.bodyColor), 600)
+                .easing(TWEEN.Easing.Quadratic.Out)
+                .start();
+
+            bodyMesh.material.metalness = preset.metalness;
+            bodyMesh.material.roughness = preset.roughness;
+            bodyMesh.material.clearcoat = preset.clearcoat;
+        }
+
+        // --- Camera Animation Tween ---
+        function tweenCamera(targetPosition, targetLookAt) {
+            new TWEEN.Tween(camera.position)
+                .to(targetPosition, 1200)
+                .easing(TWEEN.Easing.Cubic.Out)
+                .start();
+
+            new TWEEN.Tween(controls.target)
+                .to(targetLookAt, 1200)
+                .easing(TWEEN.Easing.Cubic.Out)
+                .start();
+        }
+
+        // --- Explode View Animation ---
+        function toggleExplodeView() {
+            exploded = !exploded;
+            const btnText = document.getElementById('explode-text');
+            btnText.innerText = exploded ? 'Assemble Components' : 'Explode Components';
+
+            const targets = exploded ? {
+                body: new THREE.Vector3(0, 0, 0),
+                hook: new THREE.Vector3(-0.4, 0.8, 0.4),
+                tube: new THREE.Vector3(-1.2, 0.2, 0.8),
+                earpiece: new THREE.Vector3(-2.2, -0.6, 1.5),
+                controls: new THREE.Vector3(1.2, 0.2, -0.8)
+            } : {
+                body: new THREE.Vector3(0, 0, 0),
+                hook: new THREE.Vector3(0, 0, 0),
+                tube: new THREE.Vector3(0, 0, 0),
+                earpiece: new THREE.Vector3(0, 0, 0),
+                controls: new THREE.Vector3(0, 0, 0)
+            };
+
+            for (const [key, vector] of Object.entries(targets)) {
+                new TWEEN.Tween(parts[key].position)
+                    .to(vector, 1000)
+                    .easing(TWEEN.Easing.Back.Out)
+                    .start();
+            }
+        }
+
+        // --- Project 3D Hotspot Coordinates to 2D HTML Screen ---
+        function updateHotspots() {
+            if (!hearingAidGroup) return;
+
+            const tempV = new THREE.Vector3();
+            for (const [key, pos] of Object.entries(hotspotPositions)) {
+                const elem = document.getElementById(`hotspot-${key}`);
+                if (!elem) continue;
+
+                // Transform local position to world space
+                tempV.copy(pos);
+                if (key === 'dome') parts.earpiece.localToWorld(tempV);
+                else if (key === 'wheel' || key === 'mode' || key === 'switch') parts.controls.localToWorld(tempV);
+                else parts.body.localToWorld(tempV);
+
+                // Project to screen 2D space
+                tempV.project(camera);
+
+                // Check if behind camera
+                if (tempV.z > 1) {
+                    elem.style.display = 'none';
+                    continue;
+                }
+
+                const x = (tempV.x * .5 + .5) * window.innerWidth;
+                const y = (tempV.y * -.5 + .5) * window.innerHeight;
+
+                elem.style.display = 'flex';
+                elem.style.left = `${x}px`;
+                elem.style.top = `${y}px`;
+            }
+        }
+
+        // --- Window Resize Handler ---
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        // --- Render & Animation Loop ---
+        function animate(time) {
+            requestAnimationFrame(animate);
+
+            TWEEN.update();
+            controls.update();
+
+            // Continuous Subtle Rotation
+            if (isAutoRotating && !controls.state == -1) {
+                hearingAidGroup.rotation.y += 0.005;
+            }
+
+            // Audio Wave Ring Pulsing Animation
+            const timeSec = time * 0.0015;
+            audioRings.forEach((ringObj) => {
+                const progress = (timeSec + ringObj.delay) % 1.5;
+                const scale = 1 + progress * 2.5;
+                ringObj.mesh.scale.set(scale, scale, scale);
+                ringObj.mesh.material.opacity = Math.max(0, (1 - (progress / 1.5)) * 0.7);
+            });
+
+            // Sync 2D Hotspot Overlays
+            updateHotspots();
+
+            renderer.render(scene, camera);
+        }
+
+        // Initialize WebGL Application on Load
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
