@@ -592,8 +592,8 @@ function closeServiceModal() {
     <!-- Card 1 -->
     <div class="gallery-card" data-cat="ric rechargeable">
       <div class="gallery-img-wrap">
-        <img loading="lazy" src="images/logo/audspex-logo.png" alt="Product" class="gallery-img" />
-        <span class="gallery-badge">RIC</span>
+        <iframe src="images/3d-model/model-01/index.html" style="width:100%; height:100%; border:none; pointer-events:auto;" scrolling="no"></iframe>
+        <span class="gallery-badge" style="pointer-events:none;">RIC</span>
       </div>
       <div class="gallery-info">
         <span class="product-brand">AudSpex</span>
@@ -608,8 +608,8 @@ function closeServiceModal() {
     <!-- Card 2 -->
     <div class="gallery-card" data-cat="bte rechargeable pediatric">
       <div class="gallery-img-wrap">
-        <img loading="lazy" src="images/logo/audspex-logo.png" alt="Product" class="gallery-img" />
-        <span class="gallery-badge">BTE</span>
+        <iframe src="images/3d-model/model-02/index.html" style="width:100%; height:100%; border:none; pointer-events:auto;" scrolling="no"></iframe>
+        <span class="gallery-badge" style="pointer-events:none;">BTE</span>
       </div>
       <div class="gallery-info">
         <span class="product-brand">AudSpex</span>
@@ -651,13 +651,11 @@ function closeServiceModal() {
         <div class="modal-main-img-wrap">
           <img loading="lazy" id="modalMainImg" src="images/logo/audspex-logo.png" alt="Product" class="modal-main-img" />
         </div>
+        <iframe id="modal3DViewer" src="" style="width:100%; height:300px; border:none; display:none; border-radius:12px; margin-bottom:24px; box-shadow:0 4px 20px rgba(0,0,0,0.05);"></iframe>
         <div class="modal-thumbnails">
           <img loading="lazy" src="images/logo/audspex-logo.png" class="thumb active" onclick="updateModalImage(this)" />
           <img loading="lazy" src="images/logo/audspex-logo.png" class="thumb" onclick="updateModalImage(this)" />
-        </div>
-        <div class="model-3d-placeholder">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:8px;"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-          <p>Future 3D Model Support</p>
+          <button id="btnShow3D" onclick="toggle3DView()" style="display:none; padding:8px 16px; border:2px solid var(--primary-blue); background:#fff; color:var(--primary-blue); border-radius:8px; font-weight:600; cursor:pointer; align-self:center; margin-left:auto;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px; vertical-align:-3px;"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg> View 3D Model</button>
         </div>
       </div>
       <div class="modal-details">
@@ -704,7 +702,8 @@ const productsData = {
     suitable: 'Mild to Severe Hearing Loss',
     colors: 'Black, Silver, Beige',
     features: ['Rechargeable Battery', 'Bluetooth Connectivity', 'Advanced Noise Cancellation'],
-    images: ['images/logo/audspex-logo.png', 'images/hero-assessment.png']
+    images: ['images/logo/audspex-logo.png', 'images/hero-assessment.png'],
+    model3d: 'images/3d-model/model-01/index.html'
   },
   'bte-powermax': {
     brand: 'AudSpex',
@@ -714,7 +713,8 @@ const productsData = {
     suitable: 'Severe to Profound Hearing Loss',
     colors: 'Graphite, Bronze, Champagne',
     features: ['High-Power Amplification', 'Telecoil Support', 'Feedback Cancellation'],
-    images: ['images/logo/audspex-logo.png', 'images/hero-assessment.png']
+    images: ['images/logo/audspex-logo.png', 'images/hero-assessment.png'],
+    model3d: 'images/3d-model/model-02/index.html'
   },
   'ite-micro': {
     brand: 'AudSpex',
@@ -751,7 +751,7 @@ function openProductModal(productId) {
   
   const specsGrid = document.querySelector('.specs-grid');
   specsGrid.innerHTML = `
-    <div class="spec-item"><strong>Category:</strong> <span>${prod.cat}</span></div>
+    <div class="spec-item"><strong>Category:</strong> <span id="modalCat">${prod.cat}</span></div>
     <div class="spec-item"><strong>Tech Level:</strong> <span>${prod.level}</span></div>
     <div class="spec-item"><strong>Suitable For:</strong> <span>${prod.suitable}</span></div>
     <div class="spec-item"><strong>Colors:</strong> <span>${prod.colors}</span></div>
@@ -760,16 +760,46 @@ function openProductModal(productId) {
   const featuresList = document.querySelector('.modal-features ul');
   featuresList.innerHTML = prod.features.map(f => `<li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary-blue)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> ${f}</li>`).join('');
 
+  const iframe3d = document.getElementById('modal3DViewer');
+  const btn3D = document.getElementById('btnShow3D');
+  const imgWrap = document.querySelector('.modal-main-img-wrap');
+  
+  if(prod.model3d) {
+    iframe3d.src = prod.model3d;
+    btn3D.style.display = 'flex';
+    btn3D.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px; vertical-align:-3px;"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg> View 3D Model';
+  } else {
+    iframe3d.src = '';
+    btn3D.style.display = 'none';
+  }
+  
+  imgWrap.style.display = 'flex';
+  iframe3d.style.display = 'none';
+
   const thumbsContainer = document.querySelector('.modal-thumbnails');
   thumbsContainer.innerHTML = prod.images.map((img, idx) => `<img loading="lazy" src="${img}" class="thumb ${idx===0?'active':''}" onclick="updateModalImage(this)" />`).join('');
+  thumbsContainer.appendChild(btn3D);
+  
   document.getElementById('modalMainImg').src = prod.images[0];
   
   setupZoom();
   document.getElementById('productModal').style.display = 'flex';
 }
 
-function closeProductModal() {
-  document.getElementById('productModal').style.display = 'none';
+function toggle3DView() {
+  const imgWrap = document.querySelector('.modal-main-img-wrap');
+  const iframe3d = document.getElementById('modal3DViewer');
+  const btn3D = document.getElementById('btnShow3D');
+
+  if(iframe3d.style.display === 'none') {
+    iframe3d.style.display = 'block';
+    imgWrap.style.display = 'none';
+    btn3D.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px; vertical-align:-3px;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg> View Images';
+  } else {
+    iframe3d.style.display = 'none';
+    imgWrap.style.display = 'flex';
+    btn3D.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px; vertical-align:-3px;"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg> View 3D Model';
+  }
 }
 
 function updateModalImage(thumb) {
@@ -777,7 +807,22 @@ function updateModalImage(thumb) {
   thumbs.forEach(t => t.classList.remove('active'));
   thumb.classList.add('active');
   document.getElementById('modalMainImg').src = thumb.src;
+  
+  const imgWrap = document.querySelector('.modal-main-img-wrap');
+  const iframe3d = document.getElementById('modal3DViewer');
+  const btn3D = document.getElementById('btnShow3D');
+  if(iframe3d.style.display === 'block') {
+    iframe3d.style.display = 'none';
+    imgWrap.style.display = 'flex';
+    btn3D.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px; vertical-align:-3px;"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg> View 3D Model';
+  }
+  
   setupZoom();
+}
+
+function closeProductModal() {
+  document.getElementById('productModal').style.display = 'none';
+  document.getElementById('modal3DViewer').src = '';
 }
 
 function setupZoom() {
