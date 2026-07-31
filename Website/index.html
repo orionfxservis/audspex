@@ -24,7 +24,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="css/style.min.css"/>
+<link rel="stylesheet" href="css/style.min.css?v=1.0.1"/>
 <script src="../Portal/assets/js/portal-db.js"></script>
 <!-- Schema.org JSON-LD -->
 <script type="application/ld+json">
@@ -175,8 +175,8 @@ function closeServiceModal() {
     <li class="lang-item">
       <a href="#"><span class="di">🌐</span> EN <span class="arrow">▾</span></a>
       <div class="dropdown lang-dropdown">
-        <a href="#">English</a>
-        <a href="#">اردو (Urdu)</a>
+        <a href="#" onclick="changeLanguage('en'); return false;">English</a>
+        <a href="#" onclick="changeLanguage('ur'); return false;">اردو (Urdu)</a>
       </div>
     </li>
     <li><a href="../Portal/Login/index.html" style="font-weight: 700; color: var(--primary-blue);">Portal Login</a></li>
@@ -491,8 +491,8 @@ function closeServiceModal() {
 <section class="doctors" id="doctors">
   <div class="doctors-header">
     <div class="section-tag">Our Team</div>
-    <h2 class="section-title">Meet Our Specialists</h2>
-    <p class="section-sub">Experienced, compassionate clinical experts dedicated to your hearing and speech wellness.</p>
+    <h2 class="section-title">Meet Our <span>Specialists</span></h2>
+    <p class="section-sub" style="margin: 0 auto; text-align: center;">Experienced, compassionate clinical experts dedicated to your hearing and speech wellness.</p>
   </div>
   <div class="doctors-grid">
     <div class="doctor-card">
@@ -592,7 +592,7 @@ function closeServiceModal() {
     <!-- Card 1 -->
     <div class="gallery-card" data-cat="ric rechargeable">
       <div class="gallery-img-wrap">
-        <iframe src="3d-model/model-01/index.html" style="width:100%; height:100%; border:none; pointer-events:auto;" scrolling="no"></iframe>
+        <iframe src="images/3d-model/model-01/index.html" style="width:100%; height:100%; border:none; pointer-events:auto;" scrolling="no"></iframe>
         <span class="gallery-badge" style="pointer-events:none;">RIC</span>
       </div>
       <div class="gallery-info">
@@ -608,7 +608,7 @@ function closeServiceModal() {
     <!-- Card 2 -->
     <div class="gallery-card" data-cat="bte rechargeable pediatric">
       <div class="gallery-img-wrap">
-        <iframe src="3d-model/model-02/index.html" style="width:100%; height:100%; border:none; pointer-events:auto;" scrolling="no"></iframe>
+        <iframe src="images/3d-model/model-02/index.html" style="width:100%; height:100%; border:none; pointer-events:auto;" scrolling="no"></iframe>
         <span class="gallery-badge" style="pointer-events:none;">BTE</span>
       </div>
       <div class="gallery-info">
@@ -703,7 +703,7 @@ const productsData = {
     colors: 'Black, Silver, Beige',
     features: ['Rechargeable Battery', 'Bluetooth Connectivity', 'Advanced Noise Cancellation'],
     images: ['images/logo/audspex-logo.png', 'images/hero-assessment.png'],
-    model3d: '3d-model/model-01/index.html'
+    model3d: 'images/3d-model/model-01/index.html'
   },
   'bte-powermax': {
     brand: 'AudSpex',
@@ -714,7 +714,7 @@ const productsData = {
     colors: 'Graphite, Bronze, Champagne',
     features: ['High-Power Amplification', 'Telecoil Support', 'Feedback Cancellation'],
     images: ['images/logo/audspex-logo.png', 'images/hero-assessment.png'],
-    model3d: '3d-model/model-02/index.html'
+    model3d: 'images/3d-model/model-02/index.html'
   },
   'ite-micro': {
     brand: 'AudSpex',
@@ -1882,6 +1882,38 @@ function closeServiceModal() {
   document.getElementById('serviceModal').style.display = 'none';
 }
 </script>
+<script>
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,ur', autoDisplay: false}, 'google_translate_element');
+    
+    // On load, check cookie to update the UI button text
+    var match = document.cookie.match(/(^|;) ?googtrans=([^;]*)(;|$)/);
+    if (match) {
+        var lang = match[2].split('/').pop().toUpperCase();
+        if(lang === 'UR' || lang === 'EN') {
+            document.querySelector('.lang-item > a').innerHTML = `<span class="di">🌐</span> ${lang} <span class="arrow">▾</span>`;
+        }
+    }
+  }
+  
+  function changeLanguage(langCode) {
+    // Force Google Translate via cookie
+    document.cookie = "googtrans=/en/" + langCode + "; path=/";
+    if (window.location.hostname !== '') {
+        document.cookie = "googtrans=/en/" + langCode + "; domain=" + window.location.hostname + "; path=/";
+    }
+    window.location.reload();
+  }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<div id="google_translate_element" style="display:none;"></div>
+
+<style>
+  /* Hide Google Translate top banner & tooltip */
+  .goog-te-banner-frame.skiptranslate { display: none !important; }
+  body { top: 0px !important; }
+  .goog-text-highlight { background-color: transparent !important; border: none !important; box-shadow: none !important; }
+</style>
 </body>
 </html>
 
