@@ -50,7 +50,7 @@ a:hover {
 /* NAV */
 nav {
     background: var(--white);
-    padding: 0 5%;
+    padding: 0 1.5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -132,9 +132,9 @@ nav .logo small {
 
 .nav-menu > li > a {
     color: var(--dark);
-    font-size: 12.5px;
+    font-size: 12px;
     font-weight: 600;
-    padding: 6px 10px;
+    padding: 6px 8px;
     border-radius: 6px;
     display: flex;
     align-items: center;
@@ -656,6 +656,10 @@ section {
 .doctors-header {
     text-align: center;
     margin-bottom: 56px;
+}
+
+.doctors-header .section-sub {
+    margin: 0 auto;
 }
 
 .doctors-grid {

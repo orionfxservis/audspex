@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Professionals Directory | AudSpeX Medical Center</title>
+<meta name="description" content="Explore AudSpeX networks including Audiologists, Clinics, Hearing Aid Centers, Manufacturers, and Suppliers."/>
+<link rel="shortcut icon" href="../images/logo/audspex-logo.png" type="image/png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../css/style.min.css?v=1.0.1"/>
+<link rel="icon" href="../images/logo/audspex-logo.png">
+<script>
+  function applyLanguageLayout(langCode) {
+    if (langCode === 'ur') {
+        document.documentElement.classList.add('lang-active-ur');
+        document.documentElement.classList.remove('lang-active-en');
+    } else {
+        document.documentElement.classList.add('lang-active-en');
+        document.documentElement.classList.remove('lang-active-ur');
+    }
+  }
+
+  function initLanguage() {
+    var activeLang = 'en';
+    try {
+      activeLang = localStorage.getItem('user-lang') || 'en';
+    } catch(e) {}
+    
+    var match = document.cookie.match(/(^|;) ?googtrans=([^;]*)(;|$)/);
+    if (match) {
+        activeLang = match[2].split('/').pop().toLowerCase();
+    }
+    applyLanguageLayout(activeLang);
+  }
+  initLanguage();
+</script>
+<style>
+  /* Language toggling styles */
+  .lang-ur { display: none !important; }
+  .lang-en { display: block; }
+  
+  span.lang-en { display: inline; }
+  span.lang-ur { display: none !important; }
+
+  html.lang-active-ur .lang-ur { display: block !important; }
+  html.lang-active-ur .lang-en { display: none !important; }
+  html.lang-active-ur span.lang-ur { display: inline !important; }
+  html.lang-active-ur span.lang-en { display: none !important; }
+
+  .prof-page-container {
+    max-width: 1100px;
+    margin: 80px auto;
+    padding: 0 24px;
+    min-height: calc(100vh - 350px);
+  }
+  .prof-hero {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+  .prof-hero h1 {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 16px;
+  }
+  .prof-hero h1 span {
+    color: var(--primary-red);
+  }
+  .prof-section {
+    margin-bottom: 80px;
+    scroll-margin-top: 100px;
+  }
+  .prof-section h2 {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 12px;
+  }
+  .prof-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .prof-card {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+  }
+  .prof-card h3 {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 8px;
+    margin-top: 0;
+  }
+  .doctor-card {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .doctor-card h3 {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 8px;
+    margin-top: 0;
+  }
+  .doctor-role {
+    background: var(--primary-blue);
+    color: var(--white);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    display: inline-block;
+  }
+  .doctor-details {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .doctor-details p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.5;
+    text-align: left;
+  }
+  .doctor-details p strong {
+    color: var(--dark);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .doctor-details svg {
+    stroke: var(--primary-red);
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+  .custom-home-link a {
+    font-weight: 600;
+    color: var(--dark);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .custom-home-link a:hover {
+    color: var(--primary-red) !important;
+  }
+  .lang-item:hover .dropdown {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+  }
+  @media(max-width: 768px) {
+    .prof-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  footer.simple-footer {
+    background: var(--footer-bg);
+    color: var(--white);
+    padding: 22px 24px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+  }
+  footer.simple-footer p {
+    margin: 0;
+    font-size: 13.5px;
+    color: #94a3b8;
+    line-height: 1.6;
+  }
+  footer.simple-footer p span {
+    color: var(--white);
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav style="display:flex; justify-content:space-between; align-items:center;">
+  <div style="display:flex; align-items:center; gap:24px;">
+    <div class="logo" onclick="window.location.href='../index.html'" style="cursor:pointer; display:flex; align-items:center;">
+      <img src="../images/logo/audspex-logo.png" alt="AudSpeX Logo" class="logo-img" />
+      <small>Medical Center</small>
+    </div>
+    <div class="custom-home-link">
+      <a href="../index.html">Home</a>
+    </div>
+  </div>
+  
+  <ul style="list-style:none; padding:0; margin:0; display:flex; align-items:center;">
+    <li class="lang-item" style="position:relative; list-style:none;">
+      <a href="#" class="nav-cta" style="background:var(--primary-blue); box-shadow:none; display:inline-flex; align-items:center; gap:6px; text-decoration:none;"><span class="di">🌐</span> <span id="langText">EN</span> <span class="arrow">▾</span></a>
+      <div class="dropdown lang-dropdown" style="right:0; left:auto;">
+        <a href="#" onclick="changeLanguage('en'); return false;">English</a>
+        <a href="#" onclick="changeLanguage('ur'); return false;">اردو (Urdu)</a>
+      </div>
+    </li>
+  </ul>
+</nav>
+
+<main class="prof-page-container">
+  <div class="prof-hero">
+    <div class="section-tag" style="margin-bottom:12px;">
+      <span class="lang-en">Ecosystem Directory</span>
+      <span class="lang-ur notranslate">ایکو سسٹم ڈائریکٹری</span>
+    </div>
+    <h1 class="lang-en">Hearing Care <span>Professionals Network</span></h1>
+    <h1 class="lang-ur notranslate" style="font-size: clamp(26px, 3.5vw, 36px); font-weight: 800; color: var(--dark); line-height: 1.4;">ہیئرنگ کیئر <span style="color: var(--primary-red);">پروفیشنلز نیٹ ورک</span></h1>
+  </div>
+
+  <!-- SECTION 1: Audiologists -->
+  <section class="prof-section" id="audiologists">
+    <h2>🩺 Audiologists</h2>
+    <div class="prof-grid">
+      <!-- Doctor 1 -->
+      <div class="doctor-card">
+        <h3>Dr. Ahmed Khan</h3>
+        <span class="doctor-role">Senior Clinical Audiologist</span>
+        <div class="doctor-details">
+          <p><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> <span><strong>Qualification:</strong> Au.D, CCC-A</span></p>
+          <p><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> <span><strong>Experience:</strong> 12+ Years</span></p>
+          <p><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg> <span><strong>Languages:</strong> English, Urdu</span></p>
+          <p><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> <span><strong>Specialization:</strong> Diagnostic Audiology, Tinnitus Management.</span></p>
+          <p><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> <span><strong>Consultation Days:</strong> Mon, Wed, Fri</span></p>
+        </div>
+      </div>
+
+      <!-- Doctor 2 -->
+      <div class="doctor-card">
+        <h3>Dr. Sarah Mahmood</h3>
+        <span class="doctor-role">Pediatric Audiologist</span>
+        <div class="doctor-details">
+          <p><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> <span><strong>Qualification:</strong> PhD in Audiology</span></p>
+          <p><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> <span><strong>Experience:</strong> 10+ Years</span></p>
+          <p><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg> <span><strong>Languages:</strong> English, Urdu, Punjabi</span></p>
+          <p><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> <span><strong>Specialization:</strong> Infant Screenings, Pediatric Aids, Tympanometry.</span></p>
+          <p><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> <span><strong>Consultation Days:</strong> Tue, Thu, Sat</span></p>
+        </div>
+      </div>
+
+      <!-- Doctor 3 -->
+      <div class="doctor-card">
+        <h3>Dr. Maria Alvi</h3>
+        <span class="doctor-role">Speech-Language Pathologist</span>
+        <div class="doctor-details">
+          <p><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg> <span><strong>Qualification:</strong> MS (Speech Pathology)</span></p>
+          <p><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> <span><strong>Experience:</strong> 8+ Years</span></p>
+          <p><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg> <span><strong>Languages:</strong> English, Urdu, Sindhi</span></p>
+          <p><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> <span><strong>Specialization:</strong> Speech Delay, Articulation, Voice Disorders Therapy.</span></p>
+          <p><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> <span><strong>Consultation Days:</strong> Mon, Tue, Wed</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: Clinics & Hospitals -->
+  <section class="prof-section" id="clinics">
+    <h2>🏥 Clinics & Hospitals</h2>
+    <div class="prof-grid">
+      <div class="prof-card">
+        <h3>Sadaat Hearing &amp; ENT Clinic</h3>
+        <div class="meta">Karachi, Pakistan</div>
+        <p>Partner clinic providing digital hearing screenings, real-ear measurements, and pediatric play audiometry.</p>
+      </div>
+      <div class="prof-card">
+        <h3>National Medical Center (NMC)</h3>
+        <div class="meta">DHA, Karachi</div>
+        <p>State-of-the-art audiology ward offering computerized diagnostic screenings and clinical testing protocols.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: Hearing Aid Centers -->
+  <section class="prof-section" id="centers">
+    <h2>🏬 Hearing Aid Centers</h2>
+    <div class="prof-grid">
+      <div class="prof-card">
+        <h3>AudSpeX Sound Care Center</h3>
+        <div class="meta">Main Clifton Branch, Karachi</div>
+        <p>Direct retail service center for digital device selections, shell modeling, and custom computer fittings.</p>
+      </div>
+      <div class="prof-card">
+        <h3>Premier Hearing Center</h3>
+        <div class="meta">Gulshan Branch, Karachi</div>
+        <p>Authorised service outlet providing rechargeable models, batteries, and diagnostic cleaning spares.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: Manufacturers -->
+  <section class="prof-section" id="manufacturers">
+    <h2>🏢 Manufacturers</h2>
+    <div class="prof-grid">
+      <div class="prof-card">
+        <h3>Oticon</h3>
+        <div class="meta">Danish Technology Partner</div>
+        <p>Global leader in brainhearing technology, providing advanced rechargeable RIC models and accessories.</p>
+      </div>
+      <div class="prof-card">
+        <h3>Phonak</h3>
+        <div class="meta">Swiss Precision Hardware</div>
+        <p>Pioneering high-power behind-the-ear devices and bluetooth-connected pediatric hearing solutions.</p>
+      </div>
+      <div class="prof-card">
+        <h3>Signia</h3>
+        <div class="meta">German Engineering</div>
+        <p>Providing invisible custom-in-the-canal devices featuring sophisticated ambient sound filters.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: Suppliers -->
+  <section class="prof-section" id="suppliers">
+    <h2>📦 Suppliers</h2>
+    <div class="prof-grid">
+      <div class="prof-card">
+        <h3>Precision Earmold Labs</h3>
+        <div class="meta">Wholesale Earmolds &amp; Materials</div>
+        <p>Leading supplier of silicone earmolds, custom acrylic shells, and custom impression materials.</p>
+      </div>
+      <div class="prof-card">
+        <h3>Audiotech Medical Instruments</h3>
+        <div class="meta">Diagnostic Tooling Distributors</div>
+        <p>Authorized dealer supplying PTA audiometers, tympanometers, and clinical audiologic software.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: Gallery -->
+  <section class="prof-section" id="gallery-3d">
+    <h2>🖼️ Interactive 3D Gallery</h2>
+    <div style="background:var(--light-blue); padding:40px; border-radius:16px; text-align:center; border:1px dashed var(--primary-blue);">
+      <h3 style="margin-bottom:12px; color:var(--primary-blue);">Interactive 3D Device Visualization</h3>
+      <p style="color:var(--text-secondary); max-width:600px; margin:0 auto 20px;">Rotate and inspect high-fidelity 3D models of premium digital and rechargeable hearing aids.</p>
+      <a href="../index.html#gallery" class="nav-cta" style="display:inline-block; text-decoration:none;">Launch 3D Gallery</a>
+    </div>
+  </section>
+</main>
+
+<footer class="simple-footer">
+  <p>© 2026 AudSpeX Medical Center. All rights reserved. Karachi, Pakistan.</p>
+  <p>Powered by <span>Orion Fx Software Solutions</span> • Version 1.0.0</p>
+</footer>
+
+<script>
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,ur', autoDisplay: false}, 'google_translate_element');
+    
+    var activeLang = 'en';
+    try {
+      activeLang = localStorage.getItem('user-lang') || 'en';
+    } catch(e) {}
+    
+    var match = document.cookie.match(/(^|;) ?googtrans=([^;]*)(;|$)/);
+    if (match) {
+        activeLang = match[2].split('/').pop().toLowerCase();
+    }
+    
+    if (activeLang === 'ur' || activeLang === 'en') {
+        document.getElementById('langText').innerText = activeLang.toUpperCase();
+    }
+  }
+  
+  function changeLanguage(langCode) {
+    try {
+      localStorage.setItem('user-lang', langCode);
+    } catch(e) {}
+    
+    document.cookie = "googtrans=/en/" + langCode + "; path=/";
+    if (window.location.hostname !== '') {
+        document.cookie = "googtrans=/en/" + langCode + "; domain=" + window.location.hostname + "; path=/";
+    }
+    
+    applyLanguageLayout(langCode);
+    window.location.reload();
+  }
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    var activeLang = 'en';
+    try {
+      activeLang = localStorage.getItem('user-lang') || 'en';
+    } catch(e) {}
+    var match = document.cookie.match(/(^|;) ?googtrans=([^;]*)(;|$)/);
+    if (match) {
+        activeLang = match[2].split('/').pop().toLowerCase();
+    }
+    if (activeLang === 'ur' || activeLang === 'en') {
+        document.getElementById('langText').innerText = activeLang.toUpperCase();
+    }
+  });
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async defer></script>
+<div id="google_translate_element" style="display:none;"></div>
+</body>
+</html>
