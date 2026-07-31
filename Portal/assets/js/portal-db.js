@@ -197,7 +197,16 @@ const PortalDB = (() => {
     getPatientById: (id) => getPatients().find(p => p.id === id),
     addPatient: (patient) => {
       const patients = getPatients();
-      const nextId = "PT-" + (patients.length > 0 ? (Math.max(...patients.map(p => parseInt(p.id.split('-')[1]))) + 1) : 1001);
+      let maxNum = 1000;
+      patients.forEach(p => {
+        if (p.id && typeof p.id === 'string' && p.id.includes('-')) {
+          const num = parseInt(p.id.split('-')[1]);
+          if (!isNaN(num) && num > maxNum) {
+            maxNum = num;
+          }
+        }
+      });
+      const nextId = "PT-" + (maxNum + 1);
       const newPatient = {
         id: nextId,
         regDate: new Date().toISOString().split('T')[0],
@@ -245,7 +254,16 @@ const PortalDB = (() => {
     getAppointmentById: (id) => getAppointments().find(app => app.id === id),
     addAppointment: (app) => {
       const appointments = getAppointments();
-      const nextId = "APT-" + (appointments.length > 0 ? (Math.max(...appointments.map(a => parseInt(a.id.split('-')[1]))) + 1) : 1001);
+      let maxNum = 1000;
+      appointments.forEach(a => {
+        if (a.id && typeof a.id === 'string' && a.id.includes('-')) {
+          const num = parseInt(a.id.split('-')[1]);
+          if (!isNaN(num) && num > maxNum) {
+            maxNum = num;
+          }
+        }
+      });
+      const nextId = "APT-" + (maxNum + 1);
       const newApp = {
         id: nextId,
         ...app
